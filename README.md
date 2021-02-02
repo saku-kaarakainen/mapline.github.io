@@ -19,7 +19,7 @@ This is just my random hobby project.
      - Extensions: C#, Debugger for Chrome, Docker, Vetur
  - SourceTree (maybe just VS Code plugins in the future?)
  - .NET Core 5.0
- - Vue
+ - Vue CLI 4.0
  - Docker
  - leaflet (planned)
 
