@@ -7,12 +7,12 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <Authors>Software Ateliers</Authors>
-    <Company>Software Ateliers</Company>
-    <Description>ASP.NET Core + Vue.js starter project</Description>
-    <Copyright>MIT 2021 Software Ateliers</Copyright>
-    <AssemblyName>AspNetCoreVueStarter</AssemblyName>
-    <RootNamespace>AspNetCoreVueStarter</RootNamespace>
+    <Authors>Saku Kaarakainen</Authors>
+    <Company>Saku Kaarakainen</Company>
+    <Description>timeline and maps</Description>
+    <Copyright>MIT 2021 Saku Kaarakainen</Copyright>
+    <AssemblyName>mapline</AssemblyName>
+    <RootNamespace>mapline</RootNamespace>
     <Version>3.1.1</Version>
     <AssemblyVersion>3.1.1.0</AssemblyVersion>
     <FileVersion>3.1.1.0</FileVersion>

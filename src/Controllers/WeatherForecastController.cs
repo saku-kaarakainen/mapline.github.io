@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AspNetCoreVueStarter.Models;
+using mapline.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace AspNetCoreVueStarter.Controllers
+namespace mapline.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

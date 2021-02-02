@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 
-namespace AspNetCoreVueStarter
+namespace mapline
 {
     public class Startup
     {
