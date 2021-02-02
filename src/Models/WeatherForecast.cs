@@ -1,6 +1,6 @@
 using System;
 
-namespace AspNetCoreVueStarter.Models
+namespace mapline.Models
 {
     public class WeatherForecast
     {

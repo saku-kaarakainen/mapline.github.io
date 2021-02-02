@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AspNetCoreVueStarter.csproj",
+                "${workspaceFolder}/src/mapline.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/AspNetCoreVueStarter.csproj",
+                "${workspaceFolder}/src/mapline.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/AspNetCoreVueStarter.csproj",
+                "${workspaceFolder}/src/mapline.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -44,7 +44,7 @@
             "type": "process",
             "args": [
                 "run",
-                "${workspaceFolder}/bin/Debug/net5.0/AspNetCoreVueStarter.dll",
+                "${workspaceFolder}/src/bin/Debug/net5.0/mapline.dll",
                 "/mode:kill"
             ],
             "presentation": {
@@ -63,7 +63,7 @@
             "type": "shell",
             "isBackground": true,
             "options": {
-                "cwd": "${workspaceFolder}/ClientApp/",
+                "cwd": "${workspaceFolder}/src/ClientApp/",
                 "env": {
                     "VUE_DEV_SERVER_PROGRESS": "true"
                 }
