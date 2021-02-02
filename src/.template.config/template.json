@@ -2,12 +2,12 @@
   "$schema": "http://json.schemastore.org/template",
   "author": "SoftwareAteliers",
   "classifications": ["Web", "SPA", "Vue.js"],
-  "identity": "SoftwareAteliers.AspNetCoreVueStarter",
+  "identity": "mapline",
   "name": ".NET Core Vue.js",
   "shortName": "vue",
-  "sourceName": "AspNetCoreVueStarter",
+  "sourceName": "mapline",
   "preferNameDirectory": false,
-  "primaryOutputs": [{ "path": "AspNetCoreVueStarter.csproj" }],
+  "primaryOutputs": [{ "path": "mapline.csproj" }],
   "sources": [
     {
       "source": "./",

@@ -18,13 +18,13 @@
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "build-vue-cli-serve",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/bin/Debug/net5.0/AspNetCoreVueStarter.dll",
+      "program": "${workspaceFolder}/src/bin/Debug/net5.0/mapline.dll",
       "args": [
         "/mode:attach"
       ],
       "stopAtEntry": false,
       "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Views"
+        "/Views": "${workspaceFolder}/src/Views"
       },
       // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
       "serverReadyAction": {
@@ -48,13 +48,13 @@
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/bin/Debug/net5.0/AspNetCoreVueStarter.dll",
+      "program": "${workspaceFolder}/src/bin/Debug/net5.0/mapline.dll",
       "args": [
         "/mode:start"
       ],
       "stopAtEntry": false,
       "sourceFileMap": {
-        "/Views": "${workspaceFolder}/Views"
+        "/Views": "${workspaceFolder}/src/Views"
       },
       // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
       "serverReadyAction": {
@@ -76,7 +76,7 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5000",
-      "webRoot": "${workspaceFolder}/ClientApp",
+      "webRoot": "${workspaceFolder}/src/ClientApp",
       "breakOnLoad": true,
       "sourceMaps": true,
     },
@@ -85,7 +85,7 @@
       "type": "firefox",
       "request": "launch",
       "url": "http://localhost:5000",
-      "webRoot": "${workspaceFolder}/ClientApp"
+      "webRoot": "${workspaceFolder}/src/ClientApp"
     }
   ]
 }
