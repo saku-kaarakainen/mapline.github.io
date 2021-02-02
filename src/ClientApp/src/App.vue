@@ -38,7 +38,7 @@
     </v-main>
 
     <v-footer app>
-      <span>&nbsp;Software Ateliers&nbsp;&copy;&nbsp;2021</span>
+      <span>&nbsp;Saku Kaarakainen&nbsp;&copy;&nbsp;2021</span>
     </v-footer>
   </v-app>
 </template>
@@ -55,7 +55,7 @@ export default class App extends Vue {
   private drawer = true
   private miniVariant = false
   private right = true
-  private title = 'ASP.NET Core Vue Starter'
+  private title = 'mapline'
   private items = [
     { title: 'Home', icon: 'mdi-home', link: '/' },
     { title: 'Counter', icon: 'mdi-gesture-tap', link: '/counter' },
