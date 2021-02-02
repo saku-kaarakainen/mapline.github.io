@@ -10,6 +10,7 @@ This is just my random hobby project.
 ## Techonologies
  - .NET Core 5.0
  - Vue
+ - leaflet (planned)
 
  ## Folder structure conventions
   - Based: https://github.com/kriasoft/Folder-Structure-Conventions
