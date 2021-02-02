@@ -7,6 +7,14 @@ This is just my random hobby project.
      - This project was conducted already on 23th December 2020
  - My editor of choise: VS Code    
 
+## How to run this?
+ 1. Open VS Code
+ 2. Open it's terminal
+ 3. navigate `{path-to-project}/mapline/src/ClientApp`
+ 4. run `npm run serve`
+ 5. navigate to the parent folder `cd ..`
+ 6. run `dotnet run`
+
 ## Techonologies
  - .NET Core 5.0
  - Vue
