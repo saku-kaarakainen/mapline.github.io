@@ -1,22 +1,11 @@
 <template>
-
-  <div style="height: 500px; width: 100%">
-    <div style="height: 200px overflow: auto;">
-      <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
-      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
-      <button @click="showLongText">
-        Toggle long popup
-      </button>
-      <button @click="showMap = !showMap">
-        Toggle map
-      </button>
-    </div>
+  <div class="map-container">
     <l-map
       v-if="showMap"
       :zoom="zoom"
       :center="center"
       :options="mapOptions"
-      style="height: 80%"
+      style="height: 100%"
       @update:center="centerUpdate"
       @update:zoom="zoomUpdate"
     >
@@ -26,27 +15,7 @@
       />
       <l-marker :lat-lng="withPopup">
         <l-popup>
-          <div @click="innerClick">
-            I am a popup
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
         </l-popup>
-      </l-marker>
-      <l-marker :lat-lng="withTooltip">
-        <l-tooltip :options="{ permanent: true, interactive: true }">
-          <div @click="innerClick">
-            I am a tooltip
-            <p v-show="showParagraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
-              Donec finibus semper metus id malesuada.
-            </p>
-          </div>
-        </l-tooltip>
       </l-marker>
     </l-map>
   </div>
@@ -62,22 +31,18 @@ export default {
     LMap,
     LTileLayer,
     LMarker,
-    LPopup,
-    LTooltip
+    LPopup
   },
   data() {
-      console.log("test");
-
     return {
-      zoom: 13,
-      center: latLng(47.41322, -1.219482),
+      zoom: 3,
+      center: latLng(60.166458996639314, 24.952770253219168),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
         '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
+      withPopup: latLng(60.166458996639314, 24.952770253219168),
       currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      currentCenter: latLng(60.166458996639314, 24.952770253219168),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5,
@@ -103,3 +68,17 @@ export default {
   }
 };
 </script>
+
+<!-- 
+  Maybe one day I put these into separate file, but for now on the styles are here...
+  https://vuejs.org/v2/style-guide/#Component-style-scoping-essential
+
+  Component style coding / using the `scoped` attribute
+-->
+<style scoped>
+    .map-container {
+      height: 100%; 
+      width: 100%;
+    }
+
+</style>
