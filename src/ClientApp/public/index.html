@@ -8,6 +8,9 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
+
+    <!-- The Npm doesn't work directly. Tha's why there is a workaround, that it's CSS file is copied under lib - folder.  -->
+    <link rel="stylesheet" href="lib/leaflet.css" />
   </head>
   <body>
     <noscript>

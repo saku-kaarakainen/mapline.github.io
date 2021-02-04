@@ -5,11 +5,13 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
+  // TODO: Should this be deleted? 
   {
     path: '/',
     name: 'Home',
     component: Home
   },
+  // TODO: Delete
   {
     path: '/counter',
     name: 'counter',
@@ -18,10 +20,16 @@ const routes: Array<RouteConfig> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "counter" */ '../views/Counter.vue')
   },
+  // TODO: Delete
   {
     path: '/fetch-data',
     name: 'fetch-data',
     component: () => import(/* webpackChunkName: "fetch-data" */ '../views/FetchData.vue')
+  },
+  {
+    path: '/map',
+    name: 'map',
+    component: () => import('../views/Map.vue')
   }
 ]
 
