@@ -2,8 +2,8 @@
 This is just my random hobby project. 
 
 ## About this project
- - Generated from: (asp-net-core-vue-starter)[https://github.com/SoftwareAteliers/asp-net-core-vue-starter]
- - Successor of (my langs-map project)[https://github.com/saku-kaarakainen/langs-map] 
+ - Generated from: [asp-net-core-vue-starter](https://github.com/SoftwareAteliers/asp-net-core-vue-starter)
+ - Successor of [my langs-map project](https://github.com/saku-kaarakainen/langs-map)
      - This project was conducted already on 23th December 2020    
 
 ## How to run this?
@@ -21,7 +21,7 @@ This is just my random hobby project.
  - .NET Core 5.0
  - Vue CLI 4.0
  - Docker
- - leaflet (planned)
+ - [leaflet (Vue2Leaflet)](https://github.com/vue-leaflet/Vue2Leaflet)
 
  ## Folder structure conventions
   - Based: https://github.com/kriasoft/Folder-Structure-Conventions
