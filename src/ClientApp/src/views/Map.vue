@@ -57,7 +57,7 @@ import { latLng } from "leaflet";
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
 
 export default {
-  name: "Example",
+  name: "VMap",
   components: {
     LMap,
     LTileLayer,
@@ -80,7 +80,9 @@ export default {
       currentCenter: latLng(47.41322, -1.219482),
       showParagraph: false,
       mapOptions: {
-        zoomSnap: 0.5
+        zoomSnap: 0.5,
+        closePopupOnClick: false,
+        doubleClickZoom: 'center',
       },
       showMap: true
     };
