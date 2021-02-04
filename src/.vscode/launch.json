@@ -81,8 +81,8 @@
       "sourceMaps": true,
     },
     {
-      "name": "Firefox Browser",
-      "type": "firefox",
+      "name": "Google Chrome",
+      "type": "chrome",
       "request": "launch",
       "url": "http://localhost:5000",
       "webRoot": "${workspaceFolder}/src/ClientApp"
