@@ -41,6 +41,8 @@ I keep developing when I have time for this.
 5. Animate polygons based on the data model.
 
 ### Version +1.0
+ - Similarity comparison of data
+      - with AI?
  - TODO
 
  ## Wiki
