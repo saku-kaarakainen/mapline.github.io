@@ -57,8 +57,8 @@ export default class App extends Vue {
   private right = true
   private title = 'mapline'
   private items = [
-    { title: 'Home', icon: 'mdi-home', link: '/' },
-    { title: 'Counter', icon: 'mdi-gesture-tap', link: '/counter' },
+    { title: 'Home (template)', icon: 'mdi-home', link: '/' },
+    { title: 'Counter (template)', icon: 'mdi-gesture-tap', link: '/counter' },
     { title: 'Fetch data (template)', icon: 'mdi-download', link: '/fetch-data' },
     { title: 'Map', icon: 'mdi-map', link: '/map' }
   ]
