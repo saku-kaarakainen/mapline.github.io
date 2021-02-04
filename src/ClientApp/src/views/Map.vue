@@ -13,10 +13,6 @@
         :url="url"
         :attribution="attribution"
       />
-      <l-marker :lat-lng="withPopup">
-        <l-popup>
-        </l-popup>
-      </l-marker>
     </l-map>
   </div>
 </template>
@@ -29,18 +25,14 @@ export default {
   name: "VMap",
   components: {
     LMap,
-    LTileLayer,
-    LMarker,
-    LPopup
+    LTileLayer
   },
   data() {
     return {
       zoom: 3,
       center: latLng(60.166458996639314, 24.952770253219168),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(60.166458996639314, 24.952770253219168),
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       currentZoom: 11.5,
       currentCenter: latLng(60.166458996639314, 24.952770253219168),
       showParagraph: false,
