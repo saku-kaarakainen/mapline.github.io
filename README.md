@@ -20,8 +20,10 @@ This is just my random hobby project.
  - SourceTree (maybe just VS Code plugins in the future?)
  - .NET Core 5.0
  - Vue CLI 4.0
+ - NPM
  - Docker
  - [leaflet (Vue2Leaflet)](https://github.com/vue-leaflet/Vue2Leaflet)
+ - (installed under ClientApp folder)
 
  ## Folder structure conventions
   - Based: https://github.com/kriasoft/Folder-Structure-Conventions
