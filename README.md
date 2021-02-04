@@ -6,6 +6,9 @@ This is just my random hobby project.
  - Successor of [my langs-map project](https://github.com/saku-kaarakainen/langs-map)
      - This project was conducted already on 23th December 2020    
 
+ ## Wiki
+ The documentation of this project is meant to be at Wiki. This markup file contains overview documentation and the documentation that is useful to access via text editor (VS Code) while developing.
+
 ## How to run this?
  1. Open VS Code
  2. Open it's terminal
@@ -46,7 +49,3 @@ I keep developing when I have time for this.
  - Similarity comparison of data
       - with AI?
  - TODO
-
- ## Wiki
- TODO: Should this to be at GitHub/Wiki?
-  - Right it is not, so that I find everything in the VS Code
