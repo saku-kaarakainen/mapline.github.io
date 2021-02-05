@@ -12,12 +12,24 @@ This is just my random hobby project.
  5. navigate to the parent folder `cd ..`
  6. run `dotnet run`
 
-## Update
- To update database, run:
- ```
- dotnet ef migrations add Initial
- dotnet ef update database initialMigration
- ```
+## DB Update
+### Initialize
+To initialize database, run:
+```
+dotnet ef migrations add Initial
+dotnet ef migrations script -o ../data/SQL/initial.sql
+```
+_(Then run update)_
+### Update
+To update database, run:
+```
+dotnet ef update database
+```
+
+### To Drop database
+```
+dotnet ef database drop
+```
 
 ## Used Techonologies
  - VS Code
@@ -26,10 +38,12 @@ This is just my random hobby project.
  - .NET Core 5.0.2
      - dotnet ef (cli tool)
      - dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+ - NuGet
+     - NetTopologyASuite 2.1.0
+     - Microsoft.EntityFrameworkCore.SqlServer.NetTopologyASuite (5.0.2)
  - Vue CLI 4.0
  - NPM
  - Docker
  - [leaflet (Vue2Leaflet)](https://github.com/vue-leaflet/Vue2Leaflet)
  - (installed under ClientApp folder)
  - Sql Server 2019 Express
- - dotnet ef (cli tool) (v5.0.2)

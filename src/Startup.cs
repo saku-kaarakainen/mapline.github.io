@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using mapline.Data;
 
 namespace mapline
@@ -34,7 +36,10 @@ namespace mapline
             });
 
             services.AddDbContext<MaplineDbContext>(
-                item => item.UseSqlServer(Configuration.GetConnectionString("maplineConnectionString"))
+                item => item.UseSqlServer(
+                    Configuration.GetConnectionString("maplineConnectionString"),
+                    x => x.UseNetTopologySuite()
+                )
             );
 
             // TODO: Do this only in development environment
