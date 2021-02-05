@@ -35,7 +35,7 @@ namespace mapline
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddDbContext<MaplineDbContext>(
+            services.AddDbContextFactory<MaplineDbContext>(
                 item => item.UseSqlServer(
                     Configuration.GetConnectionString("maplineConnectionString"),
                     x => x.UseNetTopologySuite()

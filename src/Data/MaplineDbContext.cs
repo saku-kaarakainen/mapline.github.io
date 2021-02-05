@@ -1,5 +1,11 @@
+using System.IO;
+using System.Linq;
+using Newtonsoft;
 using Microsoft.EntityFrameworkCore;
 using mapline.Models;
+using Newtonsoft.Json;
+using NetTopologySuite.IO;
+using NetTopologySuite.Geometries;
 
 namespace mapline.Data
 {
@@ -12,15 +18,48 @@ namespace mapline.Data
         public MaplineDbContext(DbContextOptions options)
             : base(options)
         {
-            // https://stackoverflow.com/a/25018458
-            // Database.SetInitializer<MaplineDbContext>(new CreateDatabaseIfNotExists());
+
         }
     
         public DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Language>().ToTable("Language");
+            // name of the folder is the string identifier
+            var folders = Directory.GetDirectories("../data/GeoJson/Language");
+            var languages = folders.Select(ToLanguage).Where(lang => lang != default);
+            Language ToLanguage(string folder)
+            {
+                var table = folder + "table.json";
+                var area = folder + "area.geojson";
+
+                if (!File.Exists(table) && !File.Exists(area))
+                {
+                    // TODO: Do logging?
+                    return default;
+                }
+
+                using var readerTable = new StreamReader(table);
+                using var readerArea = new StreamReader(area);
+
+                var jsonTable = readerTable.ReadToEnd();
+                var geoJsonArea = readerArea.ReadToEnd();
+
+                var geoJsonSerializer = GeoJsonSerializer.Create();
+                using var geoJsonStringReader = new StringReader(geoJsonArea);
+                using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
+                var areaGeometry = geoJsonSerializer.Deserialize<Geometry>(geoJsonJsonReader);
+
+                var language = JsonConvert.DeserializeObject<Language>(jsonTable);
+                language.StringIdentifier = folder;
+                language.Area = areaGeometry;
+
+                return language;
+            }
+
+            modelBuilder.Entity<Language>()
+                .ToTable("Language")
+                .HasData(languages);
         }
     }
 }

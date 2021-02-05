@@ -13,6 +13,7 @@ This is just my random hobby project.
 ### Initialize
 To initialize database, run:
 ```
+cd {path-to-project}/src
 dotnet ef migrations add Initial -o ../data/CodeFirstMigrations/
 dotnet ef migrations script -o ../data/SQL/initial.sql
 ```

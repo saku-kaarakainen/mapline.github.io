@@ -7,16 +7,11 @@ namespace mapline.Data
 {
     /// <remarks>Note: This is being used as EF Class</remarks>
     public partial class Language
-    {
-        
+    {        
         public long Id { get; set; }
 
-        // public DbSet<Language> Parents { get; set; }
-        // public LanguageParentChild ParentChild { get; set; }
+        public string StringIdentifier { get; set; }
 
-        /// <summary>
-        /// Represents the area in GeoJson format.
-        /// </summary>
         public Geometry Area { get; set; }
 
         public DateTime? StartDate { get; set; }
