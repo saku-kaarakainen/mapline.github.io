@@ -26,9 +26,10 @@ To update database, run:
 dotnet ef update database
 ```
 
-### To Drop database
+### Reset
 ```
 dotnet ef database drop
+dotnet ef migrations remove
 ```
 
 ## Used Techonologies

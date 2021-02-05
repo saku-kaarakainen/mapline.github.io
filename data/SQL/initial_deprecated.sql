@@ -23,7 +23,7 @@ CREATE TABLE [Language] (
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20210205125345_Initial', N'5.0.2');
+VALUES (N'20210205122434_Initial', N'5.0.2');
 GO
 
 COMMIT;
