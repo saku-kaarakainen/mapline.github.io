@@ -12,13 +12,24 @@ This is just my random hobby project.
  5. navigate to the parent folder `cd ..`
  6. run `dotnet run`
 
-## Techonologies
+## Update
+ To update database, run:
+ ```
+ dotnet ef migrations add Initial
+ dotnet ef update database initialMigration
+ ```
+
+## Used Techonologies
  - VS Code
      - Extensions: C#, Debugger for Chrome, Docker, Vetur
  - SourceTree (maybe just VS Code plugins in the future?)
- - .NET Core 5.0
+ - .NET Core 5.0.2
+     - dotnet ef (cli tool)
+     - dotnet add package Microsoft.EntityFrameworkCore.Sqlite
  - Vue CLI 4.0
  - NPM
  - Docker
  - [leaflet (Vue2Leaflet)](https://github.com/vue-leaflet/Vue2Leaflet)
  - (installed under ClientApp folder)
+ - Sql Server 2019 Express
+ - dotnet ef (cli tool) (v5.0.2)

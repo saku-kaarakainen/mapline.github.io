@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
-namespace mapline.Models
+namespace mapline.Data
 {
-    public class Language
+    /// <remarks>Note: This is being used as EF Class</remarks>
+    public partial class Language
     {
-        public string Identifier { get; set; }
+        
+        public long Id { get; set; }
 
-        public IEnumerable<Language> Parents { get; set; } 
+        // public DbSet<Language> Parents { get; set; }
+        // public LanguageParentChild ParentChild { get; set; }
 
         /// <summary>
         /// Represents the area in GeoJson format.
