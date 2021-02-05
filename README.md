@@ -23,7 +23,7 @@ _(Then run update)_
 ### Update
 To update database, run:
 ```
-dotnet ef update database
+dotnet ef database update
 ```
 
 ### Reset
