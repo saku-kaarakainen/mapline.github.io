@@ -6,17 +6,14 @@ This is just my random hobby project.
 
 ## How to run this?
  1. Open VS Code
- 2. Open it's terminal
- 3. navigate `{path-to-project}/mapline/src/ClientApp`
- 4. run `npm run serve`
- 5. navigate to the parent folder `cd ..`
- 6. run `dotnet run`
+ 2. Run .NET Core Launch (web)
+ 3. Open `http://localhost:8080` in the browser of your choice 
 
 ## DB Update
 ### Initialize
 To initialize database, run:
 ```
-dotnet ef migrations add Initial
+dotnet ef migrations add Initial -o ../data/CodeFirstMigrations/
 dotnet ef migrations script -o ../data/SQL/initial.sql
 ```
 _(Then run update)_

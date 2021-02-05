@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 
 namespace mapline.Data
 {
@@ -16,7 +17,7 @@ namespace mapline.Data
         /// <summary>
         /// Represents the area in GeoJson format.
         /// </summary>
-        public string Area { get; set; }
+        public Geometry Area { get; set; }
 
         public DateTime? StartDate { get; set; }
 
