@@ -71,7 +71,7 @@ namespace mapline.Data
                var language = (Language)JsonConvert.DeserializeObject<Magic.Language>(jsonTable);
                language.Id = seedCounter++;
                language.StringIdentifier = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\');
-               language.Area = areaFeatures.First().Geometry;
+               language.Area = "test"; // areaFeatures.First().Geometry;
 
                return language;
             }

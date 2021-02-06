@@ -26,7 +26,7 @@ namespace mapline.Migrations
                     YearCurrent = table.Column<int>(nullable: true), 
                     Features = table.Column<string>(nullable: true), // JSON
                     AdditionalDetails = table.Column<string>(nullable: true), // JSON
-                    Geography = table.Column<Geometry>(nullable: true)
+                    Geography = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

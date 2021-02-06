@@ -9,7 +9,7 @@ namespace mapline.Data
 
         public string StringIdentifier { get; set; }
 
-        public Geometry Area { get; set; }
+        public string Area { get; set; }
 
         public int? YearStart { get; set; }
 
