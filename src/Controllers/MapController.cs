@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
 using mapline.Data;
 
 namespace mapline.Controllers
@@ -23,7 +24,7 @@ namespace mapline.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Data.Language>> Get()
+        public async Task<IEnumerable<Language>> Get()
         {
             this.logger.LogDebug("MapController/Get");
 
