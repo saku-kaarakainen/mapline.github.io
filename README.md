@@ -15,7 +15,7 @@ To initialize database, run:
 ```
 # VS Code Terminal
 cd {path-to-project}/src
-dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/InitialMigration 
+dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/InitialMigration --context MaplineDbContext
 dotnet ef migrations script -o ../data/SQL/initial.sql
 
 ```

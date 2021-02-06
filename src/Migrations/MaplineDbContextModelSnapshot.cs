@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using mapline.Data;
 
 namespace mapline.Migrations
@@ -29,8 +30,8 @@ namespace mapline.Migrations
                     b.Property<string>("AdditionalDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Area")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Polygon>("Area")
+                        .HasColumnType("geography");
 
                     b.Property<string>("Features")
                         .HasColumnType("nvarchar(max)");
