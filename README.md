@@ -38,8 +38,8 @@ dotnet ef migrations remove
  - Visual Studio 2019 Community (planned) - due to easy of use.
  - SourceTree (maybe just VS Code plugins in the future?)
  - .NET Core 5.0.2
-     - dotnet ef (cli tool)
-     - dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+     - `dotnet tool install --global dotnet-ef` (cli tool)
+     - `dotnet add package Microsoft.EntityFrameworkCore.Sqlite`
  - NuGet
      - NetTopologyASuite 2.1.0
      - Microsoft.EntityFrameworkCore.SqlServer.NetTopologyASuite (5.0.2)
