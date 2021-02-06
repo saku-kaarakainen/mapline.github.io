@@ -24,7 +24,6 @@ namespace mapline
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            System.Diagnostics.Debugger.Launch();
             services.AddControllersWithViews();
 
             // Add AddRazorPages if the app uses Razor Pages.
