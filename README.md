@@ -33,6 +33,7 @@ dotnet ef migrations remove
 ## Used Techonologies
  - VS Code
      - Extensions: C#, Debugger for Chrome, Docker, Vetur
+ - Visual Studio 2019 Community (planned) - due to easy of use.
  - SourceTree (maybe just VS Code plugins in the future?)
  - .NET Core 5.0.2
      - dotnet ef (cli tool)
