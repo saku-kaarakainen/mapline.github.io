@@ -14,7 +14,7 @@ This is just my random hobby project.
 To initialize database, run:
 ```
 cd {path-to-project}/src
-dotnet ef migrations add Initial -o ../data/CodeFirstMigrations/
+dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/
 dotnet ef migrations script -o ../data/SQL/initial.sql
 ```
 _(Then run update)_

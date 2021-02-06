@@ -18,14 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{7404D58B-464
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeFirstMigrations", "CodeFirstMigrations", "{C4587232-8209-4A35-A5EC-E1114C8D0F40}"
-	ProjectSection(SolutionItems) = preProject
-		..\data\CodeFirstMigrations\20210205131719_Initial.cs = ..\data\CodeFirstMigrations\20210205131719_Initial.cs
-		..\data\CodeFirstMigrations\20210205131719_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210205131719_Initial.Designer.cs
-		..\data\CodeFirstMigrations\20210205141504_Initial.cs = ..\data\CodeFirstMigrations\20210205141504_Initial.cs
-		..\data\CodeFirstMigrations\20210205141504_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210205141504_Initial.Designer.cs
-		..\data\CodeFirstMigrations\20210206103337_Initial.cs = ..\data\CodeFirstMigrations\20210206103337_Initial.cs
-		..\data\CodeFirstMigrations\20210206103337_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210206103337_Initial.Designer.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeoJson", "GeoJson", "{CE43B4C6-B5DD-4EB3-B451-31873554BE4B}"
 EndProject
@@ -39,10 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto-uralic-homeland-lyalo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{FCCC59BB-DD73-41E4-AF17-10D6B80C9AA6}"
 	ProjectSection(SolutionItems) = preProject
-		..\data\SQL\20210205131609_Initial.cs = ..\data\SQL\20210205131609_Initial.cs
-		..\data\SQL\20210205131609_Initial.Designer.cs = ..\data\SQL\20210205131609_Initial.Designer.cs
 		..\data\SQL\initial.sql = ..\data\SQL\initial.sql
-		..\data\SQL\initial_deprecated.sql = ..\data\SQL\initial_deprecated.sql
 	EndProjectSection
 EndProject
 Global

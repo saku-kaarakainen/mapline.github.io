@@ -27,55 +27,60 @@ namespace mapline.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            const string tableJsonSuffix = "\\table.json";
-            const string areaJsonSuffix = "\\area.geojson";
-            const string languageFolder = "..\\data\\GeoJson\\Language";
+            base.OnModelCreating(modelBuilder);
+            #region Seed data
+            //System.Diagnostics.Debugger.Launch();
 
-            // name of the folder is the string identifier
-            var folders = Directory.GetDirectories(languageFolder);
-            var languages = folders.Select(ToLanguage).Where(lang => lang != default);
-            Language ToLanguage(string folder)
-            {
-                var tableFilePath = folder + tableJsonSuffix;
-                var areaFilePath = folder + areaJsonSuffix;
+            //const string tableJsonSuffix = "\\table.json";
+            //const string areaJsonSuffix = "\\area.geojson";
+            //const string languageFolder = "..\\data\\GeoJson\\Language";
 
-                if (!File.Exists(tableFilePath)) //|| )
-                {
-                    throw new FileNotFoundException("table.json is required to create table.", tableFilePath);
-                }
+            //// name of the folder is the string identifier
+            //var folders = Directory.GetDirectories(languageFolder);
+            //var languages = folders.Select(ToLanguage).Where(lang => lang != default);
+            //Language ToLanguage(string folder)
+            //{
+            //    var tableFilePath = folder + tableJsonSuffix;
+            //    var areaFilePath = folder + areaJsonSuffix;
 
-                if(!File.Exists(areaFilePath))
-                {
-                    throw new FileNotFoundException("table.json is required to create the geometry to the table.", areaFilePath);
-                }
+            //    if (!File.Exists(tableFilePath)) //|| )
+            //    {
+            //        throw new FileNotFoundException("table.json is required to create table.", tableFilePath);
+            //    }
 
-                using var readerTable = new StreamReader(tableFilePath);
-                using var readerArea = new StreamReader(areaFilePath);
+            //    if (!File.Exists(areaFilePath))
+            //    {
+            //        throw new FileNotFoundException("table.json is required to create the geometry to the table.", areaFilePath);
+            //    }
 
-                var jsonTable = readerTable.ReadToEnd();
-                var geoJsonArea = readerArea.ReadToEnd();
+            //    using var readerTable = new StreamReader(tableFilePath);
+            //    using var readerArea = new StreamReader(areaFilePath);
 
-                var geoJsonSerializer = GeoJsonSerializer.Create();
-                using var geoJsonStringReader = new StringReader(geoJsonArea);
-                using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
-                var areaFeatures = geoJsonSerializer.Deserialize<FeatureCollection>(geoJsonJsonReader);
+            //    var jsonTable = readerTable.ReadToEnd();
+            //    var geoJsonArea = readerArea.ReadToEnd();
 
-                if (areaFeatures.Count != 1)
-                {
-                    throw new NotSupportedException($"Right only one geometry is supported. Geometry count: {areaFeatures.Count}");
-                }
+            //    var geoJsonSerializer = GeoJsonSerializer.Create();
+            //    using var geoJsonStringReader = new StringReader(geoJsonArea);
+            //    using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
+            //    var areaFeatures = geoJsonSerializer.Deserialize<FeatureCollection>(geoJsonJsonReader);
 
-                var language = (Language)JsonConvert.DeserializeObject<Magic.Language>(jsonTable);
-                language.Id = seedCounter++;
-                language.StringIdentifier = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "");               
-                language.Area = areaFeatures.First().Geometry;
+            //    if (areaFeatures.Count != 1)
+            //    {
+            //        throw new NotSupportedException($"Right only one geometry is supported. Geometry count: {areaFeatures.Count}");
+            //    }
 
-                return language;
-            }
+            //    var language = (Language)JsonConvert.DeserializeObject<Magic.Language>(jsonTable);
+            //    language.Id = seedCounter++;
+            //    language.StringIdentifier = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\');
+            //    language.Area = null;
+
+            //    return language;
+            //}
+            #endregion
 
             modelBuilder.Entity<Language>()
                 .ToTable("Language")
-                .HasData(languages)
+                //.HasData(languages)
             ;
         }
     }

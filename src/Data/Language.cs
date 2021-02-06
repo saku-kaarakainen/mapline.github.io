@@ -1,7 +1,7 @@
+using NetTopologySuite.Geometries;
+
 namespace mapline.Data
 {
-    using NetTopologySuite.Geometries;
-
     /// <remarks>Note: This is being used as EF Class</remarks>
     public partial class Language
     {        
@@ -11,9 +11,11 @@ namespace mapline.Data
 
         public Geometry Area { get; set; }
 
-        public int? StartDate { get; set; }
+        public int? YearStart { get; set; }
 
-        public int? EndDate { get; set; }
+        public int? YearEnd { get; set; }
+
+        public int? YearCurrent { get; set; }
 
         public string Features { get; set; }
 
@@ -21,44 +23,46 @@ namespace mapline.Data
     } 
 }
 
-namespace mapline.Data.Magic
-{
-    using NetTopologySuite.Features;
+//namespace mapline.Data.Magic
+//{
+//    using System;
+//    using System.Linq;
+//    using NetTopologySuite.Features;
 
-    /// <summary>
-    /// Represents the magic version of <see cref="Data.Language"/>.
-    /// </summary>
-    /// <remarks>
-    /// Magic classes are used to deserialize classes, which can't be deserialized as is.
-    /// </remarks>
-    public partial class Language
-    {
-        public long Id { get; set; }
+//    /// <summary>
+//    /// Represents the magic version of <see cref="Data.Language"/>.
+//    /// </summary>
+//    /// <remarks>
+//    /// Magic classes are used to deserialize classes, which can't be deserialized as is.
+//    /// </remarks>
+//    public partial class Language
+//    {
+//        public long Id { get; set; }
 
-        public string StringIdentifier { get; set; }
+//        public string StringIdentifier { get; set; }
 
-        public FeatureCollection Area { get; set; }
+//        public FeatureCollection Area { get; set; }
 
-        public int? StartDate { get; set; }
+//        public int? YearStart { get; set; }
 
-        public int? EndDate { get; set; }
+//        public int? YearEnd { get; set; }
 
-        public object Features { get; set; }
+//        public int? YearCurrent { get; set; }
 
-        public object AdditionalDetails { get; set; }
+//        public object Features { get; set; }
 
-        public static implicit operator Data.Language(Magic.Language magicClass)
-        {
-            return new Data.Language
-            {
-                Id = magicClass.Id,
-                StringIdentifier = magicClass.StringIdentifier,
-                StartDate = magicClass.StartDate,
-                EndDate = magicClass.EndDate,
-                Area = null,
-                Features = magicClass.Features.ToString(),
-                AdditionalDetails =magicClass.AdditionalDetails.ToString()
-            };
-        }
-    }
-}
+//        public object AdditionalDetails { get; set; }
+
+//        public static explicit operator Data.Language(Magic.Language magicClass) => magicClass == default ? default : new Data.Language
+//        {
+//            Id = magicClass.Id,
+//            StringIdentifier = magicClass.StringIdentifier,
+//            YearStart = magicClass.YearStart,
+//            YearEnd = magicClass.YearEnd,
+//            YearCurrent = magicClass.YearCurrent,
+//            Area = magicClass.Area.First().Geometry,
+//            Features = magicClass.Features.ToString(),
+//            AdditionalDetails = magicClass.AdditionalDetails.ToString()
+//        };        
+//    }
+//}
