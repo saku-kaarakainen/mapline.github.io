@@ -26,14 +26,14 @@ namespace mapline.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // name of the folder is the string identifier
-            var folders = Directory.GetDirectories("../data/GeoJson/Language");
+            var folders = Directory.GetDirectories("..\\data\\GeoJson\\Language");
             var languages = folders.Select(ToLanguage).Where(lang => lang != default);
             Language ToLanguage(string folder)
             {
-                var table = folder + "table.json";
-                var area = folder + "area.geojson";
+                var table = folder + "\\table.json";
+                var area = folder + "\\area.geojson";
 
-                if (!File.Exists(table) && !File.Exists(area))
+                if (!File.Exists(table) || !File.Exists(area))
                 {
                     // TODO: Do logging?
                     return default;
