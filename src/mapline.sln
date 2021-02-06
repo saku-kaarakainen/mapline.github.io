@@ -1,9 +1,46 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mapline", "mapline.csproj", "{D1A4B196-FA92-4822-8C25-07D53A2903EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{66BCBCDC-4EB4-4271-B2F4-14C282E23150}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54023363-1BD0-4FCE-8A41-F2544689780F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{7404D58B-464A-4C13-BBAC-7A6EFCAFCB12}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\README-of-template.md = ..\README-of-template.md
+		..\README.md = ..\README.md
+		..\doc\sketch (example with finnish).png = ..\doc\sketch (example with finnish).png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeFirstMigrations", "CodeFirstMigrations", "{C4587232-8209-4A35-A5EC-E1114C8D0F40}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\CodeFirstMigrations\20210205131719_Initial.cs = ..\data\CodeFirstMigrations\20210205131719_Initial.cs
+		..\data\CodeFirstMigrations\20210205131719_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210205131719_Initial.Designer.cs
+		..\data\CodeFirstMigrations\20210205141504_Initial.cs = ..\data\CodeFirstMigrations\20210205141504_Initial.cs
+		..\data\CodeFirstMigrations\20210205141504_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210205141504_Initial.Designer.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeoJson", "GeoJson", "{CE43B4C6-B5DD-4EB3-B451-31873554BE4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Language", "Language", "{C67AE5AC-C605-45E4-906F-19660F3C601D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto-uralic-homeland-lyalovo-proposal", "proto-uralic-homeland-lyalovo-proposal", "{D1B8B861-89B3-4E62-9A30-F706C0BD036F}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\GeoJson\Language\proto-uralic-homeland-lyalovo-proposal\area.geojson = ..\data\GeoJson\Language\proto-uralic-homeland-lyalovo-proposal\area.geojson
+		..\data\GeoJson\Language\proto-uralic-homeland-lyalovo-proposal\table.json = ..\data\GeoJson\Language\proto-uralic-homeland-lyalovo-proposal\table.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{FCCC59BB-DD73-41E4-AF17-10D6B80C9AA6}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\SQL\20210205131609_Initial.cs = ..\data\SQL\20210205131609_Initial.cs
+		..\data\SQL\20210205131609_Initial.Designer.cs = ..\data\SQL\20210205131609_Initial.Designer.cs
+		..\data\SQL\initial.sql = ..\data\SQL\initial.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +55,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D1A4B196-FA92-4822-8C25-07D53A2903EF} = {54023363-1BD0-4FCE-8A41-F2544689780F}
+		{C4587232-8209-4A35-A5EC-E1114C8D0F40} = {66BCBCDC-4EB4-4271-B2F4-14C282E23150}
+		{CE43B4C6-B5DD-4EB3-B451-31873554BE4B} = {66BCBCDC-4EB4-4271-B2F4-14C282E23150}
+		{C67AE5AC-C605-45E4-906F-19660F3C601D} = {CE43B4C6-B5DD-4EB3-B451-31873554BE4B}
+		{D1B8B861-89B3-4E62-9A30-F706C0BD036F} = {C67AE5AC-C605-45E4-906F-19660F3C601D}
+		{FCCC59BB-DD73-41E4-AF17-10D6B80C9AA6} = {66BCBCDC-4EB4-4271-B2F4-14C282E23150}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEBD4BD6-299C-48F2-8D24-13F9B53219E2}
