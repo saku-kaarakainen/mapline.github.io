@@ -29,53 +29,52 @@ namespace mapline.Data
         {
             base.OnModelCreating(modelBuilder);
             #region Seed data
-            //System.Diagnostics.Debugger.Launch();
 
-            //const string tableJsonSuffix = "\\table.json";
-            //const string areaJsonSuffix = "\\area.geojson";
-            //const string languageFolder = "..\\data\\GeoJson\\Language";
+            const string tableJsonSuffix = "\\table.json";
+            const string areaJsonSuffix = "\\area.geojson";
+            const string languageFolder = "..\\data\\GeoJson\\Language";
 
-            //// name of the folder is the string identifier
-            //var folders = Directory.GetDirectories(languageFolder);
-            //var languages = folders.Select(ToLanguage).Where(lang => lang != default);
-            //Language ToLanguage(string folder)
-            //{
-            //    var tableFilePath = folder + tableJsonSuffix;
-            //    var areaFilePath = folder + areaJsonSuffix;
+            // name of the folder is the string identifier
+            var folders = Directory.GetDirectories(languageFolder);
+            var languages = folders.Select(ToLanguage).Where(lang => lang != default);
+            Language ToLanguage(string folder)
+            {
+               var tableFilePath = folder + tableJsonSuffix;
+               var areaFilePath = folder + areaJsonSuffix;
 
-            //    if (!File.Exists(tableFilePath)) //|| )
-            //    {
-            //        throw new FileNotFoundException("table.json is required to create table.", tableFilePath);
-            //    }
+               if (!File.Exists(tableFilePath))
+               {
+                   throw new FileNotFoundException("table.json is required to create table.", tableFilePath);
+               }
 
-            //    if (!File.Exists(areaFilePath))
-            //    {
-            //        throw new FileNotFoundException("table.json is required to create the geometry to the table.", areaFilePath);
-            //    }
+               if (!File.Exists(areaFilePath))
+               {
+                   throw new FileNotFoundException("table.json is required to create the geometry to the table.", areaFilePath);
+               }
 
-            //    using var readerTable = new StreamReader(tableFilePath);
-            //    using var readerArea = new StreamReader(areaFilePath);
+               using var readerTable = new StreamReader(tableFilePath);
+               using var readerArea = new StreamReader(areaFilePath);
 
-            //    var jsonTable = readerTable.ReadToEnd();
-            //    var geoJsonArea = readerArea.ReadToEnd();
+               var jsonTable = readerTable.ReadToEnd();
+               var geoJsonArea = readerArea.ReadToEnd();
 
-            //    var geoJsonSerializer = GeoJsonSerializer.Create();
-            //    using var geoJsonStringReader = new StringReader(geoJsonArea);
-            //    using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
-            //    var areaFeatures = geoJsonSerializer.Deserialize<FeatureCollection>(geoJsonJsonReader);
+               var geoJsonSerializer = GeoJsonSerializer.Create();
+               using var geoJsonStringReader = new StringReader(geoJsonArea);
+               using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
+               var areaFeatures = geoJsonSerializer.Deserialize<FeatureCollection>(geoJsonJsonReader);
 
-            //    if (areaFeatures.Count != 1)
-            //    {
-            //        throw new NotSupportedException($"Right only one geometry is supported. Geometry count: {areaFeatures.Count}");
-            //    }
+               if (areaFeatures.Count != 1)
+               {
+                   throw new NotSupportedException($"Right only one geometry is supported. Geometry count: {areaFeatures.Count}");
+               }
 
-            //    var language = (Language)JsonConvert.DeserializeObject<Magic.Language>(jsonTable);
-            //    language.Id = seedCounter++;
-            //    language.StringIdentifier = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\');
-            //    language.Area = null;
+               var language = (Language)JsonConvert.DeserializeObject<Magic.Language>(jsonTable);
+               language.Id = seedCounter++;
+               language.StringIdentifier = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\');
+               language.Area = areaFeatures.First().Geometry;
 
-            //    return language;
-            //}
+               return language;
+            }
             #endregion
 
             modelBuilder.Entity<Language>()
