@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Newtonsoft;
@@ -5,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using mapline.Models;
 using Newtonsoft.Json;
 using NetTopologySuite.IO;
-using NetTopologySuite.Geometries;
+using NetTopologySuite.Features;
 
 namespace mapline.Data
 {
@@ -15,6 +16,7 @@ namespace mapline.Data
     /// </summary>
     public partial class MaplineDbContext : DbContext
     {
+        private static long seedCounter = 1;
         public MaplineDbContext(DbContextOptions options)
             : base(options)
         {
@@ -25,22 +27,30 @@ namespace mapline.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            const string tableJsonSuffix = "\\table.json";
+            const string areaJsonSuffix = "\\area.geojson";
+            const string languageFolder = "..\\data\\GeoJson\\Language";
+
             // name of the folder is the string identifier
-            var folders = Directory.GetDirectories("..\\data\\GeoJson\\Language");
+            var folders = Directory.GetDirectories(languageFolder);
             var languages = folders.Select(ToLanguage).Where(lang => lang != default);
             Language ToLanguage(string folder)
             {
-                var table = folder + "\\table.json";
-                var area = folder + "\\area.geojson";
+                var tableFilePath = folder + tableJsonSuffix;
+                var areaFilePath = folder + areaJsonSuffix;
 
-                if (!File.Exists(table) || !File.Exists(area))
+                if (!File.Exists(tableFilePath)) //|| )
                 {
-                    // TODO: Do logging?
-                    return default;
+                    throw new FileNotFoundException("table.json is required to create table.", tableFilePath);
                 }
 
-                using var readerTable = new StreamReader(table);
-                using var readerArea = new StreamReader(area);
+                if(!File.Exists(areaFilePath))
+                {
+                    throw new FileNotFoundException("table.json is required to create the geometry to the table.", areaFilePath);
+                }
+
+                using var readerTable = new StreamReader(tableFilePath);
+                using var readerArea = new StreamReader(areaFilePath);
 
                 var jsonTable = readerTable.ReadToEnd();
                 var geoJsonArea = readerArea.ReadToEnd();
@@ -48,18 +58,25 @@ namespace mapline.Data
                 var geoJsonSerializer = GeoJsonSerializer.Create();
                 using var geoJsonStringReader = new StringReader(geoJsonArea);
                 using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
-                var areaGeometry = geoJsonSerializer.Deserialize<Geometry>(geoJsonJsonReader);
+                var areaFeatures = geoJsonSerializer.Deserialize<FeatureCollection>(geoJsonJsonReader);
 
-                var language = JsonConvert.DeserializeObject<Language>(jsonTable);
-                language.StringIdentifier = folder;
-                language.Area = areaGeometry;
+                if (areaFeatures.Count != 1)
+                {
+                    throw new NotSupportedException($"Right only one geometry is supported. Geometry count: {areaFeatures.Count}");
+                }
+
+                var language = (Language)JsonConvert.DeserializeObject<Magic.Language>(jsonTable);
+                language.Id = seedCounter++;
+                language.StringIdentifier = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "");               
+                language.Area = areaFeatures.First().Geometry;
 
                 return language;
             }
 
             modelBuilder.Entity<Language>()
                 .ToTable("Language")
-                .HasData(languages);
+                .HasData(languages)
+            ;
         }
     }
 }

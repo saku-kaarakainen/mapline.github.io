@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeFirstMigrations", "Code
 		..\data\CodeFirstMigrations\20210205131719_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210205131719_Initial.Designer.cs
 		..\data\CodeFirstMigrations\20210205141504_Initial.cs = ..\data\CodeFirstMigrations\20210205141504_Initial.cs
 		..\data\CodeFirstMigrations\20210205141504_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210205141504_Initial.Designer.cs
+		..\data\CodeFirstMigrations\20210206103337_Initial.cs = ..\data\CodeFirstMigrations\20210206103337_Initial.cs
+		..\data\CodeFirstMigrations\20210206103337_Initial.Designer.cs = ..\data\CodeFirstMigrations\20210206103337_Initial.Designer.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeoJson", "GeoJson", "{CE43B4C6-B5DD-4EB3-B451-31873554BE4B}"
@@ -40,6 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{FCCC59BB-DD7
 		..\data\SQL\20210205131609_Initial.cs = ..\data\SQL\20210205131609_Initial.cs
 		..\data\SQL\20210205131609_Initial.Designer.cs = ..\data\SQL\20210205131609_Initial.Designer.cs
 		..\data\SQL\initial.sql = ..\data\SQL\initial.sql
+		..\data\SQL\initial_deprecated.sql = ..\data\SQL\initial_deprecated.sql
 	EndProjectSection
 EndProject
 Global

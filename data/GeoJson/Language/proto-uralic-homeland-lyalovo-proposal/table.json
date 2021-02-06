@@ -1,6 +1,6 @@
 {
-	"StartDate": "7000BCE",
-	"EndDate": "2000BCE",
+	"StartDate": "-7000",
+	"EndDate": "-2000",
 	"Features": {
 		"VowelsUPA": [{
 			"TonguePosition": "Close,Front",

@@ -15,10 +15,6 @@ namespace mapline.Migrations
 
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // migrationBuilder.Sql($"CREATE DATABASE {NameOfDataDatabase}}");
-
-            // Database is not created here.
-            // For that, check MaplineDbContext
             migrationBuilder.CreateTable(
                 name: "Language",
                 columns: table => new 
@@ -27,8 +23,9 @@ namespace mapline.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", 
                             SqlServerValueGenerationStrategy.IdentityColumn),  
                     StringIdentifier = table.Column<string>(nullable: false),
-                    StartDate = table.Column<DateTime>(nullable: true),
-                    EndDate = table.Column<DateTime>(nullable: true),
+                    StartDate = table.Column<int>(nullable: true),
+                    EndDate = table.Column<int>(nullable: true),
+                    Year = table.Column<int>(nullable: true), 
                     Features = table.Column<string>(nullable: true), // JSON
                     AdditionalDetails = table.Column<string>(nullable: true), // JSON
                     Geography = table.Column<Geometry>(nullable: true)
