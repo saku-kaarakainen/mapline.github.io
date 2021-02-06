@@ -13,20 +13,22 @@ This is just my random hobby project.
 ### Initialize
 To initialize database, run:
 ```
+# VS Code Terminal
 cd {path-to-project}/src
-dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/
+dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/InitialMigration 
 dotnet ef migrations script -o ../data/SQL/initial.sql
+
 ```
 _(Then run update)_
 ### Update
 To update database, run:
 ```
-dotnet ef database update
+dotnet ef database update 
 ```
 
 ### Reset
 ```
-dotnet ef database drop
+dotnet ef database drop 
 dotnet ef migrations remove
 ```
 
