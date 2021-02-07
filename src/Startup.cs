@@ -24,7 +24,6 @@ namespace mapline
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>();
             services.AddControllersWithViews();
 
             // Add AddRazorPages if the app uses Razor Pages.
@@ -38,7 +37,7 @@ namespace mapline
 
             services.AddDbContextFactory<MaplineDbContext>(
                 item => item.UseSqlServer(
-                    Configuration.GetConnectionString("maplineConnectionString"),
+                    Configuration.GetConnectionString("maplineConnectionString")//,
 
                     // https://docs.microsoft.com/en-us/ef/core/modeling/spatial
                     // Allowed types:
@@ -52,7 +51,7 @@ namespace mapline
                     //         MultiPolygon
                     //
                     // CircularString, CompoundCurve, and CurePolygon aren't supported by NTS.
-                    x => x.UseNetTopologySuite().MigrationsAssembly("mapline")
+                    //x => x.UseNetTopologySuite()
                 )
             );;
 
@@ -121,14 +120,6 @@ namespace mapline
                     }
                 }
             });
-        }
-    }
-
-    public class ApplicationDbContext : DbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
         }
     }
 }

@@ -18,7 +18,7 @@ namespace mapline.Data
             // TODO: Get connection string from the appsettings.json
             var connectionString = "server=.\\SQLEXpress; database=Mapline;Trusted_Connection=True;";
             optionsBuilder
-                    .UseSqlServer(connectionString, x => x.UseNetTopologySuite().MigrationsAssembly("mapline"))
+                    .UseSqlServer(connectionString, x => x.UseNetTopologySuite())
                     .EnableSensitiveDataLogging(true)
                     .EnableDetailedErrors(true);
 

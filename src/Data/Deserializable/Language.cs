@@ -26,12 +26,12 @@ namespace mapline.Data.Deserializable
              {
                  Id = default,
                  StringIdentifier = magicClass.StringIdentifier,
-                 YearStart = magicClass.YearStart,
-                 YearEnd = magicClass.YearEnd,
-                 YearCurrent = magicClass.YearCurrent,
-                 Area = null,
-                 Features = magicClass.Features.ToString(),
-                 AdditionalDetails = magicClass.AdditionalDetails.ToString()
+                 //YearStart = magicClass.YearStart,
+                 //YearEnd = magicClass.YearEnd,
+                 //YearCurrent = magicClass.YearCurrent,
+                 //Area = null,
+                 //Features = magicClass.Features.ToString(),
+                 //AdditionalDetails = magicClass.AdditionalDetails.ToString()
              };
     }
 }

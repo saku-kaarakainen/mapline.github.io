@@ -16,7 +16,6 @@ namespace mapline.Data
     /// </summary>
     public partial class MaplineDbContext : DbContext
     {
-        private static long seedCounter = 1;
         public MaplineDbContext(DbContextOptions options)
             : base(options)
         {
@@ -27,7 +26,7 @@ namespace mapline.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
             #region Seed data
 
             //const string tableJsonSuffix = "\\table.json";

@@ -15,15 +15,15 @@ To initialize database, run:
 ```
 # VS Code Terminal
 cd {path-to-project}/src
-dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/InitialMigration --context MaplineDbContext
-dotnet ef migrations script -o ../data/SQL/initial.sql
 
-```
-_(Then run update)_
-### Update
-To update database, run:
-```
-dotnet ef database update 
+## Update Model to the database. If there is problems, add `-v` to the end of each call
+# dotnet ef database update
+dotnet ef migrations add InitialMigration -o ../data/CodeFirstMigrations/InitialMigration
+dotnet ef migrations script -o ../data/SQL/initial.sql
+dotnet ef database update
+
+## Another script that might be useful when troubleshooting
+#dotnet ef migrations list -v
 ```
 
 ### Reset

@@ -9,16 +9,16 @@ namespace mapline.Data
 
         public string StringIdentifier { get; set; }
 
-        public Polygon Area { get; set; }
+        //public Polygon Area { get; set; }
 
-        public int? YearStart { get; set; }
+        //public int? YearStart { get; set; }
 
-        public int? YearEnd { get; set; }
+        //public int? YearEnd { get; set; }
 
-        public int? YearCurrent { get; set; }
+        //public int? YearCurrent { get; set; }
 
-        public string Features { get; set; }
+        //public string Features { get; set; }
 
-        public string AdditionalDetails { get; set; }
+        //public string AdditionalDetails { get; set; }
     } 
 }
