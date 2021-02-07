@@ -1,14 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
-
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-using mapline.Data;
 
 namespace mapline
 {
@@ -34,17 +29,6 @@ namespace mapline
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
-            services.AddDbContext<MaplineDbContext>(
-                item => item.UseSqlServer(
-                    Configuration.GetConnectionString("maplineConnectionString"),
-                    x => x.UseNetTopologySuite()
-                )
-            );
-
-            // TODO: Do this only in development environment
-            // TODO: Can I use this?
-            // services.AddDatabaseDeveloperPageExceptionFilter();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
