@@ -5,6 +5,23 @@ This is just my random hobby project.
  The documentation of this project is meant to be at Wiki. This markup file contains overview documentation and the documentation that is useful to access via text editor (VS Code) while developing.
 
 ## How to run this?
+## Visual studio
+1. Open the solution file `{path-to-project/src/mapline.sln}`
+2. restore NPM packages `Tools -> NuGet Package Manager -> Package Manager Console`
+```batch
+# The script below should add packages to the path: {path-to-project}/src/mapline.web/ClientApp/node_modules
+cd mapline.web/ClientApp # Make sure you are in this folder. You can also use --prefix
+npm install
+npm install leaflet vue2-leaflet --save
+
+# You also need to copy a css file from it's packages. I don't know why my project is doing that, I have been lazy to figure out the reason.
+mkdir .\public\lib # this is already in .gitignore
+copy .\node_modules\leaflet\dist\leaflet.css .\public\lib\.
+```
+3. Restore NuGet Packages
+4. Run
+
+## VS Code (obsolete)
  1. Open VS Code
  2. Run .NET Core Launch (web)
  3. Open `http://localhost:8080` in the browser of your choice 
