@@ -14,6 +14,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sln", "sln", "{0825A522-732
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mapline.web", "mapline.web\mapline.web.csproj", "{EE16B2DD-8B6C-43EB-8AA6-7FBE0813E35C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4649F6C8-38C7-4255-9639-BCB5D1E123B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{2639BF5F-0936-4436-97E4-138AAD391119}"
+	ProjectSection(SolutionItems) = preProject
+		..\doc\sketch (example with finnish).png = ..\doc\sketch (example with finnish).png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{F8AD880C-5FC9-4CCA-9567-7703C89607F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Language", "Language", "{3CC8535C-C2B2-4924-9242-319B47CAD2ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto-uralic-homeland-lyalovo-proposal", "proto-uralic-homeland-lyalovo-proposal", "{2A7B44B7-129A-4433-83E5-1F1DC257AF50}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\Language\proto-uralic-homeland-lyalovo-proposal\area.geojson = ..\data\Language\proto-uralic-homeland-lyalovo-proposal\area.geojson
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +43,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE16B2DD-8B6C-43EB-8AA6-7FBE0813E35C} = {4649F6C8-38C7-4255-9639-BCB5D1E123B1}
+		{3CC8535C-C2B2-4924-9242-319B47CAD2ED} = {F8AD880C-5FC9-4CCA-9567-7703C89607F1}
+		{2A7B44B7-129A-4433-83E5-1F1DC257AF50} = {3CC8535C-C2B2-4924-9242-319B47CAD2ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEBD4BD6-299C-48F2-8D24-13F9B53219E2}
