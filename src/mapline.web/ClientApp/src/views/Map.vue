@@ -102,12 +102,12 @@
             this.loading = true;
             const response = await this.$axios.get<Language[]>('api/Map')
 
-            const data = await response.json();
+            const data = await response.data;
 
             console.log("async create. data received:");
             console.log(data);
 
-            this.languagesGeoJson = data;
+            this.languagesGeoJson = data.area;
             this.loading = false;
         },
 
