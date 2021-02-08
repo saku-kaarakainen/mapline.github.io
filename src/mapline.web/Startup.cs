@@ -38,7 +38,6 @@ namespace Mapline.Web
             });
 
 
-
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(
                     Configuration.GetConnectionString("maplineConnectionString"), 

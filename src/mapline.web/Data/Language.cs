@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using NetTopologySuite.IO.Converters;
 
 namespace Mapline.Web.Data
 {
@@ -19,6 +20,8 @@ namespace Mapline.Web.Data
     {
         public long Id { get; set; }
         public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "geometry", ItemConverterType = typeof(GeometryConverter))]
         public Geometry Area { get; set; }
         public int? YearCurrent { get; set; }
         public int? YearStart { get; set; }

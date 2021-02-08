@@ -23,14 +23,12 @@ namespace Mapline.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Models.Language>> Get()
+        public async Task<IEnumerable<Language>> Get()
         {
             this.logger.LogDebug("GET api/map/");
+
             using var db = this.contextFactory.CreateDbContext();
-
-            var result = await db.Languages.ToListAsync();
-
-            return result.Select(Models.Language.FromData);
+            return await db.Languages.ToListAsync();
         }
     }
 }
