@@ -104,10 +104,11 @@
 
             const data = await response.data;
 
+
             console.log("async create. data received:");
             console.log(data);
 
-            this.languagesGeoJson = data.area;
+            this.languagesGeoJson = data[0].area;
             this.loading = false;
         },
 
