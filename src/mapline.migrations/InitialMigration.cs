@@ -23,13 +23,13 @@ namespace mapline.Migrations
                             SqlServerValueGenerationStrategy.IdentityColumn),
 
                     Name = table.Column<string>(nullable: false),
-                    //Area = table.Column<Geometry>(nullable: false),
-                    YearCurrent = table.Column<int>(nullable: true),
+                     //Area = table.Column<Geometry>(nullable: false),
+                     YearCurrent = table.Column<int>(nullable: true),
                     YearStart = table.Column<int>(nullable: true),
                     YearEnd = table.Column<int>(nullable: true),
                     Features = table.Column<string>(nullable: true), // JSON
-                    AdditionalDetails = table.Column<string>(nullable: true), // JSON
-                },
+                     AdditionalDetails = table.Column<string>(nullable: true), // JSON
+                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Language_Id", l => l.Id);

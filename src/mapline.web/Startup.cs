@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 using mapline.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace mapline
 {
@@ -33,7 +34,10 @@ namespace mapline
             });
 
             services.AddDbContextFactory<MaplineDbContext>(
-                item => item.UseSqlServer(Configuration.GetConnectionString("maplineConnectionString"))
+                item => item.UseSqlServer(
+                    Configuration.GetConnectionString("maplineConnectionString"),
+                    x => x.MigrationsAssembly("mapline.migrations")
+                )
             );
         }
 

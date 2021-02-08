@@ -26,36 +26,8 @@ copy .\node_modules\leaflet\dist\leaflet.css .\public\lib\.
  2. Run .NET Core Launch (web)
  3. Open `http://localhost:8080` in the browser of your choice 
 
-## DB Update
-### Initialze 
-Open in Visual Studio `Tools -> Nuget Package Manager -> Package Manager Console`:
-```batch
-Update-Database # Do if the database doesn't exists
-Add-Migration InitialMigration -o ../data/Migrations/InitialMigration
-
-```
-
-### Initialize in VS Code Terminal (obsolete)
-To initialize database, run:
-```
-# VS Code Terminal
-cd {path-to-project}/src
-
-## Update Model to the database. If there is problems, add `-v` to the end of each call
-# dotnet ef database update
-dotnet ef migrations add InitialMigration -o ../data/Migrations/InitialMigration
-dotnet ef migrations script -o ../data/SQL/initialMigration.sql
-dotnet ef database update
-
-## Another script that might be useful when troubleshooting
-#dotnet ef migrations list -v
-```
-
-### Reset
-```
-dotnet ef database drop 
-dotnet ef migrations remove
-```
+## Migrations
+Migrations are maintained in the Mapline.Migrations - project.
 
 ## Used Techonologies
  - VS Code
