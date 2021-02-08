@@ -28,6 +28,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto-uralic-homeland-lyalovo-proposal", "proto-uralic-homeland-lyalovo-proposal", "{2A7B44B7-129A-4433-83E5-1F1DC257AF50}"
 	ProjectSection(SolutionItems) = preProject
 		..\data\Language\proto-uralic-homeland-lyalovo-proposal\area.geojson = ..\data\Language\proto-uralic-homeland-lyalovo-proposal\area.geojson
+		..\data\Language\proto-uralic-homeland-lyalovo-proposal\table.json = ..\data\Language\proto-uralic-homeland-lyalovo-proposal\table.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapline.Migrations", "mapline.migrations\Mapline.Migrations.csproj", "{479431E8-0DD3-4FFB-9C96-AC209C486B5F}"

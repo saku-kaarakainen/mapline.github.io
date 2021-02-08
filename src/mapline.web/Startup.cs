@@ -6,8 +6,7 @@ using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 using Mapline.Web.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
-
+using NetTopologySuite.IO.Converters;
 namespace Mapline.Web
 {
     public class Startup
@@ -22,7 +21,12 @@ namespace Mapline.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services
+                .AddControllersWithViews()
+                .AddJsonOptions(options => 
+                {
+                    options.JsonSerializerOptions.Converters.Add(new GeoJsonConverterFactory());
+                });
 
             // Add AddRazorPages if the app uses Razor Pages.
             // services.AddRazorPages();
@@ -37,7 +41,10 @@ namespace Mapline.Web
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(
                     Configuration.GetConnectionString("maplineConnectionString"), 
-                    sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly("Mapline.Migrations"))
+                    sqlServerOptionsAction => sqlServerOptionsAction
+                        .MigrationsAssembly("Mapline.Migrations")
+                        .UseNetTopologySuite()
+                )
             );
         }
 
