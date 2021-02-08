@@ -34,10 +34,14 @@ namespace Mapline.Web
             });
 
 
+
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(
                     Configuration.GetConnectionString("maplineConnectionString"), 
-                    sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly("Mapline.Migrations"))
+                    sqlServerOptionsAction => sqlServerOptionsAction
+                        .MigrationsAssembly("Mapline.Migrations")
+                        .UseNetTopologySuite()
+                )
             );
         }
 
