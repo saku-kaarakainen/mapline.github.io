@@ -3,8 +3,10 @@
 
 Update-Database # Do if the database doesn't exists
 
+# Make sure that in the Package Manager Console the default project is set to src\mapline.migrations
+
 # Adds migrations
-Add-Migration InitialMigration 
+Add-Migration InitialMigration -Project mapline.migrations
 
 # Verify that migration was added.
 Get-Migration

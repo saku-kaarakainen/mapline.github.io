@@ -33,11 +33,11 @@ namespace mapline
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddDbContextFactory<MaplineDbContext>(
-                item => item.UseSqlServer(
-                    Configuration.GetConnectionString("maplineConnectionString"),
-                    x => x.MigrationsAssembly("mapline.migrations")
-                )
+
+            services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
+                optionsBuilder.UseSqlServer(
+                    Configuration.GetConnectionString("maplineConnectionString"), 
+                    sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly("mapline.migrations"))
             );
         }
 
