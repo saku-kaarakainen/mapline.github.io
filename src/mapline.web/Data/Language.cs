@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace Mapline.Web.Data
 {
@@ -35,7 +36,7 @@ namespace Mapline.Web.Data
             JsonProxyClass proxyClass = JsonConvert.DeserializeObject<JsonProxyClass>(json);
 
             // TODO: use AutoMapper
-            return proxyClass == default ? default : new Language
+            var result = proxyClass == default ? default : new Language
             {
                 Id = default, // proxyClass.Id,
                 Name = proxyClass.Name,
@@ -43,9 +44,19 @@ namespace Mapline.Web.Data
                 YearCurrent = proxyClass.YearCurrent,
                 YearStart = proxyClass.YearStart,
                 YearEnd = proxyClass.YearEnd,
-                Features = proxyClass.Features.ToString(),
-                AdditionalDetails = proxyClass.AdditionalDetails.ToString()
+                Features = ToString(proxyClass.Features),
+                AdditionalDetails = ToString(proxyClass.AdditionalDetails)
             };
+
+            static string ToString(object obj)
+            {
+                var unformatted = obj.ToString();
+                var formatted = Regex.Replace(unformatted, @"\t|\n|\r", "").Replace("   ", " ");
+
+                return formatted;
+            }
+
+            return result;
         }
 
         /// <summary>
