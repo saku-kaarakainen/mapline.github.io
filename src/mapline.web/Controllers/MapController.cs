@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mapline.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -24,12 +23,14 @@ namespace Mapline.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Language>> Get()
+        public async Task<IEnumerable<Models.Language>> Get()
         {
             this.logger.LogDebug("GET api/map/");
             using var db = this.contextFactory.CreateDbContext();
 
-            return await db.Languages.ToListAsync();
+            var result = await db.Languages.ToListAsync();
+
+            return result.Select(Models.Language.FromData);
         }
     }
 }

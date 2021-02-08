@@ -11,6 +11,9 @@ using System.Runtime.Serialization;
 
 namespace Mapline.Web.Data
 {
+    /// <summary>
+    /// Database reprentation of Language.
+    /// </summary>
     public class Language
     {
         public long Id { get; set; }
