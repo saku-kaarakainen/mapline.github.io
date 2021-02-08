@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
+using mapline.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace mapline
 {
@@ -29,6 +32,13 @@ namespace mapline
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+
+            services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
+                optionsBuilder.UseSqlServer(
+                    Configuration.GetConnectionString("maplineConnectionString"), 
+                    sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly("mapline.migrations"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
