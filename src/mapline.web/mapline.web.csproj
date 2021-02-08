@@ -11,8 +11,8 @@
     <Company>Saku Kaarakainen</Company>
     <Description>timeline and maps</Description>
     <Copyright>MIT 2021 Saku Kaarakainen</Copyright>
-    <AssemblyName>mapline</AssemblyName>
-    <RootNamespace>mapline</RootNamespace>
+    <AssemblyName>Mapline.Web</AssemblyName>
+    <RootNamespace>Mapline.Web</RootNamespace>
     <Version>3.1.1</Version>
     <AssemblyVersion>3.1.1.0</AssemblyVersion>
     <FileVersion>3.1.1.0</FileVersion>

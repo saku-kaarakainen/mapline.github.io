@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace mapline.Migrations
+namespace Mapline.Migrations
 {
     public class InitialMigration : Migration
     {

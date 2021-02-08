@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
 
-namespace mapline
+namespace Mapline.Web
 {
     public class Program
     {

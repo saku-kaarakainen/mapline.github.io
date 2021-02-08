@@ -4,11 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using VueCliMiddleware;
-using mapline.Data;
+using Mapline.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace mapline
+namespace Mapline.Web
 {
     public class Startup
     {
@@ -37,7 +37,7 @@ namespace mapline
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(
                     Configuration.GetConnectionString("maplineConnectionString"), 
-                    sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly("mapline.migrations"))
+                    sqlServerOptionsAction => sqlServerOptionsAction.MigrationsAssembly("Mapline.Migrations"))
             );
         }
 

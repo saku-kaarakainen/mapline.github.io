@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace mapline.Data
+namespace Mapline.Web.Data
 {
     public class Language
     {

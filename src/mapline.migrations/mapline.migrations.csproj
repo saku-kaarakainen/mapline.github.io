@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	<BaseOutputPath>..\mapline.web\bin\</BaseOutputPath>
+	<BaseOutputPath>..\Mapline.Web\bin\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\mapline.web\mapline.web.csproj" />
+    <ProjectReference Include="..\Mapline.Web\Mapline.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 using System;
 
-namespace mapline.Models
+namespace Mapline.Web.Models
 {
     public class WeatherForecast
     {
