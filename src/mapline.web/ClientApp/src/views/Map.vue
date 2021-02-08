@@ -1,19 +1,6 @@
 <template>
     <div class="map-container">
-        <div>
-            <span v-if="loading">Loading...</span>
-            <label for="checkbox">GeoJSON Visibility</label>
-            <input id="checkbox"
-                   v-model="show"
-                   type="checkbox">
-            <label for="checkboxTooltip">Enable tooltip</label>
-            <input id="checkboxTooltip"
-                   v-model="enableTooltip"
-                   type="checkbox">
-            <input v-model="fillColor"
-                   type="color">
-            <br>
-        </div>
+        <p v-if="loading">Loading...</p>
 
         <l-map :zoom="zoom"
                :center="center"
@@ -26,15 +13,13 @@
                         :options="options"
                         :options-style="styleFunction" />
 
-            <l-marker :lat-lng="marker" />
-
         </l-map>
     </div>
 </template>
 
 <script lang="ts">
     import { latLng } from "leaflet";
-    import { LMap, LTileLayer, LMarker, LGeoJson } from "vue2-leaflet";
+    import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
 
     export default {
@@ -42,15 +27,12 @@
         components: {
             LMap,
             LTileLayer,
-            LMarker,
             LGeoJson
         },
         data() {
             return {
                 loading: true,
-                showError: false,
                 show: true,
-                enableTooltip: true,
                 languagesGeoJson: null,
                 errorMessage: 'An unexpected error occured while loading the information to the map.',
                 languages: [] as Language[],
@@ -59,7 +41,7 @@
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
                 mapOptions: {},
-                fillColor: "#e4ce7f",
+                fillColor: "#e4ce7f", // blue
                 marker: latLng(47.41322, -1.219482)
             };
         },
@@ -73,7 +55,7 @@
                 return () => {
                     return {
                         weight: 2,
-                        color: "#ECEFF1",
+                        color: "#ECEFF1", // Orange
                         opacity: 1,
                         fillColor: fillColor,
                         fillOpacity: 1
@@ -99,31 +81,23 @@
         },
 
         async created() {
-            this.loading = true;
-            const response = await this.$axios.get<Language[]>('api/Map')
+            try {
+                this.loading = true;
+                const response = await this.$axios.get<Language[]>('api/Map')
 
-            const data = await response.data;
+                const data = await response.data;
 
+                console.log("async create. data received:");
+                console.log(data);
 
-            console.log("async create. data received:");
-            console.log(data);
-
-            this.languagesGeoJson = data[0].area;
-            this.loading = false;
+                this.languagesGeoJson = data[0].area;
+                this.loading = false;
+            } catch (e) {
+                alert("An unexpected error occured in API handling...");
+                console.log("An unexpected error occured in API handling. The error:");
+                console.log(e);
+            }
         },
-
-        // async fetchLanguages() {
-        //   try {
-        //     const response = await this.$axios.get<Language>[]('api/Map');
-        //     console.log("response.data:");
-        //     console.log(response.data);
-        //     this.languagesGeoJson = response.data;
-        //   } catch (e) {
-        //     this.showError = true;
-        //     this.errorMessage = `An unexpected error occured while loading the information to the map. The error message: ${e.message}`;
-        //   }
-        //   this.loading = false;
-        // },
     };
 </script>
 
