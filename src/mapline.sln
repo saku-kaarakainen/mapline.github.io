@@ -33,7 +33,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proto-uralic-homeland-lyalo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapline.Migrations", "Mapline.Migrations\Mapline.Migrations.csproj", "{479431E8-0DD3-4FFB-9C96-AC209C486B5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapline.Tests", "Mapline.Tests\Mapline.Tests.csproj", "{D185E1EE-060C-4494-B9E3-C99BDA19A1F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapline.Tests", "Mapline.Tests\Mapline.Tests.csproj", "{D185E1EE-060C-4494-B9E3-C99BDA19A1F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{94BD50CE-C557-4FF4-BCDC-1F8839A8B259}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{93588DA3-540A-4E99-9BC9-5C049D0E9617}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +70,8 @@ Global
 		{2A7B44B7-129A-4433-83E5-1F1DC257AF50} = {3CC8535C-C2B2-4924-9242-319B47CAD2ED}
 		{479431E8-0DD3-4FFB-9C96-AC209C486B5F} = {4649F6C8-38C7-4255-9639-BCB5D1E123B1}
 		{D185E1EE-060C-4494-B9E3-C99BDA19A1F9} = {4649F6C8-38C7-4255-9639-BCB5D1E123B1}
+		{94BD50CE-C557-4FF4-BCDC-1F8839A8B259} = {93588DA3-540A-4E99-9BC9-5C049D0E9617}
+		{93588DA3-540A-4E99-9BC9-5C049D0E9617} = {0825A522-732F-4F42-AD0C-9AB52B144D8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEBD4BD6-299C-48F2-8D24-13F9B53219E2}

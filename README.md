@@ -1,5 +1,7 @@
 # mapline
+![Build](https://github.com/saku-kaarakainen/mapline/workflows/main/badge.svg)
 This is just my random hobby project. 
+
 
  ## Wiki
  The documentation of this project is meant to be at Wiki. This markup file contains overview documentation and the documentation that is useful to access via text editor (VS Code) while developing.
