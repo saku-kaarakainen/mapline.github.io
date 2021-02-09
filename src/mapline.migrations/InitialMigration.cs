@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -23,12 +24,12 @@ namespace Mapline.Migrations
                             SqlServerValueGenerationStrategy.IdentityColumn),
 
                     Name = table.Column<string>(nullable: false),
-                     //Area = table.Column<Geometry>(nullable: false),
-                     YearCurrent = table.Column<int>(nullable: true),
+                    Area = table.Column<Geometry>(nullable: false),
+                    YearCurrent = table.Column<int>(nullable: true),
                     YearStart = table.Column<int>(nullable: true),
                     YearEnd = table.Column<int>(nullable: true),
                     Features = table.Column<string>(nullable: true), // JSON
-                     AdditionalDetails = table.Column<string>(nullable: true), // JSON
+                    AdditionalDetails = table.Column<string>(nullable: true), // JSON
                  },
                 constraints: table =>
                 {
@@ -40,8 +41,6 @@ namespace Mapline.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            base.Down(migrationBuilder);
-
             migrationBuilder.DropTable("Language");
         }
     }
