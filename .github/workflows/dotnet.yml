@@ -20,12 +20,12 @@ jobs:
     
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: "src"
+      working-directory: "src/Mapline.Web"
 
     - name: Build
       run: dotnet build --no-restore
-      working-directory: "src"
+      working-directory: "src/Mapline.Web"
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: "src"
+      working-directory: "src/Mapline.Web"
