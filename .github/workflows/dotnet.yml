@@ -23,17 +23,17 @@ jobs:
           ls -la
           cd src
           ls -la
-          cd  Mapline.Web
+          cd  mapline.web
           ls -la
 
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: "src/Mapline.Web"
+      working-directory: "src/mapline.web"
 
     - name: Build
       run: dotnet build --no-restore
-      working-directory: "src/Mapline.Web"
+      working-directory: "src/mapline.web"
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: "src/Mapline.Web"
+      working-directory: "src/mapline.web"
