@@ -30,6 +30,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       working-directory: "src/mapline.web"
 
-    - name: Publish
-      run: dotnet publish --no-build --verbosity normal
-      working-directory: "src/mapline.web"
+    # TODO: Fix this
+    #- name: Publish
+    #  run: dotnet publish --no-build --verbosity normal
+    #  working-directory: "src/mapline.web"
