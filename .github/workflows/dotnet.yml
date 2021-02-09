@@ -18,6 +18,12 @@ jobs:
       with:
         dotnet-version: 5.0.x
     
+    - name: Open Web Client Directory
+      run: |
+          ls -la
+          cd ./src/Mapline.Web
+          ls -la
+
     - name: Restore dependencies
       run: dotnet restore
       working-directory: "src/Mapline.Web"
