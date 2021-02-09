@@ -1,7 +1,6 @@
 # mapline
+![Build](https://github.com/saku-kaarakainen/mapline/workflows/main/badge.svg)
 This is just my random hobby project. 
-
-![Build](https://github.com/saku-kaarakainen/mapline/workflows/.NET/badge.svg)
 
 
  ## Wiki
