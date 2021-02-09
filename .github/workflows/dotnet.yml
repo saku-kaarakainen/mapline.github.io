@@ -21,7 +21,9 @@ jobs:
     - name: Open Web Client Directory
       run: |
           ls -la
-          cd ./src/Mapline.Web
+          cd src
+          ls -la
+          cd  Mapline.Web
           ls -la
 
     - name: Restore dependencies
