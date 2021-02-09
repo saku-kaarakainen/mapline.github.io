@@ -23,17 +23,13 @@ jobs:
       working-directory: "src/mapline.web"
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
       working-directory: "src/mapline.web"
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: "src/mapline.web"
 
-    - name: Build ClientApp
-      run: | 
-        npm install
-        npm install leaflet vue2-leaftlet --save
-        npm run build
-        
-      working-directory: "src/mapline.web/clientapp"
+    - name: Publish
+      run: dotnet publish --no-build --verbosity normal
+      working-directory: "src/mapline.web"
