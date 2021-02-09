@@ -37,3 +37,5 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: "src/mapline.web"
+
+    # This is yet missing vue build. Should it have?
