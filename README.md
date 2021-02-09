@@ -1,11 +1,8 @@
 # mapline
 This is just my random hobby project. 
 
-<p align="left">
-  <a href="https://github.com/actions/setup-dotnet">
-    <img alt="GitHub Actions status" src="https://github.com/saku-kaarakainen/workflows/develop/badge.svg">
-  </a>
-</p>
+![Build](https://github.com/saku-kaarakainen/mapline/workflows/.NET/badge.svg)
+
 
  ## Wiki
  The documentation of this project is meant to be at Wiki. This markup file contains overview documentation and the documentation that is useful to access via text editor (VS Code) while developing.
