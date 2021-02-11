@@ -83,7 +83,7 @@
         async created() {
             try {
                 this.loading = true;
-                const response = await this.$axios.get<Language[]>('api/Map')
+                const response = await this.$axios.get<Language[]>('api/map/languages')
 
                 const data = await response.data;
 

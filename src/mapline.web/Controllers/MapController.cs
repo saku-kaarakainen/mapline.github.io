@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mapline.Web.Data;
+using Mapline.Web.Models;
 
 namespace Mapline.Web.Controllers
 {
@@ -22,13 +23,29 @@ namespace Mapline.Web.Controllers
             this.contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
         }
 
+        [Route("languages")]
         [HttpGet]
-        public async Task<IEnumerable<Language>> Get()
+        public async Task<IEnumerable<Language>> Languages()
         {
-            this.logger.LogDebug("GET api/map/");
+            this.logger.LogDebug("GET api/map/languages");
 
             using var db = this.contextFactory.CreateDbContext();
             return await db.Languages.ToListAsync();
+        }
+
+        [Route("filters")]
+        [HttpGet]
+        public async Task<IEnumerable<Filter>> Filters()
+        {
+            // TODO: The real implement
+            await Task.Delay(1);
+            this.logger.LogDebug("GET api/map/filters/");
+
+            return new List<Filter>            
+            {
+                new Filter("uralic", true),
+                new Filter("indo-european", false)
+            };
         }
     }
 }

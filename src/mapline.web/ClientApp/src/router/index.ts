@@ -11,6 +11,19 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   },
+
+  {
+    path: '/show',
+    name: 'Show',
+    component: () => import('../views/Show.vue')
+  },
+
+  {
+      path: '/edit',
+      name: 'Edit',
+      component: () => import('../views/Edit.vue')
+  },
+
   // TODO: Delete
   {
     path: '/counter',
@@ -25,11 +38,6 @@ const routes: Array<RouteConfig> = [
     path: '/fetch-data',
     name: 'fetch-data',
     component: () => import(/* webpackChunkName: "fetch-data" */ '../views/FetchData.vue')
-  },
-  {
-    path: '/map',
-    name: 'map',
-    component: () => import('../views/Map.vue')
   }
 ]
 

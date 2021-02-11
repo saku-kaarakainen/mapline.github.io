@@ -30,7 +30,7 @@ namespace Mapline.Tests.WebTests.ControllerTests
             var controller = new MapController(loggerMock.Object, this.contextFactory);
 
             // Act
-            var result = await controller.Get();
+            var result = await controller.Languages();
             var language = result.Where(l => l.Name == name).First();
 
             // Assert

@@ -6,6 +6,7 @@ import router from './router'
 import store from '@/store/index'
 import './registerServiceWorker'
 import dateFilter from '@/filters/date.filter'
+import './assets/GlobalStyles.scss'
 
 Vue.config.productionTip = false
 
