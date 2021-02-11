@@ -34,7 +34,7 @@
     </v-app-bar>
 
     <v-main>
-      <router-view />
+      <router-view class="router-view" />
     </v-main>
 
     <v-footer app>
@@ -57,10 +57,11 @@ export default class App extends Vue {
   private right = true
   private title = 'mapline'
   private items = [
-    { title: 'Home (template)', icon: 'mdi-home', link: '/' },
+    { title: 'Home', icon: 'mdi-home', link: '/' },
+    { title: 'Show', icon: 'mdi-map', link: '/show' },
+    { title: 'Edit', icon: 'mdi-map', link: '/edit' },
     { title: 'Counter (template)', icon: 'mdi-gesture-tap', link: '/counter' },
-    { title: 'Fetch data (template)', icon: 'mdi-download', link: '/fetch-data' },
-    { title: 'Map', icon: 'mdi-map', link: '/map' }
+    { title: 'Fetch data (template)', icon: 'mdi-download', link: '/fetch-data' }
   ]
 }
 </script>
