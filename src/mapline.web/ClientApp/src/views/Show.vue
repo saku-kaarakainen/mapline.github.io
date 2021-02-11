@@ -10,17 +10,19 @@
         width: 100%;
     }
 
+    .filter-bar-component {
+        display: inline-block;
+        width: 20%;
+        height: 100%;
+        vertical-align: top;
+    }
+
     .l-map {
         width: 80%;
         height: 100%;
         display: inline-block;
     }
 
-    .filter-bar-component {
-        display: inline-block;
-        width: 20%;
-        height: 100%;
-    }
 </style>
 
 
@@ -111,7 +113,7 @@
         async created() {
             try {
                 this.loading = true;
-                const response = await this.$axios.get<Language[]>('api/Map')
+                const response = await this.$axios.get<Language[]>('api/map/languages')
 
                 const data = await response.data;
 

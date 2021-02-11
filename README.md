@@ -7,7 +7,7 @@ This is just my random hobby project.
  The documentation of this project is meant to be at Wiki. This markup file contains overview documentation and the documentation that is useful to access via text editor (VS Code) while developing.
 
 ## How to run this?
-## Visual studio
+### Visual studio
 1. Open the solution file `{path-to-project/src/Mapline.sln}`
 2. restore NPM packages `Tools -> NuGet Package Manager -> Package Manager Console`
 ```batch
@@ -28,8 +28,17 @@ copy .\node_modules\leaflet\dist\leaflet.css .\public\lib\.
  2. Run .NET Core Launch (web)
  3. Open `http://localhost:8080` in the browser of your choice 
 
-## Migrations
+### Migrations
 Migrations are maintained in the Mapline.Migrations - project.
+
+## Troubleshooting
+Error
+```
+TimeoutException: The vue-cli server did not start listening for requests within the timeout period of 0 seconds. Check the log output for error information.
+```
+open path in cmd: `{path-to-project}/src/mapline.Web/ClientApp`
+run command: `npm run serve`
+It puts the vue client up and running or shows an error.
 
 ## Used Techonologies
  - VS Code
