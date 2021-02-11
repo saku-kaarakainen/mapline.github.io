@@ -12,13 +12,13 @@
 
     .filter-bar-component {
         display: inline-block;
-        width: 20%;
+        width: 10%;
         height: 100%;
         vertical-align: top;
     }
 
     .l-map {
-        width: 80%;
+        width: 90%;
         height: 100%;
         display: inline-block;
     }
