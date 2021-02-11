@@ -37,6 +37,7 @@ namespace Mapline.Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<Filter>> Filters()
         {
+            // TODO: The real implement
             await Task.Delay(1);
             this.logger.LogDebug("GET api/map/filters/");
 
