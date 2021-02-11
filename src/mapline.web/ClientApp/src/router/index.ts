@@ -8,12 +8,6 @@ const routes: Array<RouteConfig> = [
   // TODO: Should this be deleted? 
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-
-  {
-    path: '/show',
     name: 'Show',
     component: () => import('../views/Show.vue')
   },
