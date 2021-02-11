@@ -44,11 +44,10 @@
 </template>
 
 <script lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  components: { HelloWorld }
+  components: {  }
 })
 export default class App extends Vue {
   private clipped = true

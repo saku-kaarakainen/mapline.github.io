@@ -49,7 +49,7 @@
     import { latLng } from "leaflet";
     import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
-    import FilterBar from '@/components/FilterBar.vue'
+    import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
 
     export default {
         name: "VMap",

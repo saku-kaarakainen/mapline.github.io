@@ -2,10 +2,7 @@
   <v-container fluid>
     <v-layout column align-center>
       <img src="@/assets/logo.png" alt="Vuetify.js" class="mb-5" />
-      <HelloWorld
-        quote="This is my app about maps and timelines, i guess."
-        author="brought to you by Saku Kaarakainen"
-      />
+      <p>Hello World!</p>
     </v-layout>
     <v-slide-y-transition mode="out-in">
       <v-row>
@@ -19,11 +16,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
 
 @Component({
   components: {
-    HelloWorld
+
   }
 })
 export default class Home extends Vue {}
