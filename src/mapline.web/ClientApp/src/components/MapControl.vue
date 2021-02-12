@@ -36,8 +36,6 @@
                 </div>
             </v-btn>
 
-
-            <!--<input type="submit" value="Revert Direction" />-->
             <v-btn @click="revertDirection">
                 <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon> 
                 <v-icon v-else>mdi-arrow-left</v-icon>
