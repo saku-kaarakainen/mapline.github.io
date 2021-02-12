@@ -39,7 +39,9 @@
 
         <v-divider class="divider"></v-divider>
 
-        <filter-bar class="filter-bar-component" />
+        <filter-bar class="filter-bar-component"
+                    @filters-changed="filtersChange"
+                    />
 
         <v-divider class="divider" vertical></v-divider>
 
@@ -93,7 +95,12 @@
 
         methods: {
             updateYear(year) {
-                // console.log(`the year is: ${year}`)
+                //console.log(`the year is: ${year}`)
+            },
+
+            filtersChange(filters) {
+                //console.log(`the filters are`);
+                //console.log(filters);
             }
         },
 
