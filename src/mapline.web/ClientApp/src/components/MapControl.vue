@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-    import { mdiPlay, mdiPause } from '@mdi/js'
+    //import { mdiPlay, mdiPause } from '@mdi/js'
 
     export default {
         name: 'map-control',       
@@ -74,7 +74,7 @@
                     updateRateHeader: "Updates every (ms):"
                 },
 
-                icons: { mdiPlay, mdiPause },
+                icons: { /*mdiPlay, mdiPause*/ },
 
                 currentYear: -7000, // -7000,
                 timer: '',
