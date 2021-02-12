@@ -17,7 +17,7 @@
     <v-container id="map-control-template">
         <v-row class="row-1">
 
-            <v-text-field class="ma-2" :label="resources.yearHeader" v-model="currentYear" />
+            <v-text-field class="ma-2" :label="resources.yearHeader" v-model="pCurrentYear" />
 
             <div class="map-control-buttons">
                 <v-btn class="ma-2" @click="playOrPause">
@@ -37,17 +37,17 @@
                 </v-btn>
             </div>
 
-            <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="stepsPerInterval" />
+            <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="pYearsInterval" />
 
-            <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="updateRateInMilliseconds" />
+            <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="pUpdateRateInMilliseconds" />
 
         </v-row>
 
         <v-row class="row-2" md="1">
             <v-slider id="ranged-slider"
-                      v-model="currentYear"
-                      :min="min"
-                      :max="max" />
+                      v-model="pCurrentYear"
+                      :min="pMinYear"
+                      :max="pMaxYear" />
         </v-row>
     </v-container>
 </template>
@@ -60,6 +60,22 @@
             
         },
 
+        props: {
+            currentYear: Number,
+            minYear: Number,
+            maxYear: Number,
+
+            updateRateInMilliseconds: {
+                type: Number,
+                default: 1000 // 1 second
+            },
+
+            yearsInterval: {
+                type: Number,
+                default: 1 // years
+            }
+        },
+
         data() {
             return {
                 resources: {
@@ -69,19 +85,20 @@
                 },
                 isPlaying: true,
                 isDirectionToRight: true,
-                currentYear: -7000, // -7000,
                 timer: '',
-                min: -7000,
-                max: 2021,
-                updateRateInMilliseconds: 1000,
-                stepsPerInterval: 5
+
+                pCurrentYear: this.currentYear,
+                pMinYear: this.minYear,
+                pMaxYear: this.maxYear,
+                pUpdateRateInMilliseconds: this.updateRateInMilliseconds,
+                pYearsInterval: this.yearsInterval
             };
         },
         
         async created() {
             try {
                 // updates every second
-                this.timer = setInterval(this.updateTimer, this.updateRateInMilliseconds);
+                this.timer = setInterval(this.updateTimer, this.pUpdateRateInMilliseconds);
             } catch (e) {
                 alert("An unexpected error occuurred in components/slider.vue/async created.");
                 console.log("An unexpected error occuurred in components/slider.vue/async created. The error:");
@@ -90,13 +107,13 @@
         },
 
         methods: {
-            updateTimer: function () {
+            updateTimer: function () {   
                 if (this.isPlaying) {
 
                     if (this.isDirectionToRight)
-                        this.currentYear += this.stepsPerInterval;
+                        this.pCurrentYear += this.pYearsInterval;
                     else
-                        this.currentYear -= this.stepsPerInterval;
+                        this.pCurrentYear -= this.pYearsInterval;
                 }
             },
             cancelAutoUpdate() { clearInterval(this.timer); },

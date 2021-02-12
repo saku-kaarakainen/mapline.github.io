@@ -32,7 +32,13 @@
 
 <template>
     <div class="map-container">
-        <map-control class="slider-component" />
+        <map-control class="slider-component"
+                     v-bind:currentYear="-7000"
+                     v-bind:minYear="-7000"
+                     v-bind:maxYear="2021"
+                     v-bind:updateRateInMilliseconds="1000"
+                     v-bind:stepsPerInterval="5"
+                     />
 
         <v-divider class="divider"></v-divider>
 
