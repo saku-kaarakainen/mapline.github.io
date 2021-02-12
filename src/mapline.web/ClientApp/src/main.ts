@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import './plugins/axios'
-import vuetify from './plugins/vuetify'
+import vuetify from './plugins/vuetify' // https://vuetifyjs.com/en/getting-started/installation/#webpack-install
 import App from './App.vue'
 import router from './router'
 import store from '@/store/index'
