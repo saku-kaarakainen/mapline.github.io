@@ -14,7 +14,7 @@ This is just my random hobby project.
 # The script below should add packages to the path: {path-to-project}/src/Mapline.Web/ClientApp/node_modules
 cd Mapline.web/ClientApp # Make sure you are in this folder. You can also use --prefix
 npm install
-npm install leaflet vue2-leaflet vue-slider-component --save
+npm install vuetify leaflet vue2-leaflet --save
 
 # You also need to copy a css file from it's packages. I don't know why my project is doing that, I have been lazy to figure out the reason.
 mkdir .\public\lib # this is already in .gitignore

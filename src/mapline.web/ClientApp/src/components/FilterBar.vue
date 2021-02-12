@@ -26,7 +26,7 @@
 
         methods: {
             filterChange: function (e) {
-                console.log(this.filters, e);
+                //console.log(this.filters, e);
             }  
         },
 

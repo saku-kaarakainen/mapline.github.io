@@ -5,14 +5,14 @@
   Component style coding / using the `scoped` attribute
 -->
 <style scoped>
-    .map-container {
-        height: 100%;
+    .show-map-container {
+        height: 90%;
         width: 100%;
     }
 
     .filter-bar-component {
         display: inline-block;
-        width: 10%;
+        width: 8%;
         height: 100%;
         vertical-align: top;
     }
@@ -20,17 +20,30 @@
     .l-map {
         width: 90%;
         height: 100%;
+        top: 0px;
         display: inline-block;
     }
-
 </style>
 
 
 <template>
-    <div class="map-container">
-        <slider class="slider-component" />
+    <div class="show-map-container">
+        <map-control class="slider-component"
+                     v-bind:currentYear="-7000"
+                     @update-year="updateYear"
+                     v-bind:minYear=-7000
+                     v-bind:maxYear=2021
+                     v-bind:updateRateInMilliseconds="1000"
+                     v-bind:yearsInterval="5"
+                     />
 
-        <filter-bar class="filter-bar-component" />
+        <v-divider class="divider"></v-divider>
+
+        <filter-bar class="filter-bar-component"
+                    @filters-changed="filtersChange"
+                    />
+
+        <v-divider class="divider" vertical></v-divider>
 
         <p v-if="loading">Loading...</p>
         <l-map class="l-map"
@@ -52,7 +65,7 @@
     import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
-    import Slider from '@/components/Slider.vue'
+    import MapControl from '@/components/MapControl.vue'
 
     export default {
         name: "VMap",
@@ -61,7 +74,7 @@
             LTileLayer,
             LGeoJson,
             FilterBar,
-            Slider
+            MapControl
         },
         data() {
             return {
@@ -79,6 +92,18 @@
                 marker: latLng(47.41322, -1.219482)
             };
         },
+
+        methods: {
+            updateYear(year) {
+                //console.log(`the year is: ${year}`)
+            },
+
+            filtersChange(filters) {
+                //console.log(`the filters are`);
+                //console.log(filters);
+            }
+        },
+
         computed: {
             options() {
                 return { onEachFeature: this.onEachFeatureFucntion };
