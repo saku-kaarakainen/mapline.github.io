@@ -28,6 +28,8 @@
 
 <template>
     <div class="map-container">
+        <slider class="slider-component" />
+
         <filter-bar class="filter-bar-component" />
 
         <p v-if="loading">Loading...</p>
@@ -50,6 +52,7 @@
     import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
+    import Slider from '@/components/Slider.vue'
 
     export default {
         name: "VMap",
@@ -57,7 +60,8 @@
             LMap,
             LTileLayer,
             LGeoJson,
-            FilterBar
+            FilterBar,
+            Slider
         },
         data() {
             return {
