@@ -25,9 +25,15 @@
             </span>
 
             <!-- 'animation' controls -->
-            <v-btn type="submit" value="">
-                <v-icon left>{{ icons.mdiPlay }}</v-icon>
-                Play/Pause
+            <v-btn type="submit" @click="playOrPause">
+                <div class="playing" v-if="isPlaying">
+                    <v-icon left>mdi-pause</v-icon>
+                    Pause
+                </div>
+                <div class="at-pause" v-else>
+                    <v-icon left>mdi-play</v-icon>
+                    Play
+                </div>
             </v-btn>
 
 
@@ -58,13 +64,13 @@
 </template>
 
 <script lang="ts">
-    //import { mdiPlay, mdiPause } from '@mdi/js'
-
     export default {
         name: 'map-control',       
         components: {
             
         },
+
+        icons: { mdiPlay: 'mdi-play', mdiPause: 'mdi-pause' },
 
         data() {
             return {
@@ -73,9 +79,7 @@
                     intervalHeader: "Interval (years):",
                     updateRateHeader: "Updates every (ms):"
                 },
-
-                icons: { /*mdiPlay, mdiPause*/ },
-
+                isPlaying: true,
                 currentYear: -7000, // -7000,
                 timer: '',
                 min: -7000,
@@ -98,10 +102,15 @@
 
         methods: {
             updateTimer: function () {
-                this.currentYear += this.stepsPerInterval;
+                if (this.isPlaying) {
+                    this.currentYear += this.stepsPerInterval;
+                }
             },
             cancelAutoUpdate() {
                 clearInterval(this.timer);
+            },
+            playOrPause: function () {
+                this.isPlaying = !this.isPlaying;
             }
         },
 
