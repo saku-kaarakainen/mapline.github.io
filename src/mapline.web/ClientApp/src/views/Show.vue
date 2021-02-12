@@ -5,8 +5,8 @@
   Component style coding / using the `scoped` attribute
 -->
 <style scoped>
-    .map-container {
-        height: 100%;
+    .show-map-container {
+        height: 90%;
         width: 100%;
     }
 
@@ -20,18 +20,14 @@
     .l-map {
         width: 90%;
         height: 100%;
+        top: 0px;
         display: inline-block;
     }
-
-    .divider-2 {
-        padding: 1px;
-    }
-
 </style>
 
 
 <template>
-    <div class="map-container">
+    <div class="show-map-container">
         <map-control class="slider-component"
                      v-bind:currentYear="-7000"
                      @update-year="updateYear"
