@@ -24,8 +24,8 @@
                 <span id="current-value">{{ currentYear }}</span>
             </span>
 
-            <!-- 'animation' controls -->
-            <v-btn type="submit" @click="playOrPause">
+            <!-- play / pause -->
+            <v-btn @click="playOrPause">
                 <div class="playing" v-if="isPlaying">
                     <v-icon left>mdi-pause</v-icon>
                     Pause
@@ -37,7 +37,11 @@
             </v-btn>
 
 
-            <input type="submit" value="Revert Direction" />
+            <!--<input type="submit" value="Revert Direction" />-->
+            <v-btn @click="revertDirection">
+                <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon> 
+                <v-icon v-else>mdi-arrow-left</v-icon>
+            </v-btn>
 
             <!-- configurtations -->
             <span class="bordered">
@@ -70,8 +74,6 @@
             
         },
 
-        icons: { mdiPlay: 'mdi-play', mdiPause: 'mdi-pause' },
-
         data() {
             return {
                 resources: {
@@ -80,6 +82,7 @@
                     updateRateHeader: "Updates every (ms):"
                 },
                 isPlaying: true,
+                isDirectionToRight: true,
                 currentYear: -7000, // -7000,
                 timer: '',
                 min: -7000,
@@ -103,15 +106,16 @@
         methods: {
             updateTimer: function () {
                 if (this.isPlaying) {
-                    this.currentYear += this.stepsPerInterval;
+
+                    if (this.isDirectionToRight)
+                        this.currentYear += this.stepsPerInterval;
+                    else
+                        this.currentYear -= this.stepsPerInterval;
                 }
             },
-            cancelAutoUpdate() {
-                clearInterval(this.timer);
-            },
-            playOrPause: function () {
-                this.isPlaying = !this.isPlaying;
-            }
+            cancelAutoUpdate() { clearInterval(this.timer); },
+            playOrPause: function () { this.isPlaying = !this.isPlaying; },
+            revertDirection: function () { this.isDirectionToRight = !this.isDirectionToRight; }
         },
 
         beforeDestroy() {
