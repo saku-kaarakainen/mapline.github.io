@@ -12,7 +12,7 @@
 
     .filter-bar-component {
         display: inline-block;
-        width: 10%;
+        width: 8%;
         height: 100%;
         vertical-align: top;
     }
@@ -23,6 +23,10 @@
         display: inline-block;
     }
 
+    .divider-2 {
+        padding: 1px;
+    }
+
 </style>
 
 
@@ -30,7 +34,11 @@
     <div class="map-container">
         <map-control class="slider-component" />
 
+        <v-divider class="divider"></v-divider>
+
         <filter-bar class="filter-bar-component" />
+
+        <v-divider class="divider" vertical></v-divider>
 
         <p v-if="loading">Loading...</p>
         <l-map class="l-map"

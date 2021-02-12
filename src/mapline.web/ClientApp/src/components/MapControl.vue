@@ -12,57 +12,75 @@
         border: solid 1px black;
     }
 
+    div.col button {
+        margin-top: 10px;
+    }
+
 </style>
 <template>
-    <div id="map-control-template">
-        
-        <div class="row-1">
+    <v-container id="map-control-template">        
+        <v-row class="row-1">
 
             <!-- shown year -->
-            <span class="bordered">
+            <v-col md="2" class="bordered">
                 <label id="slider-header" for="ranged-slider">{{ resources.yearHeader }}</label>
                 <span id="current-value">{{ currentYear }}</span>
-            </span>
+            </v-col>
+
 
             <!-- play / pause -->
-            <v-btn @click="playOrPause">
-                <div class="playing" v-if="isPlaying">
-                    <v-icon left>mdi-pause</v-icon>
-                    Pause
-                </div>
-                <div class="at-pause" v-else>
-                    <v-icon left>mdi-play</v-icon>
-                    Play
-                </div>
-            </v-btn>
+            <v-col md="2">
+                <v-btn @click="playOrPause">
+                    <div class="playing" v-if="isPlaying">
+                        <v-icon left>mdi-pause</v-icon>
+                        Pause
+                    </div>
+                    <div class="at-pause" v-else>
+                        <v-icon left>mdi-play</v-icon>
+                        Play
+                    </div>
+                </v-btn>
+            </v-col>
 
-            <v-btn @click="revertDirection">
-                <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon> 
-                <v-icon v-else>mdi-arrow-left</v-icon>
-            </v-btn>
+            <!-- play forward or backwards -->
+            <v-col md="2">
+                <v-btn @click="revertDirection">
+                    <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon>
+                    <v-icon v-else>mdi-arrow-left</v-icon>
+                </v-btn>
+            </v-col>
 
-            <!-- configurtations -->
-            <span class="bordered">
+            <!--<span class="bordered">
                 <label id="slider-header" for="ranged-slider">{{ resources.intervalHeader }}</label>
                 <span id="current-value">{{ stepsPerInterval }}</span>
-            </span>
+            </span>-->
+            <v-col md="2">
+                <v-text-field label="Interval">
 
-            <span class="bordered">
+                </v-text-field>
+            </v-col>
+
+            <!--<span class="bordered">
                 <label id="slider-header" for="ranged-slider">{{ resources.updateRateHeader }}</label>
                 <span id="current-value">{{ updateRateInMilliseconds }}</span>
-            </span>
+            </span>-->
+            <v-col md="2">
+                <v-text-field
+                    label="Updates every (ms)"
+                    >
 
-        </div>
+                </v-text-field>
+            </v-col>
+        </v-row>
 
-        <div class="row-2">
+        <v-row class="row-2" md="1">
             <v-slider id="ranged-slider"
                     v-model="currentYear"
                     :min="min"
                     :max="max"
             />
-        </div>
-   
-    </div>
+        </v-row>   
+    </v-container>
 </template>
 
 <script lang="ts">
