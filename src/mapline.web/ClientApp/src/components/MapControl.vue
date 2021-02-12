@@ -87,6 +87,7 @@
                 isDirectionToRight: true,
                 timer: '',
 
+                // private fields
                 pCurrentYear: this.currentYear,
                 pMinYear: this.minYear,
                 pMaxYear: this.maxYear,
