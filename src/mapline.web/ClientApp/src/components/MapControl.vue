@@ -14,53 +14,44 @@
 
 </style>
 <template>
-    <v-container id="map-control-template">        
+    <v-container id="map-control-template">
         <v-row class="row-1">
 
-            <v-col md="2">
-                <v-text-field :label="resources.yearHeader" v-model="currentYear" />
-            </v-col>
+            <v-text-field class="ma-2" :label="resources.yearHeader" v-model="currentYear" />
 
-            <v-col md="2">
-                <v-btn @click="playOrPause">
-                    <div class="playing" v-if="isPlaying">
-                        <v-icon left>mdi-pause</v-icon>
-                        Pause
-                    </div>
-                    <div class="at-pause" v-else>
-                        <v-icon left>mdi-play</v-icon>
-                        Play
-                    </div>
-                </v-btn>
-            </v-col>
+            <v-btn class="ma-2" @click="playOrPause">
+                <div class="playing" v-if="isPlaying">
+                    <v-icon left>mdi-pause</v-icon>
+                    Pause
+                </div>
+                <div class="at-pause" v-else>
+                    <v-icon left>mdi-play</v-icon>
+                    Play
+                </div>
+            </v-btn>
 
-            <v-col md="2">
-                <v-btn @click="revertDirection">
-                    <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon>
-                    <v-icon v-else>mdi-arrow-left</v-icon>
-                </v-btn>
-            </v-col>
+            <v-btn class="ma-2" @click="revertDirection">
+                <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon>
+                <v-icon v-else>mdi-arrow-left</v-icon>
+            </v-btn>
 
-            <v-col md="2">
-                <v-text-field :label="resources.intervalHeader" v-model="stepsPerInterval" />
-            </v-col>
+            <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="stepsPerInterval" />
 
-            <v-col md="2">
-                <v-text-field :label="resources.updateRateHeader" v-model="updateRateInMilliseconds" />
-            </v-col>
+            <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="updateRateInMilliseconds" />
+
         </v-row>
 
         <v-row class="row-2" md="1">
             <v-slider id="ranged-slider"
-                    v-model="currentYear"
-                    :min="min"
-                    :max="max"
-            />
-        </v-row>   
+                      v-model="currentYear"
+                      :min="min"
+                      :max="max" />
+        </v-row>
     </v-container>
 </template>
 
 <script lang="ts">
+
     export default {
         name: 'map-control',       
         components: {
