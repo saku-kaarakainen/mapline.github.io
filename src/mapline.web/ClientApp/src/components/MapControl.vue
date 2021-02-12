@@ -8,10 +8,6 @@
         width: 100%;
     }
 
-    input, .bordered {
-        border: solid 1px black;
-    }
-
     div.col button {
         margin-top: 10px;
     }
@@ -21,14 +17,10 @@
     <v-container id="map-control-template">        
         <v-row class="row-1">
 
-            <!-- shown year -->
-            <v-col md="2" class="bordered">
-                <label id="slider-header" for="ranged-slider">{{ resources.yearHeader }}</label>
-                <span id="current-value">{{ currentYear }}</span>
+            <v-col md="2">
+                <v-text-field :label="resources.yearHeader" v-model="currentYear" />
             </v-col>
 
-
-            <!-- play / pause -->
             <v-col md="2">
                 <v-btn @click="playOrPause">
                     <div class="playing" v-if="isPlaying">
@@ -42,7 +34,6 @@
                 </v-btn>
             </v-col>
 
-            <!-- play forward or backwards -->
             <v-col md="2">
                 <v-btn @click="revertDirection">
                     <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon>
@@ -50,26 +41,12 @@
                 </v-btn>
             </v-col>
 
-            <!--<span class="bordered">
-                <label id="slider-header" for="ranged-slider">{{ resources.intervalHeader }}</label>
-                <span id="current-value">{{ stepsPerInterval }}</span>
-            </span>-->
             <v-col md="2">
-                <v-text-field label="Interval">
-
-                </v-text-field>
+                <v-text-field :label="resources.intervalHeader" v-model="stepsPerInterval" />
             </v-col>
 
-            <!--<span class="bordered">
-                <label id="slider-header" for="ranged-slider">{{ resources.updateRateHeader }}</label>
-                <span id="current-value">{{ updateRateInMilliseconds }}</span>
-            </span>-->
             <v-col md="2">
-                <v-text-field
-                    label="Updates every (ms)"
-                    >
-
-                </v-text-field>
+                <v-text-field :label="resources.updateRateHeader" v-model="updateRateInMilliseconds" />
             </v-col>
         </v-row>
 
