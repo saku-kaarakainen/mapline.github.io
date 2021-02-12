@@ -33,11 +33,12 @@
 <template>
     <div class="map-container">
         <map-control class="slider-component"
-                     v-bind:currentYear="-7000"
-                     v-bind:minYear="-7000"
-                     v-bind:maxYear="2021"
-                     v-bind:updateRateInMilliseconds="1000"
-                     v-bind:stepsPerInterval="5"
+                     currentYear="-7000"
+                     @update-year="updateYear"
+                     minYear="-7000"
+                     maxYear="2021"
+                     updateRateInMilliseconds="1000"
+                     stepsPerInterval="5"
                      />
 
         <v-divider class="divider"></v-divider>
@@ -93,6 +94,13 @@
                 marker: latLng(47.41322, -1.219482)
             };
         },
+
+        methods: {
+            updateYear(year) {
+                // console.log(`the year is: ${year}`)
+            }
+        },
+
         computed: {
             options() {
                 return { onEachFeature: this.onEachFeatureFucntion };

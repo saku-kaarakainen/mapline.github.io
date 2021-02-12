@@ -115,6 +115,8 @@
                     else
                         this.pCurrentYear -= this.pYearsInterval;
                 }
+
+                this.$emit("update-year", this.pCurrentYear);
             },
             cancelAutoUpdate() { clearInterval(this.timer); },
             playOrPause: function () { this.isPlaying = !this.isPlaying; },
