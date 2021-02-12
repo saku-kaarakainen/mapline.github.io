@@ -1,11 +1,14 @@
 ﻿<style scoped>
+    #slider-template {
+        padding-right: 10px;
+    }
 
     .stable-slider, .cell-slider, table, tr {
         width: 100%;
     }
 
     #ranged-slider {
-        width: 99%;
+        width: 90%;
     }
 
 </style>
@@ -17,14 +20,14 @@
             <tr>
                 <td class="cell-text" v-bind:style="{ width: headerWith }">
                     <label id="slider-header" for="ranged-slider">{{ sliderHeader }}</label>
-                    <span id="current-value">{{ currentYear }}</span>
+                    <span id="current-value">{{ current }}</span>
                 </td>
                 <td class="cell-slider">
                     <!-- TODO: Use dynamic min and max - values -->
-                    <input id="ranged-slider" type="range" 
-                           v-model="currentYear"
-                           min="-10000"
-                           max="2021"
+                    <vue-slider id="ranged-slider"
+                           v-model="current"
+                           :min="min"
+                           :max="max"
                     />
                 </td>
             </tr>
@@ -32,19 +35,28 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import VueSlider from 'vue-slider-component'
+    import 'vue-slider-component/theme/antd.css'
+    import 'vue-slider-component/theme/default.css'
+
     export default {
+        name: 'slider',
+        components: {
+            VueSlider
+        },
+
         data() {
             return {
                 sliderHeader: "Year:",
                 headerWith: '10%',
-                currentYear: -7000,
-                timer: ''
+                current: -7000,
+                timer: '',
+                min: -7000,
+                max: 2021
             };
         },
-
-        name: 'slider',
- 
+        
         async created() {
             try {
                 // updates every second
@@ -58,7 +70,7 @@
 
         methods: {
             updateTimer: function () {
-                this.currentYear++;
+                this.current++;
             },
             cancelAutoUpdate() {
                 clearInterval(this.timer);
