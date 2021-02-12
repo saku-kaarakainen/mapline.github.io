@@ -38,7 +38,7 @@
                      v-bind:minYear=-7000
                      v-bind:maxYear=2021
                      v-bind:updateRateInMilliseconds="1000"
-                     v-bind:stepsPerInterval="5"
+                     v-bind:yearsInterval="5"
                      />
 
         <v-divider class="divider"></v-divider>
