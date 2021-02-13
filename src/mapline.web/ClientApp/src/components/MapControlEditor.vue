@@ -15,12 +15,13 @@
 <template>
     <v-container id="map-control-editor-template">
         <v-row class="row-1">
-            <v-text-field class="ma-2" :label="resources.yearHeader" v-model="local.currentYear" />
+            <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="local.currentYear" />
+            <v-text-field class="ma-2" :label="resources.yearEndHeader" v-model="local.currentYear" />
         </v-row>
 
         <v-row class="row-2" md="1">
-            <v-slider id="ranged-slider"
-                      v-model="local.currentYear"
+            <v-range-slider id="ranged-slider"
+                      v-model="local.yearRange"
                       :min="local.minYear"
                       :max="local.maxYear" />
         </v-row>
@@ -47,16 +48,19 @@
                 // https://forum.vuejs.org/t/naming-practices-for-private-getter-variables/13905
 
                 resources: {
-                    yearHeader: "Current Year:",
+                    yearStartHeader: "Start Year:",
+                    yearEndHeader: "End Year:"
                 },
 
                 local: {
-                    timer: '',
+                    yearRange: [
+                        -2000,
+                        1500
+                    ],
+
 
                     // These should be matched with props: { }
-                    currentYear: this.currentYear,
-                    minYear: this.minYear,
-                    maxYear: this.maxYear,
+                    startYear: this.currentYear,
                 }
             };
         },
