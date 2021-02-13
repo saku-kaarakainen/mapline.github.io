@@ -45,42 +45,36 @@
         <v-divider class="divider" vertical></v-divider>
 
         <p v-if="loading">Loading...</p>
-
-        <l-map ref="map"
-               class="l-map"               
+        <l-map class="l-map"
                :zoom="zoom"
                :center="center"
                :options="mapOptions">
             <l-tile-layer :url="url"
                           :attribution="attribution" />
+
+            <l-geo-json
+                        :options="options"
+                        :options-style="styleFunction" />
         </l-map>
-
-        <LDrawToolBar position="topright" />
-
     </div>
 </template>
 
 <script lang="ts">
-    import { latLng } from "leaflet"
-    import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet"
-    import LDrawToolBar from 'vue2-leaflet-draw-toolbar'
+    import { latLng } from "leaflet";
+    import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
     import MapControlEditor from '@/components/MapControlEditor.vue'
-
-    console.log("hello");
 
     export default {
         name: "VMap",
         components: {
             LMap,
             LTileLayer,
-            /*LGeoJson,*/
-            LDrawToolBar,
+            LGeoJson,
             FilterBar,
             MapControlEditor
         },
-
         data() {
             return {
                 loading: true,
@@ -94,19 +88,18 @@
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
                 mapOptions: {},
                 fillColor: "#e4ce7f", // blue
-                marker: latLng(47.41322, -1.219482),
-                map: null
+                marker: latLng(47.41322, -1.219482)
             };
         },
 
         methods: {
             updateYear(year) {
-                console.log(`the year is: ${year}`)
+                //console.log(`the year is: ${year}`)
             },
 
             filtersChange(filters) {
-                console.log(`the filters are`);
-                console.log(filters);
+                //console.log(`the filters are`);
+                //console.log(filters);
             }
         },
 
@@ -147,15 +140,15 @@
 
         async created() {
             try {
-                //this.loading = true;
-                //const response = await this.$axios.get<Language[]>('api/map/languages')
+                this.loading = true;
+                const response = await this.$axios.get<Language[]>('api/map/languages')
 
-                //const data = await response.data;
+                const data = await response.data;
 
                 console.log("async create. data received:");
-                //console.log(data);
+                console.log(data);
 
-                //this.languagesGeoJson = data[0].area;
+                this.languagesGeoJson = data[0].area;
                 this.loading = false;
             } catch (e) {
                 alert("An unexpected error occured in API handling...");
