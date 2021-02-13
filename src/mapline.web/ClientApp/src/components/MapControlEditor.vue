@@ -15,6 +15,7 @@
 <template>
     <v-container id="map-control-editor-template">
         <v-row class="row-1">
+            <v-btn 
             <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="local.yearRange[0]" />
             <v-text-field class="ma-2" :label="resources.yearEndHeader" v-model="local.yearRange[1]" />
         </v-row>

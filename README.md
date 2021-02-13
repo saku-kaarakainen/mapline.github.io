@@ -14,7 +14,7 @@ This is just my random hobby project.
 # The script below should add packages to the path: {path-to-project}/src/Mapline.Web/ClientApp/node_modules
 cd Mapline.web/ClientApp # Make sure you are in this folder. You can also use --prefix
 npm install
-npm install vuetify leaflet vue2-leaflet --save
+npm install leaflet vue2-leaflet --save
 
 # You also need to copy a css file from it's packages. I don't know why my project is doing that, I have been lazy to figure out the reason.
 mkdir .\public\lib # this is already in .gitignore
@@ -37,7 +37,7 @@ Error
 TimeoutException: The vue-cli server did not start listening for requests within the timeout period of 0 seconds. Check the log output for error information.
 ```
 open path in cmd: `{path-to-project}/src/mapline.Web/ClientApp`
-run command: `npm run serve`
+run command: ``
 It puts the vue client up and running or shows an error.
 
 ## Used Techonologies
