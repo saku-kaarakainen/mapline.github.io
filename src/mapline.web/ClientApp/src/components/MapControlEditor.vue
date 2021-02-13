@@ -1,35 +1,83 @@
 ﻿<style scoped>
-    #map-control-editor {
+    #map-control-editor-template {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #ranged-slider {
+        width: 100%;
+    }
+
+    .map-control-buttons {
+        margin-top: 10px;
     }
 </style>
 <template>
-    <div id="map-control-editor">
-        <p>This is a component</p>
-    </div>
+    <v-container id="map-control-editor-template">
+        <v-row class="row-1">
+
+            <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="pYearStart" />
+
+
+        </v-row>
+
+        <!-- https://vuetifyjs.com/en/components/range-sliders/#min-and-max-->
+        <v-row class="row-2" md="1">
+            <v-range-slider id="ranged-slider"
+                      v-model="pYearStart"
+                      :min="pMinYear"
+                      :max="pMaxYear" />
+        </v-row>
+    </v-container>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
+<script lang="ts">
 
-            };
+    export default {
+        name: 'map-control-editor',
+        components: {
+
         },
 
-        name: 'map-control-editor',
+        props: {
+            currentYear: Number,
+            minYear: Number,
+            maxYear: Number,
+        },
 
-        methods: {
+        data() {
+            return {
+                resources: {
+                    yearStartHeader: "Start Year:",
+                    yearEndHeader: "End: Year:"
+                },
+                isDirectionToRight: true,
+                timer: '',
 
+                // private fields
+                pYearStart: this.currentYear,
+                pMinYear: this.minYear,
+                pMaxYear: this.maxYear,
+            };
         },
 
         async created() {
             try {
-                console.log("called components/MapControlEditor.vue/async created");
+                // updates every second
+                console.log("editor created");
             } catch (e) {
-                alert("An unexpected error occuurred in components/MapControlEditor.vue/async created.");
-                console.log("An unexpected error occuurred in components/MapControlEditor.vue/async created. The error:");
+                let message = `An unexpected error occuurred in components/MapControlEditor.vue/async created.`;
+                alert(message);
+                console.log(`${message} The error:`);
                 console.log(e);
             }
-        }
+        },
+
+        //methods: {
+
+        //},
+
+        //beforeDestroy() {
+        //}
     }
 </script>

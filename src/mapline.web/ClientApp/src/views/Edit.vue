@@ -67,7 +67,7 @@
     import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
-    import MapControl from '@/components/MapControlEditor.vue'
+    import MapControlEditor from '@/components/MapControlEditor.vue'
 
     export default {
         name: "VMap",
@@ -76,7 +76,7 @@
             LTileLayer,
             LGeoJson,
             FilterBar,
-            MapControl
+            MapControlEditor
         },
         data() {
             return {
