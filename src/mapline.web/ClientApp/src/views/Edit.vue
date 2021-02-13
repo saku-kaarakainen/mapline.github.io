@@ -32,13 +32,10 @@
 -->
 <template>
     <div class="show-map-container">
-        <map-control-editor class="slider-component"
-                     v-bind:currentYear="-7000"
-                     @update-year="updateYear"
-                     v-bind:minYear=-7000
-                     v-bind:maxYear=2021
-                     v-bind:updateRateInMilliseconds="1000"
-                     v-bind:yearsInterval="5" />
+        <map-control-editor 
+            class="slider-component"
+            v-bind:scaleMin="-10000"
+            v-bind:scaleMax="2021" />
 
         <v-divider class="divider"></v-divider>
 
@@ -55,7 +52,7 @@
             <l-tile-layer :url="url"
                           :attribution="attribution" />
 
-            <l-geo-json :geojson="languagesGeoJson"
+            <l-geo-json
                         :options="options"
                         :options-style="styleFunction" />
         </l-map>
