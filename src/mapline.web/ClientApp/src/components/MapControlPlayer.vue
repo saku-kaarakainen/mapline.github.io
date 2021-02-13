@@ -115,8 +115,6 @@
 
         methods: {
             updateTimer: function () {   
-                console.log("tick. tock.");
-
                 if (this.local.isPlaying) {
 
                     if (this.local.isDirectionToRight)

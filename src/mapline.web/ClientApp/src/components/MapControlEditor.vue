@@ -15,31 +15,7 @@
 <template>
     <v-container id="map-control-editor-template">
         <v-row class="row-1">
-
             <v-text-field class="ma-2" :label="resources.yearHeader" v-model="local.currentYear" />
-
-            <div class="map-control-editor-buttons">
-                <v-btn class="ma-2" @click="playOrPause">
-                    <div class="playing" v-if="local.isPlaying">
-                        <v-icon left>mdi-pause</v-icon>
-                        Pause
-                    </div>
-                    <div class="at-pause" v-else>
-                        <v-icon left>mdi-play</v-icon>
-                        Play
-                    </div>
-                </v-btn>
-
-                <v-btn class="ma-2 map-control-editor-button" @click="revertDirection">
-                    <v-icon v-if="local.isDirectionToRight">mdi-arrow-right</v-icon>
-                    <v-icon v-else>mdi-arrow-left</v-icon>
-                </v-btn>
-            </div>
-
-            <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="local.yearsInterval" />
-
-            <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="local.updateRateInMilliseconds" />
-
         </v-row>
 
         <v-row class="row-2" md="1">
@@ -63,16 +39,6 @@
             currentYear: Number,
             minYear: Number,
             maxYear: Number,
-
-            updateRateInMilliseconds: {
-                type: Number,
-                default: 1000 // 1 second
-            },
-
-            yearsInterval: {
-                type: Number,
-                default: 1 // years
-            }
         },
 
         data() {
@@ -82,28 +48,23 @@
 
                 resources: {
                     yearHeader: "Current Year:",
-                    intervalHeader: "Interval (years):",
-                    updateRateHeader: "Updates every (ms):"
                 },
 
                 local: {
-                    isPlaying: true,
-                    isDirectionToRight: true,
                     timer: '',
 
                     // These should be matched with props: { }
                     currentYear: this.currentYear,
                     minYear: this.minYear,
                     maxYear: this.maxYear,
-                    updateRateInMilliseconds: this.updateRateInMilliseconds,
-                    yearsInterval: this.yearsInterval
                 }
             };
         },
 
         async created() {
             try {
-                this.local.timer = setInterval(this.updateTimer, this.local.updateRateInMilliseconds);
+                console.log("editor created");
+
             } catch (e) {
                 let message = `An unexpected error occuurred in components/MapControlEditor.vue/async created.`;
                 alert(message);
@@ -112,27 +73,11 @@
             }
         },
 
-        methods: {
-            updateTimer: function () {
-                console.log("tick. tock.");
+        //methods: {
+        //},
 
-                if (this.local.isPlaying) {
+        //beforeDestroy() {
 
-                    if (this.local.isDirectionToRight)
-                        this.local.currentYear += this.local.yearsInterval;
-                    else
-                        this.local.currentYear -= this.local.yearsInterval;
-                }
-
-                this.$emit("update-year", this.local.currentYear);
-            },
-            cancelAutoUpdate() { clearInterval(this.local.timer); },
-            playOrPause: function () { this.local.isPlaying = !this.local.isPlaying; },
-            revertDirection: function () { this.local.isDirectionToRight = !this.local.isDirectionToRight; }
-        },
-
-        beforeDestroy() {
-            clearInterval(this.local.timer);
-        }
+        //}
     }
 </script>
