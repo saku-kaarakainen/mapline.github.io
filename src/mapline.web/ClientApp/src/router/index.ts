@@ -5,10 +5,17 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
+  // TODO: Should this be deleted? 
   {
     path: '/',
     name: 'Show',
-    component: () => import('../views/Map.vue')
+    component: () => import('../views/Show.vue')
+  },
+
+  {
+      path: '/edit',
+      name: 'Edit',
+      component: () => import('../views/Edit.vue')
   },
 
   // TODO: Delete
