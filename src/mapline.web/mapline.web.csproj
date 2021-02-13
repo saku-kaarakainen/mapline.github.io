@@ -62,7 +62,6 @@
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
 	  <Exec WorkingDirectory="$(SpaRoot)" Command="npm install leaflet vue2-leaflet vue-slider-component --save" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
