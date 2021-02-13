@@ -28,7 +28,7 @@
 
 <template>
     <div class="show-map-container">
-        <map-control class="slider-component"
+        <map-control-player class="slider-component"
                      v-bind:currentYear="-7000"
                      @update-year="updateYear"
                      v-bind:minYear=-7000
@@ -65,7 +65,7 @@
     import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
-    import MapControl from '@/components/MapControl.vue'
+    import MapControlPlayer from '@/components/MapControlPlayer.vue'
 
     export default {
         name: "VMap",
@@ -74,7 +74,7 @@
             LTileLayer,
             LGeoJson,
             FilterBar,
-            MapControl
+            MapControlPlayer
         },
         data() {
             return {

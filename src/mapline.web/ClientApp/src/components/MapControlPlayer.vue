@@ -1,5 +1,5 @@
 ﻿<style scoped>
-    #map-control-template {
+    #map-control-player-template {
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -14,12 +14,12 @@
 
 </style>
 <template>
-    <v-container id="map-control-template">
+    <v-container id="map-control-player-template">
         <v-row class="row-1">
 
             <v-text-field class="ma-2" :label="resources.yearHeader" v-model="pCurrentYear" />
 
-            <div class="map-control-buttons">
+            <div class="map-control-player-buttons">
                 <v-btn class="ma-2" @click="playOrPause">
                     <div class="playing" v-if="isPlaying">
                         <v-icon left>mdi-pause</v-icon>
@@ -31,7 +31,7 @@
                     </div>
                 </v-btn>
 
-                <v-btn class="ma-2 map-control-button" @click="revertDirection">
+                <v-btn class="ma-2 map-control-player-button" @click="revertDirection">
                     <v-icon v-if="isDirectionToRight">mdi-arrow-right</v-icon>
                     <v-icon v-else>mdi-arrow-left</v-icon>
                 </v-btn>
@@ -55,7 +55,7 @@
 <script lang="ts">
 
     export default {
-        name: 'map-control',       
+        name: 'map-control-player',       
         components: {
             
         },
@@ -101,8 +101,9 @@
                 // updates every second
                 this.timer = setInterval(this.updateTimer, this.pUpdateRateInMilliseconds);
             } catch (e) {
-                alert("An unexpected error occuurred in components/slider.vue/async created.");
-                console.log("An unexpected error occuurred in components/slider.vue/async created. The error:");
+                let message = `An unexpected error occuurred in components/MapControlPlayer.vue/async created.`;
+                alert(message);
+                console.log(`${message} The error:`);
                 console.log(e);
             }
         },
