@@ -22,8 +22,8 @@
         <v-row class="row-2" md="1">
             <v-range-slider id="ranged-slider"
                       v-model="local.yearRange"
-                      :min="local.minYear"
-                      :max="local.maxYear" />
+                      :min="local.scale.min"
+                      :max="local.scale.max" />
         </v-row>
     </v-container>
 </template>
@@ -37,9 +37,16 @@
         },
 
         props: {
-            currentYear: Number,
-            minYear: Number,
-            maxYear: Number,
+            startYear: { type: Number },
+            endYear: { type: Number },
+            scaleMin: {
+                type: Number,
+                default: -10000
+            },
+            scaleMax: {
+                type: Number,
+                default: 2021
+            }
         },
 
         data() {
@@ -53,6 +60,11 @@
                 },
 
                 local: {
+                    scale: {
+                        min: this.scaleMin.value,
+                        max: this.scaleMax.value,
+                    },
+
                     yearRange: [
                         -2000,
                         1500
