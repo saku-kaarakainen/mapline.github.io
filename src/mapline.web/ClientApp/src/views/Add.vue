@@ -68,6 +68,8 @@
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
     import MapControlEditor from '@/components/MapControlEditor.vue'
 
+    console.log("hello");
+
     export default {
         name: "VMap",
         components: {

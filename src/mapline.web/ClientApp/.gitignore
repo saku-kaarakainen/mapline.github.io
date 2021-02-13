@@ -1,9 +1,5 @@
 .DS_Store
 node_modules
-
-# This plugin is in the version control, because i made a bugfix here.
-!node_modules/vue2-leaflet-draw-toolbar
-
 /dist
 
 
