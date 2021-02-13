@@ -62,6 +62,13 @@
     <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
 	  <Exec WorkingDirectory="$(SpaRoot)" Command="npm install leaflet vue2-leaflet vue-slider-component --save" />
+
+    <!-- 'Copied' from ClientApp/package.json -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run serve" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run lint" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run lint --no-fix" />
+
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
@@ -69,6 +76,12 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
 	  <Exec WorkingDirectory="$(SpaRoot)" Command="npm install leaflet vue2-leaflet vue-slider-component --save" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+
+    <!-- 'Copied' from ClientApp/package.json -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run serve" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run lint" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run lint --no-fix" />
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
