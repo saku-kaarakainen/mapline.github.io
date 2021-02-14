@@ -1,1 +1,1 @@
-L.Toolbar2.EditAction.Control = {};
+window.L.Toolbar2.EditAction.Control = {};

@@ -1,4 +1,4 @@
-L.Toolbar2.EditAction.Popup.Edit = L.Toolbar2.Action.extend({
+window.L.Toolbar2.EditAction.Popup.Edit = window.L.Toolbar2.Action.extend({
 	options: {
 		toolbarIcon: { className: 'leaflet-draw-edit-edit' }
 	},
@@ -9,7 +9,7 @@ L.Toolbar2.EditAction.Popup.Edit = L.Toolbar2.Action.extend({
 		this._shape = shape;
 		this._shape.options.editing = this._shape.options.editing || {};
 
-		L.Toolbar2.Action.prototype.initialize.call(this, map, options);
+		window.L.Toolbar2.Action.prototype.initialize.call(this, map, options);
 	},
 
 	enable: function () {
@@ -25,12 +25,12 @@ L.Toolbar2.EditAction.Popup.Edit = L.Toolbar2.Action.extend({
 		}, this);
 	},
 
-	save: function() {
+	save: function () {
 		var map = this._map,
 			shape = this._shape;
 
 		if (shape.edited) {
-			map.fire(L.Draw.Event.EDITED, { layers: L.layerGroup([shape]) });
+			map.fire(window.L.Draw.Event.EDITED, { layers: window.L.layerGroup([shape]) });
 		}
 		shape.edited = false;
 	}

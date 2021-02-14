@@ -1,9 +1,9 @@
-L.Toolbar2.EditAction = {
+window.L.Toolbar2.EditAction = {
     fromHandler: function(Handler, defaultToolbarIcon, defaultSubToolbar) {
-        return L.Toolbar2.Action.extend({
+        return window.L.Toolbar2.Action.extend({
             options: {
-                toolbarIcon: L.extend({}, L.Toolbar2.Action.prototype.options.toolbarIcon, defaultToolbarIcon),
-                subToolbar: defaultSubToolbar ? defaultSubToolbar : L.Toolbar2.Action.prototype.options.subToolbar
+                toolbarIcon: window.L.extend({}, window.L.Toolbar2.Action.prototype.options.toolbarIcon, defaultToolbarIcon),
+                subToolbar: defaultSubToolbar ? defaultSubToolbar : window.L.Toolbar2.Action.prototype.options.subToolbar
             },
 
             initialize: function(map, featureGroup, options) {
@@ -17,22 +17,22 @@ L.Toolbar2.EditAction = {
                     action.disable();
                 });
 
-                L.Toolbar2.Action.prototype.initialize.call(this, options);
+                window.L.Toolbar2.Action.prototype.initialize.call(this, options);
             },
 
             enable: function(e) {
                 this._handler.enable();
-                L.Toolbar2.Action.prototype.enable.call(this, e);
+                window.L.Toolbar2.Action.prototype.enable.call(this, e);
             },
 
             disable: function() {
                 this._handler.disable();
-                L.Toolbar2.Action.prototype.disable.call(this);
+                window.L.Toolbar2.Action.prototype.disable.call(this);
             },
 
             setOptions: function(options) {
                 this._handler.setOptions(options);
-                L.Toolbar2.Action.prototype.setOptions.call(this, options);
+                window.L.Toolbar2.Action.prototype.setOptions.call(this, options);
             },
 
             // For the undo subaction.

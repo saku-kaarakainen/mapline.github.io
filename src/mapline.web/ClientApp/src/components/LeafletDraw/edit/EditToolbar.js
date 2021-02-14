@@ -1,1 +1,1 @@
-L.Toolbar2.EditToolbar = {};
+window.L.Toolbar2.EditToolbar = {};

@@ -55,14 +55,14 @@
             <!--<l-geo-json
                         :options="options"
                         :options-style="styleFunction" />-->
-            <l-draw-toolbar position="topright" />
+            <!--<l-draw-toolbar position="topright" />-->
         </l-map>
     </div>
 </template>
 
 <script lang="ts">
     import { latLng } from "leaflet";
-    import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
+    import { LMap, LTileLayer /*, LGeoJson */ } from "vue2-leaflet";
     import LDrawToolBar from '@/components/LeafletDraw/LeafletDrawToolBar.vue';
     import { Language } from '../models/Language';
     import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
@@ -73,7 +73,7 @@
         components: {
             LMap,
             LTileLayer,
-            LGeoJson,
+            //LGeoJson,
             LDrawToolBar,
             FilterBar,
             MapControlEditor

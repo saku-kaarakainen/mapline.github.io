@@ -1,4 +1,4 @@
-L.Toolbar2.EditAction.Popup.Delete = L.Toolbar2.Action.extend({
+window.L.Toolbar2.EditAction.Popup.Delete = window.L.Toolbar2.Action.extend({
 	options: {
 		toolbarIcon: { className: 'leaflet-draw-edit-remove' }
 	},
@@ -7,7 +7,7 @@ L.Toolbar2.EditAction.Popup.Delete = L.Toolbar2.Action.extend({
 		this._map = map;
 		this._shape = shape;
 
-		L.Toolbar2.Action.prototype.initialize.call(this, map, options);
+		window.L.Toolbar2.Action.prototype.initialize.call(this, map, options);
 	},
 
 	addHooks: function () {
@@ -17,6 +17,6 @@ L.Toolbar2.EditAction.Popup.Delete = L.Toolbar2.Action.extend({
 		map.removeLayer(this.toolbar);
 
 		console.log('firing draw:deleted');
-		map.fire(L.Draw.Event.DELETED, { layers: L.layerGroup([this._shape]) });
+		map.fire(window.L.Draw.Event.DELETED, { layers: window.L.layerGroup([this._shape]) });
 	}
 });

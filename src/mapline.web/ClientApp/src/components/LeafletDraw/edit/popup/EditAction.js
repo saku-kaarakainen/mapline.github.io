@@ -1,1 +1,1 @@
-L.Toolbar2.EditAction.Popup = {};
+window.L.Toolbar2.EditAction.Popup = {};

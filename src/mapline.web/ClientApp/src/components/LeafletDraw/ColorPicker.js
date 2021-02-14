@@ -1,4 +1,4 @@
-﻿L.ColorPicker = L.Toolbar2.Action.extend({
+﻿window.L.ColorPicker = window.L.Toolbar2.Action.extend({
 	options: {
 		toolbarIcon: { className: 'leaflet-color-swatch' }
 	},
@@ -7,8 +7,8 @@
 		this._map = map;
 		this._shape = shape;
 
-		L.setOptions(this, options);
-		L.Toolbar2.Action.prototype.initialize.call(this, map, options);
+		window.L.setOptions(this, options);
+		window.L.Toolbar2.Action.prototype.initialize.call(this, map, options);
 	},
 
 	addHooks: function () {
@@ -17,21 +17,21 @@
 	},
 
 	_createIcon: function (toolbar, container, args) {
-		var colorSwatch = L.DomUtil.create('div'),
+		var colorSwatch = window.L.DomUtil.create('div'),
 			width, height;
 
-		L.Toolbar2.Action.prototype._createIcon.call(this, toolbar, container, args);
+		window.L.Toolbar2.Action.prototype._createIcon.call(this, toolbar, container, args);
 
-		L.extend(colorSwatch.style, {
+		window.L.extend(colorSwatch.style, {
 			backgroundColor: this.options.color,
-			width: L.DomUtil.getStyle(this._link, 'width'),
-			height: L.DomUtil.getStyle(this._link, 'height'),
-			border: '3px solid ' + L.DomUtil.getStyle(this._link, 'backgroundColor')
+			width: window.L.DomUtil.getStyle(this._link, 'width'),
+			height: window.L.DomUtil.getStyle(this._link, 'height'),
+			border: '3px solid ' + window.L.DomUtil.getStyle(this._link, 'backgroundColor')
 		});
 
 		this._link.appendChild(colorSwatch);
 
-		L.DomEvent.on(this._link, 'click', function () {
+		window.L.DomEvent.on(this._link, 'click', function () {
 			this._map.removeLayer(this.toolbar.parentToolbar);
 		}, this);
 	}
