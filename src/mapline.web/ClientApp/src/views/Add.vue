@@ -1,18 +1,60 @@
-<template>
-    <div class="map-container">
-        <p v-if="loading">Loading...</p>
+<!--
+  Maybe one day I put these into separate file, but for now on the styles are here...
+  https://vuejs.org/v2/style-guide/#Component-style-scoping-essential
 
-        <l-map :zoom="zoom"
+  Component style coding / using the `scoped` attribute
+-->
+<style scoped>
+    .show-map-container {
+        height: 90%;
+        width: 100%;
+    }
+
+    .filter-bar-component {
+        display: inline-block;
+        width: 8%;
+        height: 100%;
+        vertical-align: top;
+    }
+
+    .l-map {
+        width: 90%;
+        height: 100%;
+        top: 0px;
+        display: inline-block;
+    }
+</style>
+
+<!--
+==============================    
+|| THIS IS THE EDIT PAGE    ||
+==============================
+-->
+<template>
+    <div class="show-map-container">
+        <map-control-editor 
+            class="slider-component"
+            v-bind:scaleMin="-10000"
+            v-bind:scaleMax="2021" />
+
+        <v-divider class="divider"></v-divider>
+
+        <filter-bar class="filter-bar-component"
+                    @filters-changed="filtersChange" />
+
+        <v-divider class="divider" vertical></v-divider>
+
+        <p v-if="loading">Loading...</p>
+        <l-map class="l-map"
+               :zoom="zoom"
                :center="center"
-               :options="mapOptions"
-               style="height: 100%">
+               :options="mapOptions">
             <l-tile-layer :url="url"
                           :attribution="attribution" />
 
-            <l-geo-json :geojson="languagesGeoJson"
+            <l-geo-json
                         :options="options"
                         :options-style="styleFunction" />
-
         </l-map>
     </div>
 </template>
@@ -21,13 +63,17 @@
     import { latLng } from "leaflet";
     import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
     import { Language } from '../models/Language';
+    import FilterBar from '@/components/FilterBar.vue' // @ is an alias to /src
+    import MapControlEditor from '@/components/MapControlEditor.vue'
 
     export default {
         name: "VMap",
         components: {
             LMap,
             LTileLayer,
-            LGeoJson
+            LGeoJson,
+            FilterBar,
+            MapControlEditor
         },
         data() {
             return {
@@ -45,6 +91,18 @@
                 marker: latLng(47.41322, -1.219482)
             };
         },
+
+        methods: {
+            updateYear(year) {
+                //console.log(`the year is: ${year}`)
+            },
+
+            filtersChange(filters) {
+                //console.log(`the filters are`);
+                //console.log(filters);
+            }
+        },
+
         computed: {
             options() {
                 return { onEachFeature: this.onEachFeatureFucntion };
@@ -100,16 +158,3 @@
         },
     };
 </script>
-
-<!--
-  Maybe one day I put these into separate file, but for now on the styles are here...
-  https://vuejs.org/v2/style-guide/#Component-style-scoping-essential
-
-  Component style coding / using the `scoped` attribute
--->
-<style scoped>
-    .map-container {
-        height: 100%;
-        width: 100%;
-    }
-</style>

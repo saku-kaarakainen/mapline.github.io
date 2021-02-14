@@ -13,9 +13,9 @@ const routes: Array<RouteConfig> = [
   },
 
   {
-      path: '/edit',
-      name: 'Edit',
-      component: () => import('../views/Edit.vue')
+      path: '/add',
+      name: 'Add',
+      component: () => import('../views/Add.vue')
   },
 
   // TODO: Delete
