@@ -1,8 +1,8 @@
-L.Toolbar2.DrawAction.Circle = L.Toolbar2.DrawAction.fromHandler(
-    L.Draw.Circle,
+window.L.Toolbar2.DrawAction.Circle = window.L.Toolbar2.DrawAction.fromHandler (
+   window.L.Draw.Circle,
     {
         className: 'leaflet-draw-draw-circle',
-        tooltip: L.drawLocal.draw.toolbar.buttons.circle
+        tooltip: window.L.drawLocal.draw.toolbar.buttons.circle
     },
-    new L.Toolbar2({ actions: [L.Toolbar2.DrawAction.Cancel] })
+    new window.L.Toolbar2({ actions: [window.L.Toolbar2.DrawAction.Cancel] })
 );
