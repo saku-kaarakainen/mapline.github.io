@@ -22,8 +22,8 @@
 
     mounted() {
       this.$nextTick(() => {
-        console.log("this.$parent");
-        console.log(this.$parent);
+        //console.log("this.$parent");
+        //console.log(this.$parent);
 
         const map = this.$parent.$parent.$refs.map.mapObject;
 

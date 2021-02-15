@@ -7,43 +7,43 @@ window.L.Toolbar2.EditAction = {
       },
 
       initialize: function (map, featureGroup, options) {
-        var action = this;
+        var action = this
 
-        options = options || {};
-        options.featureGroup = featureGroup;
+        options = options || {}
+        options.featureGroup = featureGroup
 
-        this._handler = new Handler(map, options);
+        this._handler = new Handler(map, options)
         this._handler.on('disabled', function () {
-          action.disable();
-        });
+          action.disable()
+        })
 
-        window.L.Toolbar2.Action.prototype.initialize.call(this, options);
+        window.L.Toolbar2.Action.prototype.initialize.call(this, options)
       },
 
       enable: function (e) {
-        this._handler.enable();
-        window.L.Toolbar2.Action.prototype.enable.call(this, e);
+        this._handler.enable()
+        window.L.Toolbar2.Action.prototype.enable.call(this, e)
       },
 
       disable: function () {
-        this._handler.disable();
-        window.L.Toolbar2.Action.prototype.disable.call(this);
+        this._handler.disable()
+        window.L.Toolbar2.Action.prototype.disable.call(this)
       },
 
       setOptions: function (options) {
-        this._handler.setOptions(options);
-        window.L.Toolbar2.Action.prototype.setOptions.call(this, options);
+        this._handler.setOptions(options)
+        window.L.Toolbar2.Action.prototype.setOptions.call(this, options)
       },
 
       // For the undo subaction.
       revertLayers: function () {
-        this._handler.revertLayers();
+        this._handler.revertLayers()
       },
 
       // For the save subaction.
       save: function () {
-        this._handler.save();
+        this._handler.save()
       }
-    });
+    })
   }
-};
+}
