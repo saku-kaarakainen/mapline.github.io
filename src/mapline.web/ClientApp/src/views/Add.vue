@@ -5,24 +5,24 @@
   Component style coding / using the `scoped` attribute
 -->
 <style scoped>
-  .show-map-container {
-    height: 90%;
-    width: 100%;
-  }
+.show-map-container {
+  height: 90%;
+  width: 100%;
+}
 
-  .filter-bar-component {
-    display: inline-block;
-    width: 8%;
-    height: 100%;
-    vertical-align: top;
-  }
+.filter-bar-component {
+  display: inline-block;
+  width: 8%;
+  height: 100%;
+  vertical-align: top;
+}
 
-  .l-map {
-    width: 90%;
-    height: 100%;
-    top: 0px;
-    display: inline-block;
-  }
+.l-map {
+  width: 90%;
+  height: 100%;
+  top: 0px;
+  display: inline-block;
+}
 </style>
 
 <!--
@@ -32,28 +32,21 @@
 -->
 <template>
   <div class="show-map-container">
-    <map-control-editor class="slider-component"
-                        v-bind:scaleMin="-10000"
-                        v-bind:scaleMax="2021" />
+    <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
 
     <v-divider class="divider"></v-divider>
 
-    <filter-bar class="filter-bar-component"
-                @filters-changed="filtersChange" />
+    <filter-bar class="filter-bar-component" @filters-changed="filtersChange" />
 
     <v-divider class="divider" vertical></v-divider>
 
     <p v-if="loading">Loading...</p>
-    <l-map class="l-map"
-           :zoom="zoom"
-           :center="center"
-           :options="mapOptions">
-      <l-tile-layer :url="url"
-                    :attribution="attribution" />
+    <l-map class="l-map" :zoom="zoom" :center="center" :options="mapOptions">
+      <l-tile-layer :url="url" :attribution="attribution" />
 
       <!--<l-geo-json
-                  :options="options"
-                  :options-style="styleFunction" />-->
+       :options="options"
+       :options-style="styleFunction" />-->
       <l-draw-toolbar position="topright" />
     </l-map>
   </div>
