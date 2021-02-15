@@ -20,7 +20,6 @@ namespace Mapline.Tests.Migration
             // Act
             var up = this.initialMigration.UpOperations.Last();
 
-
             // Assert
             Assert.NotNull(up);
         }

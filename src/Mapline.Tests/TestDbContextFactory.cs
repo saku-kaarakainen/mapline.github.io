@@ -10,50 +10,80 @@ namespace Mapline.Tests
 {
     public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>
     {
+        public MaplineDbContextSettings Settings { get; }
+
         private DbContextOptions<MaplineDbContext> options;
 
-        public TestDbContextFactory(string databaseName = "Mapline")
+        public TestDbContextFactory()
+            : this(new MaplineDbContextSettings())
         {
+
+        }
+
+        public TestDbContextFactory(MaplineDbContextSettings settings)
+        {
+            this.Settings = settings;
             this.options = new DbContextOptionsBuilder<MaplineDbContext>()
-                .UseInMemoryDatabase(databaseName)
+                .UseInMemoryDatabase(Settings.DatabaseName)
                 .Options;
 
-            using var initialData = CreateDbContext();
-            initialData.Languages.Add(new Language
+            if (Settings.InitializeData)
             {
-                Name = "Test1",
-                YearStart = -2000,
-                YearEnd = 0000
-            });
+                using var initialData = CreateDbContext();
+                initialData.Languages.Add(new Language
+                {
+                    Name = "Test1",
+                    YearStart = -2000,
+                    YearEnd = 0000
+                });
 
-            initialData.Languages.Add(new Language
-            {
-                Name = "Test2",
-                YearStart = -1000,
-                YearEnd = 1000
-            });
+                initialData.Languages.Add(new Language
+                {
+                    Name = "Test2",
+                    YearStart = -1000,
+                    YearEnd = 1000
+                });
 
-            initialData.SaveChanges();
+                initialData.SaveChanges();
+            }
         }
 
         public MaplineDbContext CreateDbContext()
         {
-            return new TestDbContext(options);
+            return new TestDbContext(options, Settings);
         }
     }
 
     public class TestDbContext : MaplineDbContext
     {
-        public TestDbContext(DbContextOptions<MaplineDbContext> options)
+        public MaplineDbContextSettings Settings { get; }
+
+        public TestDbContext(DbContextOptions<MaplineDbContext> options, MaplineDbContextSettings settings = null)
             : base(options)
         {
+            Settings = settings ?? new MaplineDbContextSettings { CreateModel = false };
 
+            if (!string.IsNullOrEmpty(Settings.LanguageFolder))
+            {
+                LanguageFolder = Settings.LanguageFolder;
+            }
         }
 
         // Empty class to override the actual data insert of MaplineDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-       
+            if(Settings.CreateModel)
+            {
+                base.OnModelCreating(modelBuilder);
+            }
         }
+    }
+
+    public class MaplineDbContextSettings
+    {
+        public string DatabaseName { get; set; } = "Mapline";
+        public bool InitializeData { get; set; } = true;
+        public bool CreateModel { get; set; } = false;
+        public string LanguageFolder { get; set; } = "./../../../../../data/Language";
     }
 }

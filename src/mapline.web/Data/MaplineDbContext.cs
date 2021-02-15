@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapline.Web.Utils; 
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Features;
 using NetTopologySuite.IO;
 using Newtonsoft.Json;
@@ -22,19 +23,23 @@ namespace Mapline.Web.Data
 
         public virtual DbSet<Language> Languages { get; set; }
 
+        protected string LanguageFolder { get; set; } = "..\\..\\data\\Language";
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            const string tableJsonSuffix = "\\table.json";
+            const string tableJsonSuffix = "\\features.json";
             const string areaJsonSuffix = "\\area.geojson";
-            const string languageFolder = "..\\..\\data\\Language";
 
             // name of the folder is the string identifier
-            var folders = Directory.GetDirectories(languageFolder);
+            var folders = Directory.GetDirectories(LanguageFolder);
             var languages = folders.Select(ToLanguage).Where(lang => lang != default);
             Language ToLanguage(string folder)
             {
-                var tableFilePath = folder + tableJsonSuffix;
-                var areaFilePath = folder + areaJsonSuffix;
+
+                var yearDirectory = Directory.GetDirectories(folder)[0];
+                
+                var tableFilePath = yearDirectory + tableJsonSuffix;
+                var areaFilePath = yearDirectory + areaJsonSuffix;
 
                 if (!File.Exists(tableFilePath))
                 {
@@ -49,7 +54,7 @@ namespace Mapline.Web.Data
                 using var readerTable = new StreamReader(tableFilePath);
                 using var readerArea = new StreamReader(areaFilePath);
 
-                var jsonTable = readerTable.ReadToEnd();
+                var featuresTable = readerTable.ReadToEnd();
                 var geoJsonArea = readerArea.ReadToEnd();
 
                 var geoJsonSerializer = GeoJsonSerializer.Create();
@@ -62,12 +67,19 @@ namespace Mapline.Web.Data
                     throw new NotSupportedException($"Right only one geometry is supported. Geometry count: {areaFeatures.Count}");
                 }
 
-                var language = Language.CreateFromJson(jsonTable);
-                language.Id = seedCounter++;
-                language.Name = folder.Replace(languageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\');
-                language.Area = areaFeatures.First().Geometry;
+                var years = yearDirectory.Replace(folder, "").TrimStart('\\');
+                var (start, end) = DirectoryHelper.ParseYearsFromTheFolderName(years);
 
-                return language;
+                return new Language()
+                {
+                    Id = seedCounter++,
+                    Name = folder.Replace(LanguageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\'),
+                    YearStart = start,
+                    YearEnd = end,
+                    Area = areaFeatures.First().Geometry,
+                    Features = System.Text.RegularExpressions.Regex.Replace(featuresTable, @"\t|\n|\r", "").Replace("   ", " "),
+                    AdditionalDetails = "{}"
+                };
             }
 
             modelBuilder.Entity<Language>()
