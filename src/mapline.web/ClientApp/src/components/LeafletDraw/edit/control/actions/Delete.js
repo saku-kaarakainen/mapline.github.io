@@ -1,5 +1,5 @@
 window.L.Toolbar2.EditAction.Control.Delete = window.L.Toolbar2.EditAction.fromHandler(
-  L.EditToolbar.Delete,
+  window.L.EditToolbar.Delete,
   {
     className: 'leaflet-draw-edit-remove',
     tooltip: 'Remove features'
