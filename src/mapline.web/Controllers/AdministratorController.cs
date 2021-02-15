@@ -20,9 +20,9 @@ namespace Mapline.Web.Controllers
         private readonly IDbContextFactory<MaplineDbContext> contextFactory;
         private readonly ILanguageHelper languageHelper;
 
-        public AdministratorController(ILogger<AdministratorController> logger
-            , IDbContextFactory<MaplineDbContext> contextFactory
-            , ILanguageHelper languageHelper)
+        public AdministratorController(ILogger<AdministratorController> logger, 
+            IDbContextFactory<MaplineDbContext> contextFactory, 
+            ILanguageHelper languageHelper)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));

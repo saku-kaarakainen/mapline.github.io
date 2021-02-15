@@ -65,7 +65,7 @@ namespace Mapline.Web.Data
                 YearEnd = end,
                 Area = ((FeatureCollection)files["area"]).ToGeometry(),
                 Features = files["features"].ToString(),
-                AdditionalDetails = files["additionalDetails"].ToString()
+                AdditionalDetails = "{}" // files["additionalDetails"].ToString()
             };
 
             return lang;
