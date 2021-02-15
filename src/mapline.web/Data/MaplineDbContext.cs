@@ -31,39 +31,14 @@ namespace Mapline.Web.Data
 
             // name of the folder is the string identifier
             var folders = Directory.GetDirectories(LanguageFolder);
-            var languages = folders.Select(ToLanguage).Where(lang => lang != default);
-            Language ToLanguage(string folder)
-            {
-
-                var yearDirectory = Directory.GetDirectories(folder)[0];
-                var files = Directory
-                    .GetFiles(yearDirectory)
-                    .Select(fileName => DirectoryHelper.CreateColumn(fileName, yearDirectory))
-                    .ToDictionary(key => key.Name, value => value.Value);
-
-                var years = yearDirectory.Replace(folder, "").TrimStart('\\');
-                var (start, end) = DirectoryHelper.ParseYearsFromTheFolderName(years);
-
-                var lang = new Language()
-                {
-                    Id = seedCounter++,
-                    Name = folder.Replace(LanguageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\'),
-                    YearStart = start,
-                    YearEnd = end,
-                    Area = ((FeatureCollection)files["area"]).ToGeometry(),
-                    Features = files["features"].ToString(),
-                    AdditionalDetails = "{}"
-                };
-
-                return lang;
-            }
+            var languages = folders
+                .Select(folder => LanguageHelper.Instance.FolderToLanguage(folder, ref seedCounter, LanguageFolder, areaJsonSuffix))
+                .Where(lang => lang != default);
 
             modelBuilder.Entity<Language>()
                 .ToTable("Language")
                 .HasData(languages)
             ;
-
-
         }
     }
 }
