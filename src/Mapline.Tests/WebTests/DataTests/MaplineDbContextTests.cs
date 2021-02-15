@@ -9,24 +9,31 @@ using Xunit;
 
 namespace Mapline.Tests.WebTests.DataTests
 {
-    public class MaplineDbContextTests
+    public class MaplineDbContextTests : IDisposable
     {
-        public MaplineDbContextTests()
-        {
-        }
+        private readonly TestDbContextFactory factory;
 
-        [Fact]
-        public void Test_CreateDbContextAndBuildModel()
+        public MaplineDbContextTests()
         {
             var settings = new MaplineDbContextSettings
             {
                 CreateModel = true,
                 InitializeData = true
             };
-            var factory = new TestDbContextFactory(settings);
-            var context = factory.CreateDbContext();
+            this.factory = new TestDbContextFactory(settings);
+        }
+
+        [Fact]
+        public void Test_CreateDbContextAndBuildModel()
+        {
+            var context = this.factory.CreateDbContext();
 
             Assert.NotNull(context);
+        }
+
+        public void Dispose()
+        {
+            this.factory.Dispose();
         }
 
     }

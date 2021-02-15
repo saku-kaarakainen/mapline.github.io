@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mapline.Tests
 {
-    public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>
+    public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>, IDisposable
     {
         public MaplineDbContextSettings Settings { get; }
 
@@ -51,6 +51,13 @@ namespace Mapline.Tests
         public MaplineDbContext CreateDbContext()
         {
             return new TestDbContext(options, Settings);
+        }
+
+        public void Dispose()
+        {
+            var db = new TestDbContext(options, Settings);           
+            db.Languages.RemoveRange(db.Languages);
+            db.SaveChanges();
         }
     }
 

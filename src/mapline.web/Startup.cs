@@ -38,6 +38,8 @@ namespace Mapline.Web
             });
 
 
+            services.AddScoped<ILanguageHelper, LanguageHelper>();
+
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(
                     Configuration.GetConnectionString("maplineConnectionString"), 
