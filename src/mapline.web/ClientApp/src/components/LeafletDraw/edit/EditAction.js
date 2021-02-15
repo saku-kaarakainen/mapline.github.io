@@ -7,7 +7,8 @@ window.L.Toolbar2.EditAction = {
       },
 
       initialize: function (map, featureGroup, options) {
-        var action = this
+        var action
+        action = this
 
         options = options || {}
         options.featureGroup = featureGroup
