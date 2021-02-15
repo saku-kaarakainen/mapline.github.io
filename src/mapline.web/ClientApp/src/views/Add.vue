@@ -41,7 +41,7 @@
     <v-divider class="divider" vertical></v-divider>
 
     <p v-if="loading">Loading...</p>
-    <l-map class="l-map" :zoom="zoom" :center="center" :options="mapOptions">
+    <l-map class="l-map" ref="map" :zoom="zoom" :center="center" :options="mapOptions">
       <l-tile-layer :url="url" :attribution="attribution" />
 
       <!--<l-geo-json
