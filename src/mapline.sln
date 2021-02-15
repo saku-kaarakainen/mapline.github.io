@@ -22,6 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{2639BF5F-093
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{F8AD880C-5FC9-4CCA-9567-7703C89607F1}"
+	ProjectSection(SolutionItems) = preProject
+		..\data\DATA-README.md = ..\data\DATA-README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Language", "Language", "{3CC8535C-C2B2-4924-9242-319B47CAD2ED}"
 EndProject
