@@ -53,7 +53,7 @@ export default {
 
         layer.on('click', function (event) {
           this.editMode = true
-          new L.Toolbar2.EditToolbar.Popup(event.latlng, {
+          new window.L.Toolbar2.EditToolbar.Popup(event.latlng, {
             actions: editActions
           }).addTo(map, layer);
         });
