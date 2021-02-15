@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -48,6 +49,38 @@ namespace Mapline.Web.Utils
             }
 
             throw new FormatException($"Unable to convert the value '{year}' into a integer number");
+        }
+
+
+        public static (string Name, object Value) CreateColumn(string filePath, string folderPart)
+        {
+            if(string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentException("the filename is null or empty", nameof(filePath));
+            }
+
+            if (string.IsNullOrEmpty(folderPart))
+            {
+                throw new ArgumentException("the filename is null or empty", nameof(folderPart));
+            }
+
+            // File.Exists check is not done, because we go in here thro Directory.GetFiles
+            var filename = filePath.Replace(folderPart, "").TrimStart('\\');
+
+            var index = filename.LastIndexOf('.');
+            var columnName = filename.Substring(0, index);
+            var columnType = filename.Substring(index + 1);
+
+            using var reader = new StreamReader(filePath);
+            string data = reader.ReadToEnd();
+
+            var columnValue = columnType switch
+            {
+                "geojson" => DataConverter.StringToGeoJson(data),
+                _ => (object)data
+            };
+
+            return (columnName, columnValue);
         }
     }
 }

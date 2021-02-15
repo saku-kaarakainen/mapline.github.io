@@ -21,7 +21,7 @@ namespace Mapline.Tests.WebTests.DataTests
             var settings = new MaplineDbContextSettings
             {
                 CreateModel = true,
-                InitializeData = false
+                InitializeData = true
             };
             var factory = new TestDbContextFactory(settings);
             var context = factory.CreateDbContext();
