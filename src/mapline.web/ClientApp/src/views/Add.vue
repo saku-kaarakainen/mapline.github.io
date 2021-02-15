@@ -47,7 +47,7 @@
       <!--<l-geo-json
        :options="options"
        :options-style="styleFunction" />-->
-      <l-draw-toolbar position="topright" />
+      <LDrawToolBar position="topright" />
     </l-map>
   </div>
 </template>
