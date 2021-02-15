@@ -32,24 +32,26 @@
 -->
 <template>
   <div class="show-map-container">
-    <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
+      <v-form ref="form" v-model="valid" @submit.prevent="onSubmit">
+        <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
+      </v-form>
+      <v-divider class="divider"></v-divider>
 
-    <v-divider class="divider"></v-divider>
+      <filter-bar class="filter-bar-component" @filters-changed="filtersChange" />
 
-    <filter-bar class="filter-bar-component" @filters-changed="filtersChange" />
+      <v-divider class="divider" vertical></v-divider>
 
-    <v-divider class="divider" vertical></v-divider>
+      <p v-if="loading">Loading...</p>
+      <l-map class="l-map" ref="map" :zoom="zoom" :center="center" :options="mapOptions">
+        <l-tile-layer :url="url" :attribution="attribution" />
 
-    <p v-if="loading">Loading...</p>
-    <l-map class="l-map" ref="map" :zoom="zoom" :center="center" :options="mapOptions">
-      <l-tile-layer :url="url" :attribution="attribution" />
-
-      <!--<l-geo-json
-       :options="options"
-       :options-style="styleFunction" />-->
-      <LDrawToolBar position="topright" />
-    </l-map>
+        <!--<l-geo-json
+      :options="options"
+      :options-style="styleFunction" />-->
+        <LDrawToolBar position="topright" />
+      </l-map>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -72,6 +74,7 @@
     },
     data() {
       return {
+        valid: false,
         loading: true,
         show: true,
         languagesGeoJson: null,
@@ -88,6 +91,16 @@
     },
 
     methods: {
+      onSubmit() {
+        console.log("SUBMIT");
+        console.log("LanguagesGeoJson");
+        console.log(this.languagesGeoJson);
+
+        console.log("this:")
+        console.log(this);
+
+      },
+
       updateYear(year) {
         //console.log(`the year is: ${year}`)
       },
@@ -143,7 +156,7 @@
         console.log("async create. data received:");
         console.log(data);
 
-        this.languagesGeoJson = data[0].area;
+        //this.languagesGeoJson = data[0].area;
         this.loading = false;
       } catch (e) {
         alert("An unexpected error occured in API handling...");
