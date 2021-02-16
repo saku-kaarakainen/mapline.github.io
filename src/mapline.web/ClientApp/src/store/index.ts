@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex, { StoreOptions } from 'vuex'
 import { RootState } from './types'
 import { counter } from './counter/index'
-import { editor } from '/editor/index'
+import { editor } from './editor/index'
 
 Vue.use(Vuex)
 
