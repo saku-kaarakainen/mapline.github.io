@@ -1,3 +1,7 @@
+export interface Language {
+  yearStart: number
+}
+
 export interface EditorState {
-  editor: number
+  language: Language
 }
