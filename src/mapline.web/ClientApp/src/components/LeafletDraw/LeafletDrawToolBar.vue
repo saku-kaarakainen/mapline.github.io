@@ -62,14 +62,6 @@ export default {
         layer.addTo(map);
 
         // 2021-02-16: Saku K - Save the layer to the store
-        console.log("getLatLngs");
-        var latLngs = layer.getLatLngs();
-        console.log(latLngs);
-
-        var area = window.L.GeometryUtil.geodesicArea(layer.getLatLngs());
-        console.log("area:");
-        console.log(area);
-
         store.dispatch({
           type: 'editor/updateAreaFromLayer',
           layer: layer
