@@ -48,19 +48,10 @@
     @Action('increment', { namespace })
     private incrementEditor!: () => void
 
-    @Action('reset', { namespace })
-    private resetEditor!: () => void
-
     private increment() {
       console.log("private increment");
 
       this.incrementEditor()
-    }
-
-    private reset() {
-      console.log("private reset")
-
-      this.resetEditor()
     }
   }
 

@@ -5,8 +5,5 @@ import { RootState } from '../types'
 export const actions: ActionTree<EditorState, RootState> = {
   increment({ commit }) {
     commit('incrementEditor')
-  },
-  reset({ commit }) {
-    commit('resetEditor')
   }
 }
