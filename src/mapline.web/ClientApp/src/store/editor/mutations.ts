@@ -2,8 +2,9 @@ import { MutationTree } from 'vuex'
 import { EditorState } from './types'
 
 export const mutations: MutationTree<EditorState> = {
-  updateYearRange(state, yearRange) {
-    state.language.yearRange = yearRange;
+  updateEditorData(state, payLoad) {
+    state.language.name = payLoad.name;
+    state.language.yearRange = payLoad.yearRange;    
   },
 
   updateAreaFromLayer(state, layer) {

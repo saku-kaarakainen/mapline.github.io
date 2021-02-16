@@ -8,10 +8,8 @@ import { LatLngBounds } from 'leaflet'
 
 export const state: EditorState = {
   language: {
-    yearRange: [
-      -3000, 
-      1500
-    ],
+    name: "",
+    yearRange: [ -3000, 1500 ],
     area: []
   }
 }
