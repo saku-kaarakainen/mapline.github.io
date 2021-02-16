@@ -59,6 +59,11 @@ export default {
         });
 
         layer.addTo(map);
+
+        //// 2021-02-16: Saku K - Pass layer to the parent
+        //console.log("this");
+        //console.log(this);
+        //this.$emit('createdLayer', layer);
       });
     })
   },

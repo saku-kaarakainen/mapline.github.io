@@ -6,7 +6,7 @@
 -->
 <style scoped>
 .show-map-container {
-  height: 90%;
+  height: 70%;
   width: 100%;
 }
 
@@ -48,7 +48,7 @@
         <!--<l-geo-json
       :options="options"
       :options-style="styleFunction" />-->
-        <LDrawToolBar position="topright" />
+        <LDrawToolBar position="topright" v-on:layerCreated="getLayer" />
       </l-map>
   </div>
 
@@ -91,9 +91,16 @@
     },
 
     methods: {
+      getLayer(value) {
+        console.log("this is the layer.");
+        console.log(value);
+      },
+
       onAddClick(value) {
         console.log("on child click:");
         console.log(value);
+
+        console.log(this.map);
 
 
         //var language = {
