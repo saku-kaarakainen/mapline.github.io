@@ -16,17 +16,19 @@
   <v-container id="map-control-editor-template">
     <v-row class="row-1">
       <div class="col-md-1">
-        <v-btn type="submit" v-on:click="add">{{ resources.save }}</v-btn>
+        <v-btn type="submit" @click.prevent="add">{{ resources.save }}</v-btn>
       </div>
       <div class="col-md-11">
-        <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="local.yearRange[0]" />
-        <v-text-field class="ma-2" :label="resources.yearEndHeader" v-model="local.yearRange[1]" />
+        <v-text-field class="ma-1" :label="resources.name" v-model="currentLanguage.name" />
+        <v-text-field class="ma-2" :label="resources.yearStart" v-model="currentLanguage.yearRange[0]" @input="update" />
+        <v-text-field class="ma-2" :label="resources.yearEnd" v-model="currentLanguage.yearRange[1]" @input="update" />
       </div>
     </v-row>
 
     <v-row class="row-2" md="1">
       <v-range-slider id="ranged-slider"
-                      v-model="local.yearRange"
+                      @input="update"
+                      v-model="currentLanguage.yearRange"
                       :min="scaleMin"
                       :max="scaleMax" />
     </v-row>
@@ -35,52 +37,52 @@
 
 
 <script lang="ts">
-  // Sadly I don't master typescript, so I just write plain js...
-  export default {
-    name: 'map-control-editor',
-    components: {},
-    props: {
-      scaleMin: { type: Number, default: -10000 },
-      scaleMax: { type: Number, default: 2021 }
-    },
+  import { Action, Getter, Mutation } from 'vuex-class'
+  import { Component, Vue, Prop } from 'vue-property-decorator'
+  import { Language } from '@/store/editor/types'
+  const namespace = 'editor'
 
-    data() {
-      return {
-        resources: {
-          save: "Save",
-          yearStartHeader: "Start Year:",
-          yearEndHeader: "End Year:"
-        },
+  // TODO: An actual resource editor
+  class EditorResorces {
+    save: string
+    name: string
+    yearStart: string
+    yearEnd: string
+  }
 
-        local: { yearRange: [this.scaleMin, this.scaleMax], }
-      };
-    },
+  @Component
+  export default class Editor extends Vue {
+    constructor() {
+      super()
+      this.resources = new EditorResorces();
+      this.resources.save = "Save";
+      this.resources.name = "Name";
+      this.resources.yearStart = "Start Year";
+      this.resources.yearEnd = "End Year";
+    }
 
-    async created() {
-      try {
-        console.log("editor created");
+    readonly resources: EditorResorces
 
-      } catch (e) {
-        let message = `An unexpected error occuurred in components/MapControlEditor.vue/async created.`;
-        alert(message);
-        console.log(`${message} The error:`);
-        console.log(e);
-      }
-    },
+    @Prop({ default: -10000 })
+    public scaleMin: number
 
-    methods: {
-      add() {
-        var editorData = {
-          yearStart: this.local.yearRange[0],
-          yearEnd: this.local.yearRange[1]
-        };
+    @Prop({ default: 2021 })
+    public scaleMax: number
 
-        this.$emit('add', editorData);
-      }
-    },
+    @Getter('currentLanguage', { namespace })
+    private currentLanguage!: Language
 
-    //beforeDestroy() {
+    @Mutation('updateEditorData', { namespace })
+    private updateEditorData!: (value: Language) => void
 
-    //}
+    public update(): void {
+      this.updateEditorData(this.currentLanguage);
+    }
+
+    public add(): void {
+      console.log(this.currentLanguage.name);
+      console.log(this.currentLanguage.area);
+      console.log(this.currentLanguage.yearRange);
+    }
   }
 </script>

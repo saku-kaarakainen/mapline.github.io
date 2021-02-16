@@ -32,8 +32,7 @@
 -->
 <template>
   <div class="show-map-container">
-      <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021"
-                          v-on:add="onAddClick" />
+      <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
  
       <v-divider class="divider"></v-divider>
 
@@ -49,6 +48,8 @@
       :options="options"
       :options-style="styleFunction" />-->
         <LDrawToolBar position="topright" v-on:layerCreated="getLayer" />
+
+        <v-btn typ="submit" @click.prevent="update" />
       </l-map>
   </div>
 
@@ -91,6 +92,11 @@
     },
 
     methods: {
+      update() {
+        console.log("languagesGeoJson:");
+        console.log(this.languagesGeoJson);
+      },
+
       getLayer(value) {
         console.log("this is the layer.");
         console.log(value);
