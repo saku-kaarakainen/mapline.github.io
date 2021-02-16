@@ -7,9 +7,10 @@
 <script>
 import L from 'leaflet-draw'
 import 'leaflet-toolbar'
-  import { ColorPicker } from './ColorPicker'
-  import { Draw } from './draw'
-  import { Edit } from './edit'
+import { ColorPicker } from './ColorPicker'
+import { Draw } from './draw'
+import { Edit } from './edit'
+import store from '@/store'
 
 export default {
   name: 'l-draw-toolbar',
@@ -60,10 +61,19 @@ export default {
 
         layer.addTo(map);
 
-        //// 2021-02-16: Saku K - Pass layer to the parent
-        //console.log("this");
-        //console.log(this);
-        //this.$emit('createdLayer', layer);
+        // 2021-02-16: Saku K - Save the layer to the store
+        console.log("getLatLngs");
+        var latLngs = layer.getLatLngs();
+        console.log(latLngs);
+
+        var area = window.L.GeometryUtil.geodesicArea(layer.getLatLngs());
+        console.log("area:");
+        console.log(area);
+
+        store.dispatch({
+          type: 'editor/updateAreaFromLayer',
+          layer: layer
+        });
       });
     })
   },
