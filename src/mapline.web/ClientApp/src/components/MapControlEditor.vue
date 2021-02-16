@@ -14,7 +14,7 @@
 </style>
 <template>
   <v-container id="map-control-editor-template">
-     <v-btn type="submit" @click.prevent="increment">Save to file</v-btn>
+     <v-btn type="submit" @click.prevent="add">Save</v-btn>
     <!--<v-row class="row-1">
       <div class="col-md-1">
         <v-btn type="submit" v-on:click="add">{ { resources.save } }</v-btn>
@@ -45,13 +45,11 @@
     @Getter('currentCount', { namespace })
     private currentCount!: number
 
-    @Action('increment', { namespace })
-    private incrementEditor!: () => void
+    @Action('add', { namespace })
+    private addLanguage!: () => void
 
-    private increment() {
-      console.log("private increment");
-
-      this.incrementEditor()
+    private add() {
+      this.addLanguage();
     }
   }
 
