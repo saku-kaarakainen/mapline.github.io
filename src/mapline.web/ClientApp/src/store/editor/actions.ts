@@ -5,5 +5,9 @@ import { RootState } from '../types'
 export const actions: ActionTree<EditorState, RootState> = {
   add({ commit }) {
     commit('addLanguage')
+  },
+
+  updateLanguage({ commit }, { language }) {
+    commit('updateLanguage', language)
   }
 }

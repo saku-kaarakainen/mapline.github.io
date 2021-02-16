@@ -7,7 +7,10 @@ import { RootState } from '../types'
 
 export const state: EditorState = {
   language: {
-    yearStart: 0
+    yearRange: [
+      -3000, 
+      1500
+    ]
   }
 }
 

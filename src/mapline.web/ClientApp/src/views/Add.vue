@@ -32,8 +32,7 @@
 -->
 <template>
   <div class="show-map-container">
-      <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021"
-                          v-on:add="onAddClick" />
+      <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
  
       <v-divider class="divider"></v-divider>
 

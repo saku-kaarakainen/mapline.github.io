@@ -1,5 +1,7 @@
 export interface Language {
-  yearStart: number
+  yearRange: Array<number>
+    // [0]: yearStart
+    // [1]: yearEnd
 }
 
 export interface EditorState {

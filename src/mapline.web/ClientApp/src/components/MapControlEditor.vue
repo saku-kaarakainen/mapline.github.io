@@ -14,36 +14,42 @@
 </style>
 <template>
   <v-container id="map-control-editor-template">
-     <v-btn type="submit" @click.prevent="add">Save</v-btn>
-    <!--<v-row class="row-1">
+     <!--<v-btn type="submit" @click.prevent="add">Save</v-btn>-->
+    <v-row class="row-1">
       <div class="col-md-1">
-        <v-btn type="submit" v-on:click="add">{ { resources.save } }</v-btn>
+        <v-btn type="submit" @click.prevent="add">Save</v-btn>
       </div>
       <div class="col-md-11">
-        <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="local.yearRange[0]" />
-        <v-text-field class="ma-2" :label="resources.yearEndHeader" v-model="local.yearRange[1]" />
+        <v-text-field class="ma-2" v-model="currentLanguage.yearRange[0]" @input="update" />
+        <v-text-field class="ma-2" v-model="currentLanguage.yearRange[1]" @input="update" />
       </div>
     </v-row>
 
     <v-row class="row-2" md="1">
       <v-range-slider id="ranged-slider"
-                      v-model="local.yearRange"
-                      :min="scaleMin"
-                      :max="scaleMax" />
-    </v-row>-->
+                      @input="update"
+                      v-model="currentLanguage.yearRange"
+                      :min="-10000"
+                      :max="2021" />
+    </v-row>
   </v-container>
 </template>
 
 
 <script lang="ts">
-  import { Action, Getter } from 'vuex-class'
+  import { Action, Getter, Mutation } from 'vuex-class'
   import { Component, Vue } from 'vue-property-decorator'
+  import { Language } from '@/store/editor/types'
   const namespace = 'editor'
 
   @Component
   export default class Editor extends Vue {
-    @Getter('currentCount', { namespace })
-    private currentCount!: number
+    @Getter('currentLanguage', { namespace })
+    private currentLanguage!: Language
+
+    @Mutation('updateLanguage', { namespace })
+    private updateLanguage!: (value: Language) => void
+
 
     @Action('add', { namespace })
     private addLanguage!: () => void
@@ -51,9 +57,13 @@
     private add() {
       this.addLanguage();
     }
+
+    public update(): void {
+      this.updateLanguage(this.currentLanguage);
+    }
   }
 
-  //// Sadly I don't master typescript, so I just write plain js...
+  // Sadly I don't master typescript, so I just write plain js...
   //export default {
   //  name: 'map-control-editor',
   //  components: {},
@@ -92,8 +102,6 @@
   //        yearStart: this.local.yearRange[0],
   //        yearEnd: this.local.yearRange[1]
   //      };
-
-  //      this.$emit('add', editorData);
   //    }
   //  },
 

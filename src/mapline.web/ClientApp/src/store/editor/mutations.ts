@@ -10,6 +10,10 @@ export const mutations: MutationTree<EditorState> = {
     console.log(state.language);
 
     console.log("yearStart");
-    console.log(state.language.yearStart);
+    console.log(state.language.yearRange[0]);
+  },
+
+  updateLanguage(state, language) {
+    state.language = language;
   }
 }
