@@ -50,14 +50,6 @@
     @Mutation('updateLanguage', { namespace })
     private updateLanguage!: (value: Language) => void
 
-
-    @Action('add', { namespace })
-    private addLanguage!: () => void
-
-    private add() {
-      this.addLanguage();
-    }
-
     public update(): void {
       this.updateLanguage(this.currentLanguage);
     }
