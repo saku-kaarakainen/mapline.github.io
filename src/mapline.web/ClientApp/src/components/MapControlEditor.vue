@@ -80,6 +80,7 @@
     }
 
     public add(): void {
+      // TODO: HTTP POST to admin controller
       console.log(this.currentLanguage.name);
       console.log(this.currentLanguage.area);
       console.log(this.currentLanguage.yearRange);
