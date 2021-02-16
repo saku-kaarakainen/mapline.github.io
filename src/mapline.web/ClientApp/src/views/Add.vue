@@ -32,9 +32,9 @@
 -->
 <template>
   <div class="show-map-container">
-      <v-form ref="form" v-model="valid" @submit.prevent="onSubmit">
-        <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
-      </v-form>
+      <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021"
+                          v-on:add="onAddClick" />
+ 
       <v-divider class="divider"></v-divider>
 
       <filter-bar class="filter-bar-component" @filters-changed="filtersChange" />
@@ -91,14 +91,21 @@
     },
 
     methods: {
-      onSubmit() {
-        console.log("SUBMIT");
-        console.log("LanguagesGeoJson");
-        console.log(this.languagesGeoJson);
+      onAddClick(value) {
+        console.log("on child click:");
+        console.log(value);
 
-        console.log("this:")
-        console.log(this);
 
+        //var language = {
+        //  Name: "",
+        //  GeoJsonFeatures: "", //GeoJson
+        //  YearStart: value.yearStart,
+        //  YearEnd: value.yearEnd,
+        //  Features: "",
+        //  AdditionalDetails: "",
+        //};
+        // Send above to POST /api/administrator/save/db
+        // Send above to POST /api/administrator/save/file
       },
 
       updateYear(year) {

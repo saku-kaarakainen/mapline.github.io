@@ -13,8 +13,7 @@ const store: StoreOptions<RootState> = {
     version: '1.0.0' // a simple property
   },
   modules: {
-    counter//,
-    //mapEditor
+    counter
   }
 }
 
