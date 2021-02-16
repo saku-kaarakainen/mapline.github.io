@@ -15,8 +15,13 @@
 <template>
   <v-container id="map-control-editor-template">
     <v-row class="row-1">
-      <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="local.yearRange[0]" />
-      <v-text-field class="ma-2" :label="resources.yearEndHeader" v-model="local.yearRange[1]" />
+      <div class="col-md-1">
+        <v-btn type="submit" v-on:click="add">{{ resources.save }}</v-btn>
+      </div>
+      <div class="col-md-11">
+        <v-text-field class="ma-2" :label="resources.yearStartHeader" v-model="local.yearRange[0]" />
+        <v-text-field class="ma-2" :label="resources.yearEndHeader" v-model="local.yearRange[1]" />
+      </div>
     </v-row>
 
     <v-row class="row-2" md="1">
@@ -31,7 +36,6 @@
 
 <script lang="ts">
   // Sadly I don't master typescript, so I just write plain js...
-
   export default {
     name: 'map-control-editor',
     components: {},
@@ -43,6 +47,7 @@
     data() {
       return {
         resources: {
+          save: "Save",
           yearStartHeader: "Start Year:",
           yearEndHeader: "End Year:"
         },
@@ -63,8 +68,16 @@
       }
     },
 
-    //methods: {
-    //},
+    methods: {
+      add() {
+        var editorData = {
+          yearStart: this.local.yearRange[0],
+          yearEnd: this.local.yearRange[1]
+        };
+
+        this.$emit('add', editorData);
+      }
+    },
 
     //beforeDestroy() {
 

@@ -26,10 +26,14 @@
     private resetCounter!: () => void
 
     private increment() {
+      console.log("private increment");
+
       this.incrementCounter()
     }
 
     private reset() {
+      console.log("private reset")
+
       this.resetCounter()
     }
   }

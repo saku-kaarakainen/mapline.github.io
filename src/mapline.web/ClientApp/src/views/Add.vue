@@ -6,7 +6,7 @@
 -->
 <style scoped>
 .show-map-container {
-  height: 90%;
+  height: 70%;
   width: 100%;
 }
 
@@ -32,24 +32,26 @@
 -->
 <template>
   <div class="show-map-container">
-    <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021" />
+      <map-control-editor class="slider-component" v-bind:scaleMin="-10000" v-bind:scaleMax="2021"
+                          v-on:add="onAddClick" />
+ 
+      <v-divider class="divider"></v-divider>
 
-    <v-divider class="divider"></v-divider>
+      <filter-bar class="filter-bar-component" @filters-changed="filtersChange" />
 
-    <filter-bar class="filter-bar-component" @filters-changed="filtersChange" />
+      <v-divider class="divider" vertical></v-divider>
 
-    <v-divider class="divider" vertical></v-divider>
+      <p v-if="loading">Loading...</p>
+      <l-map class="l-map" ref="map" :zoom="zoom" :center="center" :options="mapOptions">
+        <l-tile-layer :url="url" :attribution="attribution" />
 
-    <p v-if="loading">Loading...</p>
-    <l-map class="l-map" ref="map" :zoom="zoom" :center="center" :options="mapOptions">
-      <l-tile-layer :url="url" :attribution="attribution" />
-
-      <!--<l-geo-json
-       :options="options"
-       :options-style="styleFunction" />-->
-      <LDrawToolBar position="topright" />
-    </l-map>
+        <!--<l-geo-json
+      :options="options"
+      :options-style="styleFunction" />-->
+        <LDrawToolBar position="topright" v-on:layerCreated="getLayer" />
+      </l-map>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -72,6 +74,7 @@
     },
     data() {
       return {
+        valid: false,
         loading: true,
         show: true,
         languagesGeoJson: null,
@@ -88,6 +91,30 @@
     },
 
     methods: {
+      getLayer(value) {
+        console.log("this is the layer.");
+        console.log(value);
+      },
+
+      onAddClick(value) {
+        console.log("on child click:");
+        console.log(value);
+
+        console.log(this.map);
+
+
+        //var language = {
+        //  Name: "",
+        //  GeoJsonFeatures: "", //GeoJson
+        //  YearStart: value.yearStart,
+        //  YearEnd: value.yearEnd,
+        //  Features: "",
+        //  AdditionalDetails: "",
+        //};
+        // Send above to POST /api/administrator/save/db
+        // Send above to POST /api/administrator/save/file
+      },
+
       updateYear(year) {
         //console.log(`the year is: ${year}`)
       },
@@ -143,7 +170,7 @@
         console.log("async create. data received:");
         console.log(data);
 
-        this.languagesGeoJson = data[0].area;
+        //this.languagesGeoJson = data[0].area;
         this.loading = false;
       } catch (e) {
         alert("An unexpected error occured in API handling...");
