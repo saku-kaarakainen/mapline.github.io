@@ -14,7 +14,6 @@
 </style>
 <template>
   <v-container id="map-control-editor-template">
-     <!--<v-btn type="submit" @click.prevent="add">Save</v-btn>-->
     <v-row class="row-1">
       <div class="col-md-1">
         <v-btn type="submit" @click.prevent="add">{{ resources.save }}</v-btn>
