@@ -8,6 +8,6 @@ export const mutations: MutationTree<EditorState> = {
   },
 
   updateAreaFromLayer(state, layer) {
-    state.language.area = layer.getLatLngs();
+    state.language.area = layer.toGeoJSON();
   }
 }

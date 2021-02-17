@@ -11,7 +11,9 @@ namespace Mapline.Web.Data
 {
     public interface ILanguageHelper
     {
-        Task SaveLanguage(SaveLanguageModel language);
+        string LanguagePathFolder { get; set; }
+
+        Task SaveLanguageToFile(SaveLanguageModel language);
     }
 
     public class LanguageHelper : ILanguageHelper
@@ -22,9 +24,11 @@ namespace Mapline.Web.Data
         public static LanguageHelper Instance => lazyInstance.Value;
         #endregion
 
-        public string LanguagePathFolder { get; set; } = "./../../../../../data/Language/";
+        // The data will be save into generated folder, so that it won't mix with the 'production' data
+        // Now I just verify files manually before saving them into 'production' data.
+        public string LanguagePathFolder { get; set; } = "./../../data/Generated-Language/";
 
-        public async Task SaveLanguage(SaveLanguageModel language)
+        public async Task SaveLanguageToFile(SaveLanguageModel language)
         {
             // Save to:
             // {path-to-project}/data/Language/{language.Name}/{language.YearStart}-{language.YearEnd}
@@ -41,13 +45,37 @@ namespace Mapline.Web.Data
                 throw new InvalidOperationException($"Save cannot be done, because the geojson already exists in the given name / year range '{language.Name}/{years}/'");
             }
 
-            await DirectoryHelper.WriteAllTextIfDataAsync($"{path}/area.geojson", language.GeoJsonFeatures.ToString());
+            var geojson = EnsureDataIsFeatureCollectiion(language.GeoJson.ToString());
+
+            await DirectoryHelper.WriteAllTextIfDataAsync($"{path}/area.geojson", geojson);
             await DirectoryHelper.WriteAllTextIfDataAsync($"{path}/features.json", language.Features);
             await DirectoryHelper.WriteAllTextIfDataAsync($"{path}/additionalDetails", language.AdditionalDetails);
         }
 
-        public Language FolderToLanguage(string folder, ref int seedCounter, string LanguageFolder, string areaJsonSuffix)    {
+        public static string EnsureDataIsFeatureCollectiion(string json)
+        {
+            // First attempt, can be converted into FeatureCollection
+            var collection = DataConverter.DeserializeGeoJson<FeatureCollection>(json);            
+            if(collection != null && collection.Any())
+            {
+                return json;
+            }
 
+            var feature = DataConverter.DeserializeGeoJson<Feature>(json);
+            if(feature != null && feature.Geometry != null)
+            {
+                var featureCollection = new FeatureCollection { feature };
+                var geoJson = DataConverter.SerializeSpatialData(featureCollection);
+                var result = EnsureDataIsFeatureCollectiion(geoJson);
+
+                return result;
+            }
+
+            throw new InvalidOperationException($"The data can't be converted into FeatureCollection. The data: {json}");
+        }
+
+        public Language FolderToLanguage(string folder, ref int seedCounter, string LanguageFolder, string areaJsonSuffix)
+        {
             var yearDirectory = Directory.GetDirectories(folder)[0];
             var files = Directory
                 .GetFiles(yearDirectory)
@@ -64,8 +92,8 @@ namespace Mapline.Web.Data
                 YearStart = start,
                 YearEnd = end,
                 Area = ((FeatureCollection)files["area"]).ToGeometry(),
-                Features = files["features"].ToString(),
-                AdditionalDetails = "{}" // files["additionalDetails"].ToString()
+                Features = files.GetValueOrDefault<string>("features"),
+                AdditionalDetails =files.GetValueOrDefault<string>("additionalDetails")
             };
 
             return lang;
@@ -95,7 +123,7 @@ namespace Mapline.Web.Data
 
             var columnValue = columnType switch
             {
-                "geojson" => DataConverter.StringToGeoJson(data),
+                "geojson" => DataConverter.DeserializeGeoJson<FeatureCollection>(data),
                 _ => (object)data
             };
 

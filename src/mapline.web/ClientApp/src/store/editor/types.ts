@@ -1,11 +1,11 @@
-import { LatLng } from 'leaflet';
+import { GeoJSON } from 'leaflet';
 
 export interface Language {
   name: string
   yearRange: Array<number>
     // [0]: yearStart
     // [1]: yearEnd
-  area: Array<LatLng>
+  area: GeoJSON
 }
 
 export interface EditorState {
