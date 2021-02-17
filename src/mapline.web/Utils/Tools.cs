@@ -13,5 +13,11 @@ namespace Mapline.Web.Utils
             // Fastest option
             return (value + (value >> 31)) ^ (value >> 31);
         }
+
+        public static TType GetValueOrDefault<TType>(this Dictionary<string, object> dictionary, string key)
+        {
+            var value = CollectionExtensions.GetValueOrDefault(dictionary, key);
+            return (TType)value;
+        }
     }
 }

@@ -90,8 +90,8 @@ namespace Mapline.Web.Data
                 YearStart = start,
                 YearEnd = end,
                 Area = ((FeatureCollection)files["area"]).ToGeometry(),
-                Features = files["features"].ToString(),
-                AdditionalDetails = "{}" // files["additionalDetails"].ToString()
+                Features = files.GetValueOrDefault<string>("features"),
+                AdditionalDetails =files.GetValueOrDefault<string>("additionalDetails")
             };
 
             return lang;
