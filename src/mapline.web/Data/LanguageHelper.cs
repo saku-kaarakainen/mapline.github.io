@@ -24,7 +24,9 @@ namespace Mapline.Web.Data
         public static LanguageHelper Instance => lazyInstance.Value;
         #endregion
 
-        public string LanguagePathFolder { get; set; } = "./../../data/Language/";
+        // The data will be save into generated folder, so that it won't mix with the 'production' data
+        // Now I just verify files manually before saving them into 'production' data.
+        public string LanguagePathFolder { get; set; } = "./../../data/Generated-Language/";
 
         public async Task SaveLanguageToFile(SaveLanguageModel language)
         {
