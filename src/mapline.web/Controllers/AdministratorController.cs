@@ -36,9 +36,10 @@ namespace Mapline.Web.Controllers
             try
             {
                 this.logger.LogDebug("POST api/administrator/save/db");
-                using var db = this.contextFactory.CreateDbContext();
-                await db.Languages.AddAsync(language);
 
+                using var db = this.contextFactory.CreateDbContext();
+                
+                await db.Languages.AddModelAsync(language);
                 await db.SaveChangesAsync();
 
                 return Ok();
@@ -58,7 +59,7 @@ namespace Mapline.Web.Controllers
             {
                 this.logger.LogDebug("POST api/administrator/save/file");
 
-                await this.languageHelper.SaveLanguage(language);
+                await this.languageHelper.SaveLanguageToFile(language);
 
                 return Ok();
             }

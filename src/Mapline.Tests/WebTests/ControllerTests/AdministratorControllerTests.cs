@@ -17,22 +17,33 @@ namespace Mapline.Tests.WebTests.ControllerTests
 {
     public class AdministratorControllerTests
     {
+        private const string polygonPath = "./../../../data/";
+        private readonly Mock<ILanguageHelper> helperMock;
+        private readonly Mock<ILogger<AdministratorController>> loggerMock;
+
+        public AdministratorControllerTests()
+        {
+            this.loggerMock = new Mock<ILogger<AdministratorController>>();
+            this.helperMock = new Mock<ILanguageHelper>();
+            this.helperMock
+                .Setup(h => h.LanguagePathFolder)
+                .Returns("./../../../../../data/Language/");
+        }
+
         [Theory]
-        [InlineData(data: new object[] { "simplepolygon.geojson", -350, 1750, "test" })]
+        [InlineData(data: new object[] { "feature.geojson", -350, 1750, "test" })]
         public async Task Test_Post_SaveToDatabase(string filename, int? yearStart, int? yearEnd, string name)
         {
             // Arrange
             var language = new SaveLanguageModel
             {
-                Area = DataHelper.CreateFromFile(filename).ToGeometry(),
+                GeoJson = System.IO.File.ReadAllText($"{polygonPath}/{filename}"),
                 YearStart = yearStart,
                 YearEnd = yearEnd,
                 Name = name
             };
             var contextFactory = new TestDbContextFactory();
-            var loggerMock = new Mock<ILogger<AdministratorController>>();
-            var helperMock = new Mock<ILanguageHelper>();
-            var controller = new AdministratorController(loggerMock.Object, contextFactory, helperMock.Object);
+            var controller = new AdministratorController(this.loggerMock.Object, contextFactory, this.helperMock.Object);
 
             // Act
             var result = await controller.SaveToDatabase(language);
@@ -45,22 +56,20 @@ namespace Mapline.Tests.WebTests.ControllerTests
         }
 
         [Theory]
-        [InlineData(data: new object[] { "simplepolygon.geojson", -350, 1750, "test" })]
+        [InlineData(data: new object[] { "feature.geojson", -350, 1750, "test" })]
         public async Task Test_Post_SaveToFile(string filename, int? yearStart, int? yearEnd, string name)
         {
             // Arrange
             var language = new SaveLanguageModel
             {
-                GeoJsonFeatures = DataHelper.CreateFromFile(filename),
+                GeoJson = System.IO.File.ReadAllText($"{polygonPath}/{filename}"),
                 YearStart = yearStart,
                 YearEnd = yearEnd,
                 Name = name
             };
 
             var contextFactory = new TestDbContextFactory();
-            var loggerMock = new Mock<ILogger<AdministratorController>>();
-            var helperMock = new Mock<ILanguageHelper>();
-            var controller = new AdministratorController(loggerMock.Object, contextFactory, helperMock.Object);
+            var controller = new AdministratorController(this.loggerMock.Object, contextFactory, this.helperMock.Object);
 
             // Act
             var result = await controller.SaveToFile(language);

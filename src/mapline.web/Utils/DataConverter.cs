@@ -6,19 +6,42 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Mapline.Web.Utils
 {
     public static class DataConverter
     {
-        public static FeatureCollection StringToGeoJson(string data)
+        public static TResult DeserializeGeoJson<TResult>(string data)
         {
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new ArgumentException("The given data is null or empety", nameof(data));
+            }
+
             var geoJsonSerializer = GeoJsonSerializer.Create();
             using var geoJsonStringReader = new StringReader(data);
             using var geoJsonJsonReader = new JsonTextReader(geoJsonStringReader);
-            var geojson = geoJsonSerializer.Deserialize<FeatureCollection>(geoJsonJsonReader);
-            return geojson;
+            var spatial = geoJsonSerializer.Deserialize<TResult>(geoJsonJsonReader);
+            return spatial;
+        }
+
+        public static string SerializeSpatialData<TSpatial>(this TSpatial spatial)
+        {
+            if(spatial == null)
+            {
+                throw new ArgumentNullException(nameof(spatial), $"The spatial data of type '{spatial.GetType().Name}' is null.");
+            }
+
+            var geoJsonSerializer = GeoJsonSerializer.Create();
+            var stringBuilder = new StringBuilder();
+            using var geoJsonStringWriter = new StringWriter(stringBuilder);
+            using var geoJsonJsonWriter = new JsonTextWriter(geoJsonStringWriter);
+            geoJsonSerializer.Serialize(geoJsonJsonWriter, spatial);
+
+            var geoJson = stringBuilder.ToString();
+            return geoJson;
         }
 
         public static Geometry ToGeometry(this FeatureCollection features)

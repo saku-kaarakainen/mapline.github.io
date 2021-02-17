@@ -4,13 +4,14 @@ import { actions } from './actions'
 import { mutations } from './mutations'
 import { EditorState, Language } from './types'
 import { RootState } from '../types'
-import { LatLngBounds } from 'leaflet'
+import { GeoJSON } from 'leaflet'
 
 export const state: EditorState = {
   language: {
     name: "",
-    yearRange: [ -3000, 1500 ],
-    area: []
+    yearRange: [-3000, 1500],
+    area: {
+    }
   }
 }
 
