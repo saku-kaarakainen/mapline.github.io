@@ -15,10 +15,15 @@ using NetTopologySuite.Features;
 
 namespace Mapline.Web.Data
 {
+    public interface IFeatureable
+    {
+        Feature ToFeature();
+    }
+
     /// <summary>
     /// Database reprentation of Language.
     /// </summary>
-    public class Language
+    public class Language : IFeatureable
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -32,7 +37,17 @@ namespace Mapline.Web.Data
 
         public string Features { get; set; }
 
+
         public string AdditionalDetails { get; set; }
+
+        public Feature ToFeature() => new Feature(Area, new AttributesTable
+        {
+            { "name", Name },
+            { "yearStart", YearStart },
+            { "yearEnd", YearEnd },
+            { "languageProperties", Features },
+            { "AdditionalDetails", AdditionalDetails }
+        });        
     }
 }
 

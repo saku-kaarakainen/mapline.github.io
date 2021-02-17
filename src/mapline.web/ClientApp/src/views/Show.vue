@@ -149,7 +149,7 @@
                 console.log("async create. data received:");
                 console.log(data);
 
-                this.languagesGeoJson = data[0].area;
+                this.languagesGeoJson = data;
                 this.loading = false;
             } catch (e) {
                 alert("An unexpected error occured in API handling...");

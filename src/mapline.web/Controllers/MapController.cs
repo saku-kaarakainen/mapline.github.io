@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mapline.Web.Data;
 using Mapline.Web.Models;
+using NetTopologySuite.Features;
+using NetTopologySuite.Geometries;
 
 namespace Mapline.Web.Controllers
 {
@@ -25,12 +27,12 @@ namespace Mapline.Web.Controllers
 
         [Route("languages")]
         [HttpGet]
-        public async Task<IEnumerable<Language>> Languages()
+        public FeatureCollection Languages()
         {
             this.logger.LogDebug("GET api/map/languages");
 
             using var db = this.contextFactory.CreateDbContext();
-            return await db.Languages.ToListAsync();
+            return db.Languages.ToFeatureCollection();
         }
 
         [Route("filters")]

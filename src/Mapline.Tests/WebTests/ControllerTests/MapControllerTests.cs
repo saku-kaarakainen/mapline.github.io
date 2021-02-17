@@ -23,18 +23,18 @@ namespace Mapline.Tests.WebTests.ControllerTests
         [Theory]
         [InlineData(data: new object[] { "Test1", -2000 })] 
         [InlineData(data: new object[] { "Test2", -1000 })]
-        public async Task Test_Get(string name, int year)
+        public void Test_Get(string name, int year)
         {
             // Arrange
             var loggerMock = new Mock<ILogger<MapController>>();
             var controller = new MapController(loggerMock.Object, this.contextFactory);
 
             // Act
-            var result = await controller.Languages();
-            var language = result.Where(l => l.Name == name).First();
+            var result = controller.Languages();
+            var featureCollection = result.Where(l => name == (string)l.Attributes["name"]).First();
 
             // Assert
-            Assert.Equal(year, language.YearStart);
+            Assert.Equal(year, featureCollection.Attributes["yearStart"]);
         }
     }
 }
