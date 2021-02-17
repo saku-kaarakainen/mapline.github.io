@@ -119,10 +119,7 @@
     }
 
     public async save(url: string): Promise<void> {
-      if (!this.validate()) {
-        alert("Check your input");
-        return;
-      }
+      this.throwIfInvalid(); 
 
       var language = {
         Name: this.currentLanguage.name,
@@ -134,27 +131,22 @@
         await this.$axios.post<SaveLanguage>(url, language)
     }
 
-    private validate(): boolean {
+    private throwIfInvalid(): boolean {
       // name
-      if (!this.currentLanguage.name) {
-        console.log("validate: invalid name")
-        return false;
-      }
+      if (!this.currentLanguage.name) 
+        throw "Validation failed: invalid name";
+      
       // area
-      if (!this.currentLanguage.area) {
-        console.log("validate: invalid area")
-        return false;
-      }
+      if (!this.currentLanguage.area) 
+        throw "Validation failed: invalid area";
+      
       // year range
       if (!this.currentLanguage.yearRange
         || this.currentLanguage.yearRange.length != 2
-        || !this.currentLanguage.yearRange[0]
-        || !this.currentLanguage.yearRange[1]
-      ) {
-        console.log("validate: invalid years")
-        return false;
-      }
-      return true;
+        || this.currentLanguage.yearRange[0] === undefined
+        || this.currentLanguage.yearRange[1] === undefined) 
+        throw "Validation failed: invalid years";
+      
     }
   }
 </script>
