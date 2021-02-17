@@ -284,3 +284,6 @@ docs/_book
 test/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,vue
+
+# Generated data by the app
+data/Generated-Language
