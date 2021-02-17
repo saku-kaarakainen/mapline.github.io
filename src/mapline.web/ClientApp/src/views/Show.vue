@@ -29,12 +29,12 @@
 <template>
   <div class="show-map-container">
     <map-control-player class="slider-component"
-                        v-bind:currentYear="-7000"
-                        @update-year="updateYear"
-                        v-bind:minYear=-7000
-                        v-bind:maxYear=2021
-                        v-bind:updateRateInMilliseconds="1000"
-                        v-bind:yearsInterval="5" />
+                        current-year="-7000"
+                        @on-year-update="onYearUpdate"
+                        min-year=-7000
+                        max-year=2021
+                        update-rate-in-milliseconds="1000"
+                        years-interval="5" />
 
     <v-divider class="divider"></v-divider>
 
