@@ -50,9 +50,6 @@ namespace Mapline.Tests.WebTests.ControllerTests
 
             // Assert
             var viewResult = Assert.IsType<OkResult>(result);
-
-            // Teardown
-            contextFactory.Dispose();
         }
 
         [Theory]

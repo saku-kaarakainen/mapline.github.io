@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Mapline.Tests.WebTests.DataTests
 {
-    public class MaplineDbContextTests : IDisposable
+    public class MaplineDbContextTests 
     {
         private readonly TestDbContextFactory factory;
 
@@ -30,11 +30,5 @@ namespace Mapline.Tests.WebTests.DataTests
 
             Assert.NotNull(context);
         }
-
-        public void Dispose()
-        {
-            this.factory.Dispose();
-        }
-
     }
 }

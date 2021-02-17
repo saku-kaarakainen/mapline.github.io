@@ -31,7 +31,6 @@ namespace Mapline.Web.Data
         [JsonProperty(PropertyName = "geometry", ItemConverterType = typeof(GeometryConverter))]
         public virtual Geometry Area { get; set; }
                 
-        public int? YearCurrent { get; set; }
         public int? YearStart { get; set; }
         public int? YearEnd { get; set; }
 
