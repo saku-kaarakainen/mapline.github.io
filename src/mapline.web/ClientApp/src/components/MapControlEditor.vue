@@ -15,19 +15,7 @@
 <template>
   <v-container id="map-control-editor-template">
     <v-row class="row-0">
-      <v-progress-circular v-show="loadingIntoDb"
-                           indeterminate
-                           color="primary">
-      </v-progress-circular>
-      <v-alert type="success" v-show="addedToDb">Data added to the database</v-alert>
-      <v-alert type="error" v-show="addFailedToDb">Unable to add the data to the database</v-alert>
-
-      <v-progress-circular v-show="loadingIntoFile"
-                           indeterminate
-                           color="primary">
-      </v-progress-circular>
-      <v-alert type="success" v-show="addedToFile">Data added to File</v-alert>
-      <v-alert type="error" v-show="addFailedToFile">Unable to add the data to the file</v-alert>
+      <v-progress-circular v-show="loading" indeterminate color="primary"></v-progress-circular>
     </v-row>
 
 
@@ -78,21 +66,11 @@
       this.resources.yearStart = "Start Year";
       this.resources.yearEnd = "End Year";
 
-      this.loadingIntoDb = false;
-      this.loadingIntoFile = false;    
-      this.addedToDb = false;
-      this.addedToFile = false;
-      this.addFailedToDb = false;
-      this.addFailedToFile = false;
+      this.loading = false; 
     }
 
     readonly resources: EditorResorces
-    private loadingIntoDb: boolean
-    private loadingIntoFile: boolean    
-    private addedToDb: boolean
-    private addedToFile: boolean   
-    private addFailedToDb: boolean
-    private addFailedToFile: boolean
+    private loading: boolean  
 
     @Prop({ default: -10000 })
     public scaleMin: number
@@ -112,12 +90,12 @@
 
     public async saveToDb(): Promise<void> {
       try {
-        this.loadingIntoDb = true;
+        this.loading = true;
         await this.save('api/administrator/save/db');
-        this.loadingIntoDb = false;
-        this.addedToDb = true;
+        this.loading = false;
+
+        alert("Data added to the database");
       } catch (e) {
-        this.addFailedToDb = true;
         var message = "An error occurred while adding the map data.";
         alert(message);
         console.log(`${message} The error:`);
@@ -127,12 +105,12 @@
 
     public async saveToFile(): Promise<void> {
       try {
-        this.loadingIntoFile = true;
+        this.loading = true;
         await this.save('api/administrator/save/file');
-        this.loadingIntoFile = false;
-        this.addedToFile = true;
+        this.loading = false;
+
+        alert("Data added to the file");
       } catch (e) {
-        this.addFailedToFile = true;
         var message = "An error occurred while adding the map data.";
         alert(message);
         console.log(`${message} The error:`);

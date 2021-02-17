@@ -72,8 +72,8 @@ namespace Mapline.Web.Data
             throw new InvalidOperationException($"The data can't be converted into FeatureCollection. The data: {json}");
         }
 
-        public Language FolderToLanguage(string folder, ref int seedCounter, string LanguageFolder, string areaJsonSuffix)    {
-
+        public Language FolderToLanguage(string folder, ref int seedCounter, string LanguageFolder, string areaJsonSuffix)
+        {
             var yearDirectory = Directory.GetDirectories(folder)[0];
             var files = Directory
                 .GetFiles(yearDirectory)
