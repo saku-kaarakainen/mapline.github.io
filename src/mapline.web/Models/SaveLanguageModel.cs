@@ -46,9 +46,9 @@ namespace Mapline.Web.Models
             var feature =  DataConverter.DeserializeGeoJson<Feature>(model.GeoJson.ToString());
             model.Area = feature.Geometry;
 
-            if (Orientation.IsCCW(model.Area.Coordinates))
-            { 
-                model.Area.Reverse();
+            if (!Orientation.IsCCW(model.Area.Coordinates))
+            {
+                model.Area = model.Area.Reverse();
             }
 
             if(model.Area == null)
