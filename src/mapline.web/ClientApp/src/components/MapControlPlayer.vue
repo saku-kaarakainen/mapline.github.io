@@ -16,11 +16,11 @@
   <v-container id="map-control-player-template">
     <v-row class="row-1">
 
-      <v-text-field class="ma-2" :label="resources.yearHeader" v-model="_currentYear" />
+      <v-text-field class="ma-2" :label="resources.yearHeader" v-model="local_currentYear" />
 
       <div class="map-control-player-buttons">
-        <v-btn class="ma-2" @click="_playOrPause">
-          <div class="playing" v-if="_isPlaying">
+        <v-btn class="ma-2" @click="playOrPause">
+          <div class="playing" v-if="local_isPlaying">
             <v-icon left>mdi-pause</v-icon>
             Pause
           </div>
@@ -31,22 +31,22 @@
         </v-btn>
 
         <v-btn class="ma-2 map-control-player-button" @click="revertDirection">
-          <v-icon v-if="_isDirectionToRight">mdi-arrow-right</v-icon>
+          <v-icon v-if="local_isDirectionToRight">mdi-arrow-right</v-icon>
           <v-icon v-else>mdi-arrow-left</v-icon>
         </v-btn>
       </div>
 
-      <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="_yearsInterval" />
+      <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="local_yearsInterval" />
 
-      <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="_updateRateInMilliseconds" />
+      <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="local_updateRateInMilliseconds" />
 
     </v-row>
 
     <v-row class="row-2" md="1">
       <v-slider id="ranged-slider"
-                v-model="_currentYear"
-                :min="_minYear"
-                :max="_maxYear" />
+                v-model="local_currentYear"
+                :min="local_minYear"
+                :max="local_maxYear" />
     </v-row>
   </v-container>
 </template>
@@ -65,7 +65,7 @@
   export default class Player extends Vue {
     async created() {
       try {
-        this.localtimer = setInterval(this.localupdateTimer, this.localupdateRateInMilliseconds);
+        this.local_timer = setInterval(this.updateTimer, this.local_updateRateInMilliseconds);
       } catch (e) {
         let message = `An unexpected error occuurred in components/MapControlPlayer.vue/async created.`;
         alert(message);
@@ -83,62 +83,71 @@
       this.resources.intervalHeader = "Interval (years):",
       this.resources.updateRateHeader = "Updates every (ms):"
 
-      this.localisPlaying = true
-      this.localisDirectionToRight = true
-      this.localtimer = undefined
+      this.local_isPlaying = true
+      this.local_isDirectionToRight = true
+      this.local_timer = undefined
     }
 
     readonly resources: PlayerResources
 
     @Prop({})   
     public currentYear: number
-    private _currentYear = this.currentYear;
+    private local_currentYear: number = this.currentYear;
 
     @Prop()
     public minYear: number
-    private _minYear = this.minYear;
+    private local_minYear: number = this.minYear;
 
     @Prop()
     public maxYear: number
-    private _maxYear = this.maxYear;
+    private local_maxYear: number = this.maxYear;
 
     @Prop({ default: 1000 })
     public updateRateInMilliseconds: number
-    private _updateRateInMilliseconds = this.updateRateInMilliseconds;
+    private local_updateRateInMilliseconds: number = this.updateRateInMilliseconds;
 
     @Prop({ default: 1 })
     public yearsInterval: number
-    private _yearsInterval = this.yearsInterval;
+    private local_yearsInterval: number = this.yearsInterval;
 
-    private _isPlaying: boolean
-    private _isDirectionToRight: boolean
-    private _timer: number
+    private local_isPlaying: boolean
+    private local_isDirectionToRight: boolean
+    private local_timer: number
+
 
     private updateTimer(): void {
-      if (this.localisPlaying) {
-        if (this.localisDirectionToRight)
-          this.localcurrentYear += this.localyearsInterval;
-        else
-          this.localcurrentYear -= this.localyearsInterval;
-      }
+      var interval = parseInt(this.local_yearsInterval);
+      var year = parseInt(this.local_currentYear);
 
-      this.$emit("on-year-update", this.localcurrentYear);
+      if (this.local_isDirectionToRight)
+        year += interval;
+      else 
+        year -= interval;      
+
+      this.local_currentYear = year;
+      this.$emit("on-year-update", this.local_currentYear);
     }
 
     private cancelAutoUpdate(): void {
-      clearInterval(this.localtimer);
+      clearInterval(this.local_timer);
     }
 
     private playOrPause(): void {
-      this.localisPlaying = !this.localisPlaying;
+      this.local_isPlaying = !this.local_isPlaying;
+
+      if (this.local_isPlaying) {
+        this.local_timer = setInterval(this.updateTimer, this.local_updateRateInMilliseconds);
+      } else {
+        clearInterval(this.local_timer);
+      }
     }
 
     private revertDirection(): void {
-      this.localisDirectionToRight = !this.localisDirectionToRight;
+      this.local_isDirectionToRight = !this.local_isDirectionToRight;
     }
 
     beforeDestroy(): void {
-      clearInterval(this.localtimer);
+      clearInterval(this.local_timer);
     }
   }
 </script>

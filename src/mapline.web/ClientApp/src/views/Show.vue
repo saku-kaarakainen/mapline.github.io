@@ -38,8 +38,7 @@
 
     <v-divider class="divider"></v-divider>
 
-    <filter-bar class="filter-bar-component"
-                @filters-changed="filtersChange" />
+    <filter-bar class="filter-bar-component" />
 
     <v-divider class="divider" vertical></v-divider>
 
@@ -93,7 +92,7 @@
     },
 
     methods: {
-      updateYear(year) {
+      onYearUpdate(year) {
         if (year > -1000) {
           window.map.removeLayer(this.languagesGeoJson);
         }
