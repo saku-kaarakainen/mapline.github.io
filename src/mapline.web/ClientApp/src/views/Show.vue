@@ -86,7 +86,22 @@
         loading: true,
         show: true,
         languagesGeoJson: null,
-        hiddenLayers: [],
+        polygonStyles: {
+          hidden: {
+            weight: 2,
+            color: "rgba(0, 0, 0, 0)",
+            opacity: 0,
+            fillColor: "rgba(0, 0, 0, 0)",
+            fillOpacity: 0,
+          },
+          visible: {
+            weight: 2,
+            color: "#ECEFF1", // Orange
+            opacity: 1,
+            fillColor: "#e4ce7f", // blue
+            fillOpacity: 1
+          }
+        },
         errorMessage: 'An unexpected error occured while loading the information to the map.',
         languages: [] as Language[],
         zoom: 3,
@@ -94,7 +109,7 @@
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         mapOptions: {},
-        fillColor: "#e4ce7f", // blue
+        fillColor: "#e4ce7f", // blue // TODO: poista
         marker: latLng(47.41322, -1.219482)
       };
     },
@@ -116,48 +131,28 @@
       onYearUpdate(currentYear) {
         var map = this.$refs.map.mapObject;
 
-        //console.log("this.$refs.map.mapObject._layers:");
-        //console.log(this.$refs.map.mapObject._layers);
-
-        //update the data of geoJson
-        for (var i in this.languagesGeoJson.features) {
-          var language = this.languagesGeoJson.features[i].properties;       
-
-          if (language.yearStart <= currentYear && currentYear <= language.yearEnd) {
-            // add layer if not exists
-            this.languagesGeoJson.features[i].properties.show = true;
-
-          } else {
-            // remove layer if exists
-            this.languagesGeoJson.features[i].properties.show = true;
-          }
-        } 
+        console.log("his.$refs.map.mapObject._layers:");
+        console.log(this.$refs.map.mapObject._layers);
 
 
-
-        // show->show
-        // show->hide
-        console.log("layers:");
-        for (var j in map._layers) {
-          var layer = map._layers[j];
-          if (layer.feature === undefined)
+        for (var i in this.$refs.map.mapObject._layers) {
+          if (this.$refs.map.mapObject._layers[i].feature === undefined)
             continue;
 
-          // jos ID matchaa, ne on sama
-          // => siirrä ID poistettuihin, jos show = false
-          var updated = this.findFeaturePropertiesById(layer.feature.properties.identifier);
+          var language = this.$refs.map.mapObject._layers[i].feature.properties;
 
-          if (updated.show === false) {
-            console.log("piiloon");
-            this.hiddenLayers.push(layer);
-            map.removeLayer(layer);
+          // The polygon is hidden by overriding styles
+          if (language.yearStart <= currentYear && currentYear <= language.yearEnd) {
+            // show polygon 
+            this.$refs.map.mapObject._layers[i].feature.properties.show = true;
+            this.$refs.map.mapObject._layers[i].setStyle(this.polygonStyles.visible);
+
+          } else {
+            // hide polygon 
+            this.$refs.map.mapObject._layers[i].feature.properties.show = false;
+            this.$refs.map.mapObject._layers[i].setStyle(this.polygonStyles.hidden);
           }
-
-          console.log(layer.feature.properties.show);
-        }
-
-        // hide->show
-        // hide->hide
+        } 
       }
     },
 
@@ -169,6 +164,14 @@
       styleFunction() {
         const fillColor = this.fillColor; // important! need touch fillColor in computed for re-calculate when change fillColor
         return () => {
+          //var hidden = {
+          //  weight: 2,
+          //  color: "rgba(0, 0, 0, 0)",
+          //  opacity: 0, 
+          //  fillColor: fillColor,
+          //  fillOpacity: 0, 
+          //};
+
           return {
             weight: 2,
             color: "#ECEFF1", // Orange
