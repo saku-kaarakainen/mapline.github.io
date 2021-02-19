@@ -44,13 +44,20 @@
 
     <p v-if="loading">Loading...</p>
     <l-map class="l-map"
+           ref="map"
            :zoom="zoom"
            :center="center"
            :options="mapOptions">
       <l-tile-layer :url="url"
                     :attribution="attribution" />
 
-      <l-geo-json :geojson="languagesGeoJson"
+      <!--<l-geo-json v-for="feature in languagesGeoJson"
+              :key="feature.index"
+              :geojson="languagesGeoJson"
+              :options="options"
+              :options-style="styleFunction" />-->
+      <l-geo-json 
+                  :geojson="languagesGeoJson"
                   :options="options"
                   :options-style="styleFunction" />
     </l-map>
@@ -79,6 +86,7 @@
         loading: true,
         show: true,
         languagesGeoJson: null,
+        hiddenLayers: [],
         errorMessage: 'An unexpected error occured while loading the information to the map.',
         languages: [] as Language[],
         zoom: 3,
@@ -92,10 +100,64 @@
     },
 
     methods: {
-      onYearUpdate(year) {
-        if (year > -1000) {
-          window.map.removeLayer(this.languagesGeoJson);
+      findFeaturePropertiesById(id) {
+        var language = undefined;
+        for (var i in this.languagesGeoJson.features) {
+          var feature = this.languagesGeoJson.features[i];
+
+          if (feature.properties.identifier == id)
+            return feature.properties;
+
         }
+
+        return language;
+      },
+
+      onYearUpdate(currentYear) {
+        var map = this.$refs.map.mapObject;
+
+        //console.log("this.$refs.map.mapObject._layers:");
+        //console.log(this.$refs.map.mapObject._layers);
+
+        //update the data of geoJson
+        for (var i in this.languagesGeoJson.features) {
+          var language = this.languagesGeoJson.features[i].properties;       
+
+          if (language.yearStart <= currentYear && currentYear <= language.yearEnd) {
+            // add layer if not exists
+            this.languagesGeoJson.features[i].properties.show = true;
+
+          } else {
+            // remove layer if exists
+            this.languagesGeoJson.features[i].properties.show = true;
+          }
+        } 
+
+
+
+        // show->show
+        // show->hide
+        console.log("layers:");
+        for (var j in map._layers) {
+          var layer = map._layers[j];
+          if (layer.feature === undefined)
+            continue;
+
+          // jos ID matchaa, ne on sama
+          // => siirrä ID poistettuihin, jos show = false
+          var updated = this.findFeaturePropertiesById(layer.feature.properties.identifier);
+
+          if (updated.show === false) {
+            console.log("piiloon");
+            this.hiddenLayers.push(layer);
+            map.removeLayer(layer);
+          }
+
+          console.log(layer.feature.properties.show);
+        }
+
+        // hide->show
+        // hide->hide
       }
     },
 
@@ -138,7 +200,16 @@
       try {
         this.loading = true;
         const response = await this.$axios.get<Language[]>('api/map/languages');
-        this.languagesGeoJson = await response.data;
+
+        this.languagesGeoJson = await response.data; 
+        //var features = await response.data.features;
+        //this.languagesGeoJson = [];
+
+        //for (var i = 0; i < features.length; i++) {
+        //  features[i].show = false;
+        //  this.languagesGeoJson.push(features[i]);
+        //}
+
         this.loading = false;
       } catch (e) {
         alert("An unexpected error occured in API handling...");

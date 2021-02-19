@@ -47,7 +47,7 @@
         <!--<l-geo-json
       :options="options"
       :options-style="styleFunction" />-->
-        <LDrawToolBar position="topright" v-on:layerCreated="getLayer" />
+        <LDrawToolBar position="topright" />
 
         <v-btn typ="submit" @click.prevent="update" />
       </l-map>
@@ -95,11 +95,6 @@
       update() {
         console.log("languagesGeoJson:");
         console.log(this.languagesGeoJson);
-      },
-
-      getLayer(value) {
-        console.log("this is the layer.");
-        console.log(value);
       },
 
       onAddClick(value) {
