@@ -38,7 +38,6 @@ namespace Mapline.Web.Data
         // to ignore specific properties, use either Attributes or Func<T>
         public Feature ToFeature() => new Feature(Area, new AttributesTable
         {
-            { "identifier", Id }, // TODO: Delete this row, its unnecessary now.
             { "name", Name },
             { "yearStart", YearStart },
             { "yearEnd", YearEnd },
