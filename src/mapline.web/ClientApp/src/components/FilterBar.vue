@@ -24,7 +24,7 @@
     name: 'filter-bar',
 
     methods: {
-      filterChange: function (e) {
+      filtersChanged: function (e) {
         //console.log(this.filters, e);
       }
     },

@@ -15,11 +15,6 @@ using NetTopologySuite.Features;
 
 namespace Mapline.Web.Data
 {
-    public interface IFeatureable
-    {
-        Feature ToFeature();
-    }
-
     /// <summary>
     /// Database reprentation of Language.
     /// </summary>
@@ -36,17 +31,19 @@ namespace Mapline.Web.Data
 
         public string Features { get; set; }
 
-
         public string AdditionalDetails { get; set; }
 
+        // TODO: Make this more dynamic // using system.reflection
+        // Then, remove the interface and make this an extension method
+        // to ignore specific properties, use either Attributes or Func<T>
         public Feature ToFeature() => new Feature(Area, new AttributesTable
         {
             { "name", Name },
             { "yearStart", YearStart },
             { "yearEnd", YearEnd },
             { "languageProperties", Features },
-            { "AdditionalDetails", AdditionalDetails }
-        });        
+            { "additionalDetails", AdditionalDetails }
+        });
     }
 }
 
