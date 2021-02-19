@@ -29,12 +29,13 @@
 <template>
   <div class="show-map-container">
     <map-control-player class="slider-component"
-                        current-year="-7000"
+                        :current-year="mapControlPlayer.initialYear"
                         @on-year-update="onYearUpdate"
-                        min-year=-7000
-                        max-year=2021
-                        update-rate-in-milliseconds="1000"
-                        years-interval="5" />
+                        :min-year="mapControlPlayer.minYear"
+                        :max-year="mapControlPlayer.maxYear"
+                        :update-rate-in-milliseconds="mapControlPlayer.updateRateInMilliseconds"
+                        :years-interval="mapControlPlayer.yearsInterval"
+                        />
 
     <v-divider class="divider"></v-divider>
 
@@ -86,6 +87,14 @@
         loading: true,
         show: true,
         languagesGeoJson: null,
+        mapControlPlayer: {
+          initialYear: -7000,
+          onYearUpdate: "onYearUpdate",
+          minYear: -7000,
+          maxYear: 2021,
+          updateRateInMilliseconds: 1000,
+          yearsInterval: 5
+        },
         polygonStyles: {
           hidden: {
             weight: 2,
@@ -138,7 +147,7 @@
 
     computed: {
       options() { return { onEachFeature: this.onEachFeatureFucntion }; },
-      styleFunction() { return this.polygonStyles.visible; },
+      styleFunction() { return this.polygonStyles.hidden; },
 
       onEachFeatureFunction() {
         if (!this.enableTooltip) {
@@ -160,6 +169,7 @@
         const response = await this.$axios.get<Language[]>('api/map/languages');
 
         this.languagesGeoJson = await response.data; 
+        this.onYearUpdate(this.mapControlPlayer.initialYear);
 
         this.loading = false;
       } catch (e) {
