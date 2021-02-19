@@ -38,7 +38,7 @@
 
       <v-text-field class="ma-2" :label="resources.intervalHeader" v-model="local_yearsInterval" />
 
-      <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="local_updateRateInMilliseconds" />
+      <v-text-field class="ma-2" :label="resources.updateRateHeader" v-model="local_updateRateInMilliseconds" v-on:change="updateInterval" />
 
     </v-row>
 
@@ -65,7 +65,7 @@
   export default class Player extends Vue {
     async created() {
       try {
-        this.local_timer = setInterval(this.updateTimer, this.local_updateRateInMilliseconds);
+        this.updateInterval();
       } catch (e) {
         let message = `An unexpected error occuurred in components/MapControlPlayer.vue/async created.`;
         alert(message);
@@ -132,13 +132,16 @@
       clearInterval(this.local_timer);
     }
 
-    private playOrPause(): void {
+    private playOrPause(): void {    
       this.local_isPlaying = !this.local_isPlaying;
+      this.updateInterval();
+    }
+
+    private updateInterval(): void {
+      clearInterval(this.local_timer);
 
       if (this.local_isPlaying) {
         this.local_timer = setInterval(this.updateTimer, this.local_updateRateInMilliseconds);
-      } else {
-        clearInterval(this.local_timer);
       }
     }
 
