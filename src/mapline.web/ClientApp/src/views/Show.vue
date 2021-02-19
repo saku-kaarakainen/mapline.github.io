@@ -109,32 +109,12 @@
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         mapOptions: {},
-        fillColor: "#e4ce7f", // blue // TODO: poista
         marker: latLng(47.41322, -1.219482)
       };
     },
 
     methods: {
-      findFeaturePropertiesById(id) {
-        var language = undefined;
-        for (var i in this.languagesGeoJson.features) {
-          var feature = this.languagesGeoJson.features[i];
-
-          if (feature.properties.identifier == id)
-            return feature.properties;
-
-        }
-
-        return language;
-      },
-
       onYearUpdate(currentYear) {
-        var map = this.$refs.map.mapObject;
-
-        console.log("his.$refs.map.mapObject._layers:");
-        console.log(this.$refs.map.mapObject._layers);
-
-
         for (var i in this.$refs.map.mapObject._layers) {
           if (this.$refs.map.mapObject._layers[i].feature === undefined)
             continue;
@@ -157,34 +137,11 @@
     },
 
     computed: {
-      options() {
-        return { onEachFeature: this.onEachFeatureFucntion };
-      },
-
-      styleFunction() {
-        const fillColor = this.fillColor; // important! need touch fillColor in computed for re-calculate when change fillColor
-        return () => {
-          //var hidden = {
-          //  weight: 2,
-          //  color: "rgba(0, 0, 0, 0)",
-          //  opacity: 0, 
-          //  fillColor: fillColor,
-          //  fillOpacity: 0, 
-          //};
-
-          return {
-            weight: 2,
-            color: "#ECEFF1", // Orange
-            opacity: 1,
-            fillColor: fillColor,
-            fillOpacity: 1
-          };
-        };
-      },
+      options() { return { onEachFeature: this.onEachFeatureFucntion }; },
+      styleFunction() { return this.polygonStyles.visible; },
 
       onEachFeatureFunction() {
         if (!this.enableTooltip) {
-          // return () => { };
           return;
         }
 
@@ -195,8 +152,6 @@
           );
         };
       },
-
-
     },
 
     async created() {
@@ -205,13 +160,6 @@
         const response = await this.$axios.get<Language[]>('api/map/languages');
 
         this.languagesGeoJson = await response.data; 
-        //var features = await response.data.features;
-        //this.languagesGeoJson = [];
-
-        //for (var i = 0; i < features.length; i++) {
-        //  features[i].show = false;
-        //  this.languagesGeoJson.push(features[i]);
-        //}
 
         this.loading = false;
       } catch (e) {
