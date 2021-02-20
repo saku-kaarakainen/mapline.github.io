@@ -21,7 +21,6 @@
       ]
     },
     "lib": [
-      "ES2015",
       "esnext",
       "dom",
       "dom.iterable",
