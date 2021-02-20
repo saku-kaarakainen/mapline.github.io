@@ -27,8 +27,10 @@
       </div>
       <div class="col-md-11">
         <v-text-field class="ma-1" :label="resources.name" v-model="currentLanguage.name" />
-        <v-text-field class="ma-2" :label="resources.yearStart" v-model="currentLanguage.yearRange[0]" @input="update" />
-        <v-text-field class="ma-2" :label="resources.yearEnd" v-model="currentLanguage.yearRange[1]" @input="update" />
+        
+        <!-- these components seems to crash if the v-model value is only "-". -->
+        <v-text-field class="ma-2" :label="resources.yearStart" type="number" v-model="local_yearRange[0]" @input="update" />
+        <v-text-field class="ma-2" :label="resources.yearEnd" type="number" v-model="local_yearRange[1]" @input="update" />
       </div>
     </v-row>
 
@@ -48,7 +50,9 @@
   import { Component, Vue, Prop } from 'vue-property-decorator'
   import { Language } from '@/store/editor/types'
   import { SaveLanguage } from '../models/SaveLanguage'
+  import store from '@/store'
   const namespace = 'editor'
+
 
   // TODO: An actual resource editor
   class EditorResorces {
@@ -66,7 +70,9 @@
       this.resources.yearStart = "Start Year";
       this.resources.yearEnd = "End Year";
 
-      this.loading = false; 
+      this.loading = false;
+
+      this.local_yearRange = new Array<number>(0, 0);
     }
 
     readonly resources: EditorResorces
@@ -81,10 +87,19 @@
     @Getter('currentLanguage', { namespace })
     private currentLanguage!: Language    
 
+    private local_yearRange: Array<number>;
+
     @Mutation('updateEditorData', { namespace })
     private updateEditorData!: (value: Language) => void
 
     public update(): void {
+      for (var i in this.local_yearRange) {
+        if (isNaN(this.local_yearRange[i])) {
+          this.local_yearRange[i] = 0;
+        }
+      }
+
+      this.currentLanguage.yearRange = this.local_yearRange;
       this.updateEditorData(this.currentLanguage);
     }
 
@@ -143,8 +158,8 @@
       // year range
       if (!this.currentLanguage.yearRange
         || this.currentLanguage.yearRange.length != 2
-        || this.currentLanguage.yearRange[0] === undefined
-        || this.currentLanguage.yearRange[1] === undefined) 
+        || isNaN(this.currentLanguage.yearRange[0])
+        || isNaN(this.currentLanguage.yearRange[1])) 
         throw "Validation failed: invalid years";
       
     }
