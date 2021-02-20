@@ -33,9 +33,10 @@ namespace Mapline.Web.Data
 
         public string AdditionalDetails { get; set; }
 
-        // TODO: Make this more dynamic // using system.reflection
-        // Then, remove the interface and make this an extension method
-        // to ignore specific properties, use either Attributes or Func<T>
+        // 2021-02-20: You would be able to create this as more dynamic, using System.Reflection
+        // However I don't recommend it. It would require, not just code redesign, but it would drop reliability.
+        // It wouldn't bring any other benenfit, than just you don't need to write yourself ToFeature method.
+        // You would need to specify anyway which properties to ne ignored and which not. This is the safest, and probably the cleanest option
         public Feature ToFeature() => new Feature(Area, new AttributesTable
         {
             { "name", Name },
