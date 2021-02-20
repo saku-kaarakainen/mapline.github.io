@@ -44,7 +44,7 @@
 
 
 <script lang="ts">
-  import { mapActions, mapGetters, mapMutations } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import { Action, Getter, Mutation } from 'vuex-class'
   import { Component, Vue, Prop } from 'vue-property-decorator'
   import { Language } from '@/store/editor/types'
@@ -78,18 +78,13 @@
 
     computed: {
       ...mapGetters({ currentLanguage: 'editor/currentLanguage' }),
-      //...mapActions({ updateEditorData: 'editor/updateEditorData' }),
+      ...mapMutations({ updateEditorData: 'editor/updateEditorData' }),
     },
 
     methods: {
 
       update(): void {
-        // I don't know why ...mapActions with the param doesn't work. So i us more straighforward solution...
-        //this.updateEditorData(this.currentLanguage);
-        store.dispatch({
-          type: 'editor/updateEditorData',
-          language: this.currentLanguage
-        });
+        this.updateEditorData(this.local_currentLanguage);
       },
 
       async saveToDb() {
