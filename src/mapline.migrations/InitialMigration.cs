@@ -17,7 +17,7 @@ namespace Mapline.Migrations
         {
             migrationBuilder.CreateTable(
                 name: "Language",
-                columns: table => new
+                columns: table => new 
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy",
@@ -30,13 +30,33 @@ namespace Mapline.Migrations
                     YearEnd = table.Column<int>(nullable: true),
                     Features = table.Column<string>(nullable: true), // JSON
                     AdditionalDetails = table.Column<string>(nullable: true), // JSON
-                 },
+
+                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Language_Id", l => l.Id);
                     table.PrimaryKey("PK_Language_Name", l => l.Name);
                 }
             );
+
+            migrationBuilder.CreateTable<object>(
+                name: "Filter",
+                columns: table => throw new NotImplementedException(),
+                constraints: table => throw new NotImplementedException()
+            );
+
+            migrationBuilder.CreateTable<object>(
+                name: "LanguageFilter",
+                columns: table => throw new NotImplementedException(),
+                constraints: table => throw new NotImplementedException()
+            );
+
+            migrationBuilder.CreateTable<object>(
+                name: "LanguageRelationship",
+                columns: table => throw new NotImplementedException(),
+                constraints: table => throw new NotImplementedException()
+            );
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
