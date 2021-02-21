@@ -15,12 +15,4 @@ namespace Mapline.Web.Data
         public long ChildID { get; set; }
         public Language Child { get; set; }
     }
-
-    public enum RelationshipType
-    {
-        Genetic,
-        Coincidence,
-        LanguageContact,
-        Unknown
-    }
 }

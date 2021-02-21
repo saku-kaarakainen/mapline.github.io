@@ -42,17 +42,33 @@ namespace Mapline.Migrations
             migrationBuilder.CreateTable<object>(
                 name: "Filter",
                 columns: table => throw new NotImplementedException(),
+                // long Id
+                // string Name
+                // ICollection<LanguageFilter> LanguageFilters 
                 constraints: table => throw new NotImplementedException()
             );
 
             migrationBuilder.CreateTable<object>(
                 name: "LanguageFilter",
                 columns: table => throw new NotImplementedException(),
+                    // long LanguageId   
+                    // Language Language 
+                    // long FilterId     
+                    // Filter Filter     
                 constraints: table => throw new NotImplementedException()
             );
 
             migrationBuilder.CreateTable<object>(
                 name: "LanguageRelationship",
+                /*
+                         public RelationshipType Type { get; set; }
+
+        public long ParentId { get; set; }
+        public Language Parent { get; set; }
+
+        public long ChildID { get; set; }
+        public Language Child { get; set; }
+                 */
                 columns: table => throw new NotImplementedException(),
                 constraints: table => throw new NotImplementedException()
             );
