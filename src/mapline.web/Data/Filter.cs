@@ -8,12 +8,18 @@ namespace Mapline.Web.Data
 {
     public class Filter
     {
+        #region .ctor
+        public Filter() { }
+
+        public Filter(long id) => this.Id = id;
+
         public Filter(string name, bool @checked)
         {
-            Name = name;
-            Checked = @checked;
             LanguageFilters = new HashSet<LanguageFilter>();
+            Name = name;
+            Checked = @checked;                   
         }
+        #endregion
 
         public long Id { get; set; } 
         public string Name { get; set; }

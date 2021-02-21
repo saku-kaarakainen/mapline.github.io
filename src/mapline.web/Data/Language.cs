@@ -33,6 +33,16 @@ namespace Mapline.Web.Data
         public virtual Geometry Area { get; set; }
 
         public ICollection<LanguageFilter> LanguageFilters { get; set; }
+
+        public void AddFilters(params Filter[] filters) => AddFilters(filters.AsEnumerable());
+        public void AddFilters(IEnumerable<Filter> filters)
+        {
+            foreach (var filter in filters)
+            {
+                LanguageFilters.Add(new LanguageFilter(this, filter));
+            }
+        }
+        
         public ICollection<LanguageRelationship> Relationships { get; set; }
 
         public int? YearStart { get; set; }

@@ -93,10 +93,32 @@ namespace Mapline.Web.Data
                 YearEnd = end,
                 Area = ((FeatureCollection)files["area"]).ToGeometry(),
                 Features = files.GetValueOrDefault<string>("features"),
-                AdditionalDetails =files.GetValueOrDefault<string>("additionalDetails")
+                AdditionalDetails = files.GetValueOrDefault<string>("additionalDetails"),
             };
 
+            lang.AddFilters(filters: ToFilters(files, "filters"));
+
             return lang;
+        }
+
+        public IEnumerable<Filter> ToFilters(Dictionary<string, object> files, string dictionaryKey)
+        {
+            string separator = Environment.NewLine;
+            string[] data = files
+                .GetValueOrDefault<string>(dictionaryKey)
+                .Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+
+            return data.Select(selector);
+
+            static Filter selector(string item, int index)
+            {
+                if(long.TryParse(item, out var id))
+                {
+                    return new Filter(id);
+                }
+
+                throw new FormatException($"Unable to cast the value '{item}' to long at the index of '{index}' in the file '{index}'");
+            }
         }
 
         public (string Name, object Value) CreateColumn(string filePath, string folderPart)
