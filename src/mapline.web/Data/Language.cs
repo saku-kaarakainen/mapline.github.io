@@ -20,12 +20,21 @@ namespace Mapline.Web.Data
     /// </summary>
     public class Language : IFeatureable
     {
+        public Language()
+        {
+            this.Relationships = new HashSet<LanguageRelationship>();
+            this.LanguageFilters = new HashSet<LanguageFilter>();
+        }
+
         public long Id { get; set; }
         public string Name { get; set; }
 
         [JsonProperty(PropertyName = "geometry", ItemConverterType = typeof(GeometryConverter))]
         public virtual Geometry Area { get; set; }
-                
+
+        public ICollection<LanguageFilter> LanguageFilters { get; set; }
+        public ICollection<LanguageRelationship> Relationships { get; set; }
+
         public int? YearStart { get; set; }
         public int? YearEnd { get; set; }
 
