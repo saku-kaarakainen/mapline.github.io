@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Microsoft.EntityFrameworkCore.Migrations.Operations.Builders;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
@@ -15,14 +17,42 @@ namespace Mapline.Migrations
 
         protected override void Up([NotNull] MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable<object>(
+    name: "LanguageFilter",
+    columns: table => throw new NotImplementedException(),
+    // long LanguageId   
+    // Language Language 
+    // long FilterId     
+    // Filter Filter     
+    constraints: table => throw new NotImplementedException()
+);
+
+            migrationBuilder.CreateTable(
+                name: "LanguageRelationship",
+                columns: table => new
+                {
+                    Id = table.PK_Column<long>(),
+                    Type = table.Column<int>(),
+                    ParentId = table.Column<long>(),
+                    ChildID = table.Column<long>(),
+                },
+                constraints: table =>
+                { 
+                    table.PrimaryKey("PK_LanguageRelationship_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LanguageRelationship_Language_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Language",
+                        principalColumn: "ParentId",
+                        onDelete: ReferentialAction.SetNull);
+                });           
+
             migrationBuilder.CreateTable(
                 name: "Language",
                 columns: table => new 
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy",
-                            SqlServerValueGenerationStrategy.IdentityColumn),
-
+                    Id = table.PK_Column<long>(),
+                    LanguageFilterId = table.Column<long>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Area = table.Column<Geometry>(nullable: false),
                     YearCurrent = table.Column<int>(nullable: true),
@@ -34,50 +64,50 @@ namespace Mapline.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Language_Id", l => l.Id);
-                    table.PrimaryKey("PK_Language_Name", l => l.Name);
+                    table.PrimaryKey("PK_Language_Id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Language_LanguageFilter_LanguageFilterId",
+                        column: x => x.LanguageFilterId,
+                        principalTable: "LanguageFilter",
+                        principalColumn: "LanguageFilterId",
+                        onDelete: ReferentialAction.SetNull);
                 }
             );
 
-            migrationBuilder.CreateTable<object>(
+            migrationBuilder.CreateTable(
                 name: "Filter",
-                columns: table => throw new NotImplementedException(),
-                // long Id
-                // string Name
-                // ICollection<LanguageFilter> LanguageFilters 
-                constraints: table => throw new NotImplementedException()
+                columns: table => new
+                {
+                    Id = table.PK_Column<long>(),
+                    LanguageFilterId = table.Column<long>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
+                },
+                constraints: table => 
+                {
+                    table.PrimaryKey("PK_Filter_Id", x => x.Id);
+                    table.PrimaryKey("PK_Filter_Name", f => f.Name);
+                    table.ForeignKey(
+                        name: "FK_Filter_LanguageFilter_LanguageFilterId",
+                        column: x => x.LanguageFilterId,
+                        principalTable: "LanguageFilter",
+                        principalColumn: "LanguageFilterId",
+                        onDelete: ReferentialAction.SetNull);
+
+                }
             );
-
-            migrationBuilder.CreateTable<object>(
-                name: "LanguageFilter",
-                columns: table => throw new NotImplementedException(),
-                    // long LanguageId   
-                    // Language Language 
-                    // long FilterId     
-                    // Filter Filter     
-                constraints: table => throw new NotImplementedException()
-            );
-
-            migrationBuilder.CreateTable<object>(
-                name: "LanguageRelationship",
-                /*
-                         public RelationshipType Type { get; set; }
-
-        public long ParentId { get; set; }
-        public Language Parent { get; set; }
-
-        public long ChildID { get; set; }
-        public Language Child { get; set; }
-                 */
-                columns: table => throw new NotImplementedException(),
-                constraints: table => throw new NotImplementedException()
-            );
-
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable("Language");
+        }
+    }
+
+    public static class ColumnsBuilderExtensions
+    {
+        public static OperationBuilder<AddColumnOperation> PK_Column<TType>(this ColumnsBuilder table)
+        {
+            return table.Column<TType>(nullable: false).Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }
     }
 }
