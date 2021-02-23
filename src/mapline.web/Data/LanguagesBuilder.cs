@@ -34,34 +34,43 @@ namespace Mapline.Web.Data
             this.languageFolder = languageFolder;
             this.names = Directory.GetDirectories(this.languageFolder);
 
-            foreach (var nameDirectory in this.names)
-            foreach (var yearDirectory in Directory.GetDirectories(nameDirectory))
+            foreach (string nameDirectory in this.names)
             {
-                var years = yearDirectory.Replace(this.languageFolder, "").TrimStart('\\');
-                var (start, end) = helper.ParseYearsFromTheFolderName(years);
-                this.data.Add(new LanguageFolder
+                foreach (string yearDirectory in Directory.GetDirectories(nameDirectory))
                 {
-                    Language = new Language
+                    var years = yearDirectory.Replace(this.languageFolder, "").TrimStart('\\');
+                    var (start, end) = helper.ParseYearsFromTheFolderName(years);
+                    var item = new LanguageFolder
                     {
-                        Name = nameDirectory,
-                        YearStart = start,
-                        YearEnd = end
+                        YearDirectory = years,
+                        Files = Directory
+                            .GetFiles(yearDirectory)
+                            .Select(fileName => helper.CreateColumn(fileName, yearDirectory))
+                            .ToDictionary(key => key.Name, value => value.Value),
+                        Language = new Language
+                        {
+                            Id = seedCounter++,
+                            Name = nameDirectory,
+                            YearStart = start,
+                            YearEnd = end
+                        }
+                    };
+
+                    if (!item.Files.ContainsKey("area"))
+                    {
+                        throw new InvalidOperationException($"The folder '{nameDirectory}' does not have file 'area.json'.");
                     }
-                });
+
+                    this.data.Add(item);
+                }
             }
         }
 
-        public void PopulateFromFolder()
-        {
-            foreach(var language in this.data)
-            {
-
-            }
-        }
 
         class LanguageFolder
-        {
-            public string Folder { get; set; }
+        { 
+            public Dictionary<string, object> Files { get; set; }
+            public string YearDirectory { get; set; }
             public Language Language { get; set; }
         }
     }
