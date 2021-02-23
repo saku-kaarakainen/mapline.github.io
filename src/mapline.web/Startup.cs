@@ -38,7 +38,7 @@ namespace Mapline.Web
             });
 
 
-            services.AddScoped<ILanguageHelper, LanguageHelper>();
+            services.AddScoped<ILanguageHelper, DataHelper>();
 
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(

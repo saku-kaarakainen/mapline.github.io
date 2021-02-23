@@ -16,12 +16,13 @@ namespace Mapline.Web.Data
         Task SaveLanguageToFile(SaveLanguageModel language);
     }
 
-    public class LanguageHelper : ILanguageHelper
+    public class DataHelper : ILanguageHelper
     {
+        // TODO: Get rid of singleton
         #region Singleton
-        private static Lazy<LanguageHelper> lazyInstance = new Lazy<LanguageHelper>(() => new LanguageHelper());
+        private static Lazy<DataHelper> lazyInstance = new Lazy<DataHelper>(() => new DataHelper());
 
-        public static LanguageHelper Instance => lazyInstance.Value;
+        public static DataHelper Instance => lazyInstance.Value;
         #endregion
 
         // The data will be save into generated folder, so that it won't mix with the 'production' data
@@ -143,7 +144,7 @@ namespace Mapline.Web.Data
 
             var index = filename.LastIndexOf('.');
             var columnName = filename.Substring(0, index);
-            var columnType = filename.Substring(index + 1);
+            var columnType = filename[(index + 1)..];
 
             using var reader = new StreamReader(filePath);
             string data = reader.ReadToEnd();

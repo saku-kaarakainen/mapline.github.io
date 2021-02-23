@@ -19,7 +19,7 @@ namespace Mapline.Web.Data
         public MaplineDbContext(DbContextOptions<MaplineDbContext> options) 
             : base(options)
         {
-
+           
         }
 
         public virtual DbSet<Language> Languages { get; set; }
@@ -28,12 +28,14 @@ namespace Mapline.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var builder = new LanguagesBuilder(LanguageFolder);
+
             const string areaJsonSuffix = "\\area.geojson";
 
             // name of the folder is the string identifier
             var folders = Directory.GetDirectories(LanguageFolder);
             var languages = folders
-                .Select(folder => LanguageHelper.Instance.FolderToLanguage(folder, ref seedCounter, LanguageFolder, areaJsonSuffix))
+                .Select(folder => DataHelper.Instance.FolderToLanguage(folder, ref seedCounter, LanguageFolder, areaJsonSuffix))
                 .Where(lang => lang != default);
 
             modelBuilder.Entity<Language>()
