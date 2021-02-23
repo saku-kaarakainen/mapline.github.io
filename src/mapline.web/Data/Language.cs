@@ -37,6 +37,11 @@ namespace Mapline.Web.Data
         public void AddFilters(params Filter[] filters) => AddFilters(filters.AsEnumerable());
         public void AddFilters(IEnumerable<Filter> filters)
         {
+            if(filters == null || !filters.Any())
+            {
+                return;
+            }
+
             foreach (var filter in filters)
             {
                 LanguageFilters.Add(new LanguageFilter(this, filter));

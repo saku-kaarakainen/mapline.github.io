@@ -82,6 +82,11 @@ namespace Mapline.Web.Data
                 .Select(fileName => CreateColumn(fileName, yearDirectory))
                 .ToDictionary(key => key.Name, value => value.Value);
 
+            if(!files.ContainsKey("area"))
+            {
+                throw new InvalidOperationException($"The folder '{folder}' does not have file 'area.json'.");
+            }
+
             var years = yearDirectory.Replace(folder, "").TrimStart('\\');
             var (start, end) = ParseYearsFromTheFolderName(years);
 
@@ -104,11 +109,11 @@ namespace Mapline.Web.Data
         public IEnumerable<Filter> ToFilters(Dictionary<string, object> files, string dictionaryKey)
         {
             string separator = Environment.NewLine;
-            string[] data = files
-                .GetValueOrDefault<string>(dictionaryKey)
-                .Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
-            return data.Select(selector);
+            return files
+                .GetValueOrDefault<string>(dictionaryKey)
+                ?.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries)
+                ?.Select(selector);
 
             static Filter selector(string item, int index)
             {

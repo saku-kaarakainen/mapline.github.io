@@ -7,6 +7,8 @@ namespace Mapline.Web.Data
 {
     public class LanguageFilter
     {
+        public LanguageFilter() { }
+
         public LanguageFilter(Language language = null, Filter filter = null)
         {
             if (language != null)
