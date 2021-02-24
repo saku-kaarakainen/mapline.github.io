@@ -84,6 +84,6 @@ namespace Mapline.Tests
         public string DatabaseName { get; set; } = "Mapline";
         public bool InitializeData { get; set; } = true;
         public bool CreateModel { get; set; } = false;
-        public string LanguageFolder { get; set; } = "./../../../../../data/Language";
+        public string LanguageFolder { get; set; } = ".\\..\\..\\..\\..\\..\\data\\Language";
     }
 }

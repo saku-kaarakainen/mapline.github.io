@@ -14,7 +14,7 @@ namespace Mapline.Web.Data
 {
     public class MaplineDbContext : DbContext
     {
-        private static int seedCounter = 1;
+        private static readonly int seedCounter = 1;
 
         public MaplineDbContext(DbContextOptions<MaplineDbContext> options) 
             : base(options)
@@ -28,19 +28,17 @@ namespace Mapline.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var builder = new LanguagesBuilder(LanguageFolder);
-
             const string areaJsonSuffix = "\\area.geojson";
-
-            // name of the folder is the string identifier
-            var folders = Directory.GetDirectories(LanguageFolder);
-            var languages = folders
-                .Select(folder => DataHelper.Instance.FolderToLanguage(folder, ref seedCounter, LanguageFolder, areaJsonSuffix))
-                .Where(lang => lang != default);
+            var builder = new LanguagesBuilder(LanguageFolder, areaJsonSuffix, seedCounter);            
 
             modelBuilder.Entity<Language>()
                 .ToTable("Language")
-                .HasData(languages)
+                .HasData(builder.Languages)
+            ;
+
+            modelBuilder.Entity<Filter>()
+                .ToTable("Filter")
+                //.HasData(builder.Languages)
             ;
         }
     }
