@@ -23,8 +23,6 @@ namespace Mapline.Web.Data
         private readonly string languageFolder;
         private readonly string areaJsonSuffix;
         private readonly IEnumerable<string> names;
-        // TODO: Get rid of helper
-        private readonly DataHelper helper = DataHelper.Instance;
         private readonly List<LanguageFolder> data;
 
         public int Counter { get; set; } = 0;
@@ -43,8 +41,6 @@ namespace Mapline.Web.Data
             this.languageFolder = languageFolder;
             this.areaJsonSuffix = areaJsonSuffix;
             this.names = this.directory.GetDirectories(this.languageFolder);
-
-            CreateData();
         }
 
         public void CreateData()
@@ -55,14 +51,14 @@ namespace Mapline.Web.Data
                 {
                     var name = nameDirectory.Replace(this.languageFolder, "").Replace(this.areaJsonSuffix, "").TrimStart('\\');
                     var years = yearDirectory.Replace(nameDirectory, "").TrimStart('\\');
-                    var (start, end) = helper.ParseYearsFromTheFolderName(years);
+                    var (start, end) = ParseYearsFromTheFolderName(years);
 
                     var item = new LanguageFolder
                     {
                         YearDirectory = years,
                         Files = this.directory
                             .GetFiles(yearDirectory)
-                            .Select(fileName => helper.CreateColumn(fileName, yearDirectory))
+                            .Select(fileName => CreateColumn(fileName, yearDirectory))
                             .ToDictionary(key => key.Name, value => value.Value),
                         Language = new Language
                         {
@@ -87,10 +83,82 @@ namespace Mapline.Web.Data
                 }
             }
         }
-        
 
+        private static (string Name, object Value) CreateColumn(string filePath, string folderPart)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentException("the filename is null or empty", nameof(filePath));
+            }
 
-        class LanguageFolder
+            if (string.IsNullOrEmpty(folderPart))
+            {
+                throw new ArgumentException("the filename is null or empty", nameof(folderPart));
+            }
+
+            // File.Exists check is not done, because we go in here thro Directory.GetFiles
+            var filename = filePath.Replace(folderPart, "").TrimStart('\\');
+
+            var index = filename.LastIndexOf('.');
+            var columnName = filename.Substring(0, index);
+            var columnType = filename[(index + 1)..];
+
+            using var reader = new StreamReader(filePath);
+            string data = reader.ReadToEnd();
+
+            var columnValue = columnType switch
+            {
+                "geojson" => DataConverter.DeserializeGeoJson<FeatureCollection>(data),
+                _ => (object)data
+            };
+
+            return (columnName, columnValue);
+        }
+
+        public (int? Start, int? End) ParseYearsFromTheFolderName(string yearFolder)
+        {
+            if (string.IsNullOrEmpty(yearFolder))
+            {
+                throw new ArgumentException("The name of the year folder is null or empty.", nameof(yearFolder));
+            }
+
+            var yearArray = yearFolder.Split('-');
+
+            if (yearArray.Length != 2)
+            {
+                throw new ArgumentException($"Cannot manipulate the string that is composed from the year folder '{yearFolder}'. Remove extra '-' characaters from it.", nameof(yearFolder));
+            }
+
+            return (Start: YearToInt(yearArray[0]), End: YearToInt(yearArray[1]));
+        }
+
+        /// <exception cref="FormatException">$"Unable to convert the value '{year}' into a integer number"</exception>
+        public int YearToInt(string year)
+        {
+            if (string.IsNullOrEmpty(year))
+            {
+                throw new ArgumentException("the year is null or empty.", nameof(year));
+            }
+
+            if (year.EndsWith("BCE"))
+            {
+                year = "-" + year.Replace("BCE", "");
+            }
+
+            if (year.EndsWith("CE"))
+            {
+                year = year.Replace("CE", "");
+            }
+
+            if (int.TryParse(year, out var result))
+            {
+                return result;
+            }
+
+            throw new FormatException($"Unable to convert the value '{year}' into a integer number");
+        }
+
+    class LanguageFolder
         { 
             public Dictionary<string, object> Files { get; set; }
             public string YearDirectory { get; set; }
