@@ -18,13 +18,6 @@ namespace Mapline.Web.Data
 
     public class DataHelper : ILanguageHelper
     {
-        // TODO: Get rid of singleton
-        #region Singleton
-        private static Lazy<DataHelper> lazyInstance = new Lazy<DataHelper>(() => new DataHelper());
-
-        public static DataHelper Instance => lazyInstance.Value;
-        #endregion
-
         // The data will be save into generated folder, so that it won't mix with the 'production' data
         // Now I just verify files manually before saving them into 'production' data.
         public string LanguagePathFolder { get; set; } = "./../../data/Generated-Language/";
