@@ -29,7 +29,10 @@ namespace Mapline.Web.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             const string areaJsonSuffix = "\\area.geojson";
-            var builder = new LanguagesBuilder(LanguageFolder, areaJsonSuffix, seedCounter);            
+            var helper = new DirectoryHelper();
+            var builder = new LanguagesBuilder(helper, LanguageFolder, areaJsonSuffix);
+            builder.Counter = seedCounter;
+            builder.CreateData();
 
             modelBuilder.Entity<Language>()
                 .ToTable("Language")

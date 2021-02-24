@@ -75,58 +75,6 @@ namespace Mapline.Web.Data
             throw new InvalidOperationException($"The data can't be converted into FeatureCollection. The data: {json}");
         }
 
-        public Language FolderToLanguage(string folder, ref int seedCounter, string LanguageFolder, string areaJsonSuffix)
-        {
-            var yearDirectory = Directory.GetDirectories(folder)[0];
-            var files = Directory
-                .GetFiles(yearDirectory)
-                .Select(fileName => CreateColumn(fileName, yearDirectory))
-                .ToDictionary(key => key.Name, value => value.Value);
-
-            if(!files.ContainsKey("area"))
-            {
-                throw new InvalidOperationException($"The folder '{folder}' does not have file 'area.json'.");
-            }
-
-            var years = yearDirectory.Replace(folder, "").TrimStart('\\');
-            var (start, end) = ParseYearsFromTheFolderName(years);
-
-            var lang = new Language()
-            {
-                Id = seedCounter++,
-                Name = folder.Replace(LanguageFolder, "").Replace(areaJsonSuffix, "").TrimStart('\\'),
-                YearStart = start,
-                YearEnd = end,
-                Area = ((FeatureCollection)files["area"]).ToGeometry(),
-                Features = files.GetValueOrDefault<string>("features"),
-                AdditionalDetails = files.GetValueOrDefault<string>("additionalDetails"),
-            };
-
-            lang.AddFilters(filters: ToFilters(files, "filters"));
-
-            return lang;
-        }
-
-        public IEnumerable<Filter> ToFilters(Dictionary<string, object> files, string dictionaryKey)
-        {
-            string separator = Environment.NewLine;
-
-            return files
-                .GetValueOrDefault<string>(dictionaryKey)
-                ?.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries)
-                ?.Select(selector);
-
-            static Filter selector(string item, int index)
-            {
-                if(long.TryParse(item, out var id))
-                {
-                    return new Filter(id);
-                }
-
-                throw new FormatException($"Unable to cast the value '{item}' to long at the index of '{index}' in the file '{index}'");
-            }
-        }
-
         public (string Name, object Value) CreateColumn(string filePath, string folderPart)
         {
             if (string.IsNullOrEmpty(filePath))

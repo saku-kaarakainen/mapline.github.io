@@ -19,18 +19,19 @@ namespace Mapline.Web.Data
     //  -> filters.json (Filter table)
     public class LanguagesBuilder
     {
+        private readonly IDirectory directory;
         private readonly string languageFolder;
         private readonly string areaJsonSuffix;
-        private readonly string[] names;
+        private readonly IEnumerable<string> names;
         // TODO: Get rid of helper
         private readonly DataHelper helper = DataHelper.Instance;
         private readonly List<LanguageFolder> data;
-        
-        public int LastIndex { get; private set; }
+
+        public int Counter { get; set; } = 0;
 
         public IEnumerable<Language> Languages => data.Select(d => d.Language);
 
-        public LanguagesBuilder(string languageFolder, string areaJsonSuffix, int seedIndex)
+        public LanguagesBuilder(IDirectory directory, string languageFolder, string areaJsonSuffix)
         {
             if (string.IsNullOrEmpty(languageFolder))
             {
@@ -38,20 +39,19 @@ namespace Mapline.Web.Data
             }
 
             this.data = new List<LanguageFolder>();
+            this.directory = directory ?? throw new ArgumentNullException(nameof(directory));
             this.languageFolder = languageFolder;
             this.areaJsonSuffix = areaJsonSuffix;
-            this.names = Directory.GetDirectories(this.languageFolder);
-
-            LastIndex = seedIndex;
+            this.names = this.directory.GetDirectories(this.languageFolder);
 
             CreateData();
         }
 
-        private void CreateData()
+        public void CreateData()
         {
             foreach (string nameDirectory in this.names)
             {
-                foreach (string yearDirectory in Directory.GetDirectories(nameDirectory))
+                foreach (string yearDirectory in this.directory.GetDirectories(nameDirectory))
                 {
                     var name = nameDirectory.Replace(this.languageFolder, "").Replace(this.areaJsonSuffix, "").TrimStart('\\');
                     var years = yearDirectory.Replace(nameDirectory, "").TrimStart('\\');
@@ -60,13 +60,13 @@ namespace Mapline.Web.Data
                     var item = new LanguageFolder
                     {
                         YearDirectory = years,
-                        Files = Directory
+                        Files = this.directory
                             .GetFiles(yearDirectory)
                             .Select(fileName => helper.CreateColumn(fileName, yearDirectory))
                             .ToDictionary(key => key.Name, value => value.Value),
                         Language = new Language
                         {
-                            Id = LastIndex++,
+                            Id = Counter++,
                             Name = name,
                             YearStart = start,
                             YearEnd = end
