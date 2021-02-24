@@ -34,33 +34,21 @@ namespace Mapline.Web.Data
             builder.Counter = seedCounter;
             builder.CreateData();
 
-            modelBuilder.Entity<Language>()
-                .ToTable("Language")
+            //modelBuilder.Entity<>
+
+            modelBuilder.ToEntityTable<Language>()
                 .HasData(builder.Languages)
             ;
 
-            modelBuilder.Entity<Filter>()
-                .ToTable("Filter")
-                //.HasData(builder.Languages)
-            ;
+            modelBuilder.ToEntityTable<Filter>();
+
+            modelBuilder.ToEntityTable<LanguageRelationship>();
+            modelBuilder.ToEntityTable<LanguageFilter>();
+            modelBuilder.ToEntityTable<Filter>();
         }
     }
 
-    public static class DbSetExtensions
-    {
-        public static FeatureCollection ToFeatureCollection<TData>(this DbSet<TData> dataSet)
-            where TData : class, IFeatureable
-        {
-            var featureCollection = new FeatureCollection();
 
-            // Feature collection cannot be initialized prettier right now...
-            // https://github.com/NetTopologySuite/NetTopologySuite.Features/pull/12
-            foreach (var element in dataSet)
-            {
-                featureCollection.Add(element.ToFeature());
-            }
 
-            return featureCollection;
-        }
-    }
+
 }
