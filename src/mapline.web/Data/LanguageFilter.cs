@@ -24,6 +24,8 @@ namespace Mapline.Web.Data
             }
         }
 
+        public long Id { get; set; }
+
         public long LanguageId { get; set; }
         public Language Language { get; set; }
 

@@ -27,6 +27,6 @@ namespace Mapline.Web.Data
         [NotMapped]
         public bool? Checked { get; set; }
 
-        public ICollection<LanguageFilter> LanguageFilters { get; set; }
+        public virtual ICollection<LanguageFilter> LanguageFilters { get; set; }
     }
 }

@@ -22,7 +22,8 @@ namespace Mapline.Web.Data
     {
         public Language()
         {
-            this.Relationships = new HashSet<LanguageRelationship>();
+            this.ParentRelationships = new HashSet<LanguageRelationship>();
+            this.ChildRelationships = new HashSet<LanguageRelationship>();
             this.LanguageFilters = new HashSet<LanguageFilter>();
         }
 
@@ -32,7 +33,10 @@ namespace Mapline.Web.Data
         [JsonProperty(PropertyName = "geometry", ItemConverterType = typeof(GeometryConverter))]
         public virtual Geometry Area { get; set; }
 
-        public ICollection<LanguageFilter> LanguageFilters { get; set; }
+        public virtual ICollection<LanguageRelationship> ParentRelationships { get; set; }
+        public virtual ICollection<LanguageRelationship> ChildRelationships { get; set; }
+
+        public virtual ICollection<LanguageFilter> LanguageFilters { get; set; }
 
         public void AddFilters(params Filter[] filters) => AddFilters(filters.AsEnumerable());
         public void AddFilters(IEnumerable<Filter> filters)
@@ -48,8 +52,6 @@ namespace Mapline.Web.Data
             }
         }
         
-        public ICollection<LanguageRelationship> Relationships { get; set; }
-
         public int? YearStart { get; set; }
         public int? YearEnd { get; set; }
 

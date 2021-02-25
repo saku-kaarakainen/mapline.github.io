@@ -36,6 +36,8 @@ namespace Mapline.Web.Data
 
             //modelBuilder.Entity<>
 
+            modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ParentRelationships).WithOne(lr => lr.Parent);
+            modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ChildRelationships).WithOne(lr => lr.Child);
             modelBuilder.ToEntityTable<Language>()
                 .HasData(builder.Languages)
             ;
