@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mapline.Tests
+namespace Mapline.Tests.Helpers
 {
     public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>
     {
@@ -54,36 +54,5 @@ namespace Mapline.Tests
         }
     }
 
-    public class TestDbContext : MaplineDbContext
-    {
-        public MaplineDbContextSettings Settings { get; }
 
-        public TestDbContext(DbContextOptions<MaplineDbContext> options, MaplineDbContextSettings settings = null)
-            : base(options)
-        {
-            Settings = settings ?? new MaplineDbContextSettings { CreateModel = false };
-
-            if (!string.IsNullOrEmpty(Settings.LanguageFolder))
-            {
-                LanguageFolder = Settings.LanguageFolder;
-            }
-        }
-
-        // Empty class to override the actual data insert of MaplineDbContext
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            if(Settings.CreateModel)
-            {
-                base.OnModelCreating(modelBuilder);
-            }
-        }
-    }
-
-    public class MaplineDbContextSettings
-    {
-        public string DatabaseName { get; set; } = "Mapline";
-        public bool InitializeData { get; set; } = true;
-        public bool CreateModel { get; set; } = false;
-        public string LanguageFolder { get; set; } = ".\\..\\..\\..\\..\\..\\data\\Language";
-    }
 }
