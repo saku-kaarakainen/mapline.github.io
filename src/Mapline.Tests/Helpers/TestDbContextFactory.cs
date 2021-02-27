@@ -1,5 +1,6 @@
 ﻿using Mapline.Web.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,24 +15,25 @@ namespace Mapline.Tests.Helpers
 
     public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>
     {
-        public MaplineDbContextSettings Settings { get; }
+        public IConfigurationSection Settings { get; }
 
         private DbContextOptions<MaplineDbContext> options;
 
-        public TestDbContextFactory()
-            : this(new MaplineDbContextSettings())
-        {
+        public TestDbContextFactory() : this(Config.Get()) { }
 
-        }
-
-        public TestDbContextFactory(MaplineDbContextSettings settings)
+        public TestDbContextFactory(IConfiguration config)
         {
-            this.Settings = settings;
+            if(config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
+            this.Settings = config.GetSection("Settings");
             this.options = new DbContextOptionsBuilder<MaplineDbContext>()
-                .UseInMemoryDatabase(Settings.DatabaseName)
+                .UseInMemoryDatabase(Settings.GetValue<string>("DatabaseName"))
                 .Options;
 
-            if (Settings.InitializeData)
+            if (Settings.GetValue<bool>("InitializeData"))
             {
                 using var initialData = CreateDbContext();
                 initialData.Languages.Add(new Language
@@ -54,7 +56,8 @@ namespace Mapline.Tests.Helpers
 
         public MaplineDbContext CreateDbContext()
         {
-            var context = new TestDbContext(options, Settings);
+            var settings = Config.Get().GetSection("Settings");
+            var context = new TestDbContext(options, settings);
             return context;
         }
     }

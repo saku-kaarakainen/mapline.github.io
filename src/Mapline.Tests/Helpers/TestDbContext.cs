@@ -1,5 +1,6 @@
 ﻿using Mapline.Web.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,23 @@ namespace Mapline.Tests.Helpers
 {
     public class TestDbContext : MaplineDbContext
     {
-        public MaplineDbContextSettings Settings { get; }
+        public IConfigurationSection Settings { get; }
 
-        public TestDbContext(DbContextOptions<MaplineDbContext> options, MaplineDbContextSettings settings = null)
+        public TestDbContext(DbContextOptions<MaplineDbContext> options, IConfigurationSection settings )
             : base(options)
         {
-            Settings = settings ?? new MaplineDbContextSettings { CreateModel = false };
+            Settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-            if (!string.IsNullOrEmpty(Settings.LanguageFolder))
-            {
-                LanguageFolder = Settings.LanguageFolder;
-            }
+            //if (!string.IsNullOrEmpty(Settings.GetValue<string>("LanguageFolder")))
+            //{
+            //    LanguageFolder = Settings.LanguageFolder;
+            //}
         }
 
         // Empty class to override the actual data insert of MaplineDbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (Settings.CreateModel)
+            if (Settings.GetValue<bool>("CreateModel"))
             {
                 base.OnModelCreating(modelBuilder);
             }
