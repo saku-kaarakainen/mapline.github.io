@@ -14,32 +14,20 @@ namespace Mapline.Web.Data
 {
     public class MaplineDbContext : DbContext
     {
-        private static readonly int seedCounter = 1;
+        public MaplineDbContext(DbContextOptions<MaplineDbContext> options)  : this(options, LanguagesBuilder.CreateDataBuilder()) { }
 
-        public MaplineDbContext(DbContextOptions<MaplineDbContext> options) 
-            : base(options)
-        {
-           
-        }
+        public MaplineDbContext(DbContextOptions<MaplineDbContext> options, IDataBuilder dataBuilder)  : base(options) => DataBuilder = dataBuilder ?? throw new ArgumentNullException(nameof(dataBuilder));
+        
+        public IDataBuilder DataBuilder { get; set; }
 
         public virtual DbSet<Language> Languages { get; set; }
 
-        protected string LanguageFolder { get; set; } = "..\\..\\data\\Language";
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            const string areaJsonSuffix = "\\area.geojson";
-            var helper = new DirectoryHelper();
-            var builder = new LanguagesBuilder(helper, LanguageFolder, areaJsonSuffix);
-            builder.Counter = seedCounter;
-            builder.CreateData();
-
-            //modelBuilder.Entity<>
-
             modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ParentRelationships).WithOne(lr => lr.Parent);
             modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ChildRelationships).WithOne(lr => lr.Child);
             modelBuilder.ToEntityTable<Language>()
-                .HasData(builder.Languages)
+                .HasData(DataBuilder.Languages)
             ;
 
             modelBuilder.ToEntityTable<Filter>();
@@ -49,8 +37,4 @@ namespace Mapline.Web.Data
             modelBuilder.ToEntityTable<Filter>();
         }
     }
-
-
-
-
 }

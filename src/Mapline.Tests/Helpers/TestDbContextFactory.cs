@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Mapline.Tests.Helpers
 {
+    // MapControllerTests           - default .ctor
+    // AdministratorControllerTests - default .ctor
+
+
     public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>
     {
         public MaplineDbContextSettings Settings { get; }
@@ -50,7 +54,8 @@ namespace Mapline.Tests.Helpers
 
         public MaplineDbContext CreateDbContext()
         {
-            return new TestDbContext(options, Settings);
+            var context = new TestDbContext(options, Settings);
+            return context;
         }
     }
 

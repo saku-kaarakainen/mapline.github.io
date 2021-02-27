@@ -8,6 +8,19 @@ using System.Threading.Tasks;
 
 namespace Mapline.Web.Data
 {
+    public interface IDataBuilder
+    {
+        IEnumerable<Language> Languages { get; set; }
+    }
+
+    public class DataBuilder : IDataBuilder
+    {
+        public DataBuilder() { }
+        public DataBuilder(IEnumerable<Language> languages)  => this.Languages = languages ?? throw new ArgumentNullException(nameof(languages));
+
+        public IEnumerable<Language> Languages { get; set; }
+    }
+
     // data
     //  -> Language
     //      -> {language.Name}
@@ -17,7 +30,7 @@ namespace Mapline.Web.Data
     //              -> additionalDetails.json
     //              -> features.json
     //  -> filters.json (Filter table)
-    public class LanguagesBuilder
+    public class LanguagesBuilder 
     {
         private readonly IDirectory directory;
         private readonly string languageFolder;
@@ -28,6 +41,19 @@ namespace Mapline.Web.Data
         public int Counter { get; set; } = 0;
 
         public IEnumerable<Language> Languages => data.Select(d => d.Language);
+
+        public static IDataBuilder CreateDataBuilder()
+        {
+            // TODO: Fetch hardcoded values from IConfiguration
+            // (this might require some redesigning)
+            const string areaJsonSuffix = "\\area.geojson";
+            var helper = new DirectoryHelper();
+            var builder = new LanguagesBuilder(helper, "..\\..\\data\\Language", areaJsonSuffix);
+            builder.Counter = 1;
+            builder.CreateData();
+
+            return new DataBuilder(builder.Languages);
+        }
 
         public LanguagesBuilder(IDirectory directory, string languageFolder, string areaJsonSuffix)
         {
@@ -158,8 +184,8 @@ namespace Mapline.Web.Data
             throw new FormatException($"Unable to convert the value '{year}' into a integer number");
         }
 
-    class LanguageFolder
-        { 
+        class LanguageFolder
+        {
             public Dictionary<string, object> Files { get; set; }
             public string YearDirectory { get; set; }
             public Language Language { get; set; }
