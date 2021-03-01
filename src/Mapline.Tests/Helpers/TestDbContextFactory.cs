@@ -15,49 +15,28 @@ namespace Mapline.Tests.Helpers
 
     public class TestDbContextFactory : IDbContextFactory<MaplineDbContext>
     {
+        public IDataBuilder DataBuilder { get; set; }
         public IConfigurationSection Settings { get; }
 
         private DbContextOptions<MaplineDbContext> options;
 
-        public TestDbContextFactory() : this(Config.Get()) { }
-
-        public TestDbContextFactory(IConfiguration config)
+        public TestDbContextFactory(IConfiguration config = null, IDataBuilder dataBuilder = null)
         {
             if(config == null)
             {
-                throw new ArgumentNullException(nameof(config));
+                config = Config.Get();
             }
 
+            this.DataBuilder = dataBuilder ?? TestDataBuilder.CreateDefault();
             this.Settings = config.GetSection("Settings");
             this.options = new DbContextOptionsBuilder<MaplineDbContext>()
                 .UseInMemoryDatabase(Settings.GetValue<string>("DatabaseName"))
                 .Options;
-
-            if (Settings.GetValue<bool>("InitializeData"))
-            {
-                using var initialData = CreateDbContext();
-                initialData.Languages.Add(new Language
-                {
-                    Name = "Test1",
-                    YearStart = -2000,
-                    YearEnd = 0000
-                });
-
-                initialData.Languages.Add(new Language
-                {
-                    Name = "Test2",
-                    YearStart = -1000,
-                    YearEnd = 1000
-                });
-
-                initialData.SaveChanges();
-            }
         }
 
         public MaplineDbContext CreateDbContext()
         {
-            var settings = Config.Get().GetSection("Settings");
-            var context = new TestDbContext(options, settings);
+            var context = new TestDbContext(options, DataBuilder, Settings);
             return context;
         }
     }

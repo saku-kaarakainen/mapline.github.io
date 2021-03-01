@@ -13,8 +13,9 @@ namespace Mapline.Tests.Helpers
     {
         public IConfigurationSection Settings { get; }
 
-        public TestDbContext(DbContextOptions<MaplineDbContext> options, IConfigurationSection settings )
-            : base(options)
+
+        public TestDbContext(DbContextOptions<MaplineDbContext> options, IDataBuilder dataBuilder, IConfigurationSection settings)
+            : base(options, dataBuilder)
         {
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
