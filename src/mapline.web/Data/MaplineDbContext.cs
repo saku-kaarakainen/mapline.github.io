@@ -1,4 +1,5 @@
-﻿using Mapline.Web.Utils; 
+﻿using Mapline.Web.Data.Building;
+using Mapline.Web.Utils; 
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Features;
 using NetTopologySuite.IO;
@@ -14,10 +15,18 @@ namespace Mapline.Web.Data
 {
     public class MaplineDbContext : DbContext
     {
-        public MaplineDbContext(DbContextOptions<MaplineDbContext> options)  : this(options, LanguagesBuilder.CreateDataBuilder()) { }
+        public MaplineDbContext(DbContextOptions<MaplineDbContext> options)  
+            : this(options, LanguagesBuilder.CreateDataBuilder()) 
+        {
 
-        public MaplineDbContext(DbContextOptions<MaplineDbContext> options, IDataBuilder dataBuilder)  : base(options) => DataBuilder = dataBuilder ?? throw new ArgumentNullException(nameof(dataBuilder));
-        
+        }
+
+        public MaplineDbContext(DbContextOptions<MaplineDbContext> options, IDataBuilder dataBuilder)
+            : base(options)
+        {
+            DataBuilder = dataBuilder ?? throw new ArgumentNullException(nameof(dataBuilder));
+        }
+
         public IDataBuilder DataBuilder { get; set; }
 
         public virtual DbSet<Language> Languages { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Mapline.Web.Utils;
+using Microsoft.Extensions.Configuration;
 using NetTopologySuite.Features;
 using System;
 using System.Collections.Generic;
@@ -6,21 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Mapline.Web.Data
+namespace Mapline.Web.Data.Building
 {
-    public interface IDataBuilder
-    {
-        IEnumerable<Language> Languages { get; set; }
-    }
-
-    public class DataBuilder : IDataBuilder
-    {
-        public DataBuilder() { }
-        public DataBuilder(IEnumerable<Language> languages)  => this.Languages = languages ?? throw new ArgumentNullException(nameof(languages));
-
-        public IEnumerable<Language> Languages { get; set; }
-    }
-
     // data
     //  -> Language
     //      -> {language.Name}
@@ -30,7 +18,7 @@ namespace Mapline.Web.Data
     //              -> additionalDetails.json
     //              -> features.json
     //  -> filters.json (Filter table)
-    public class LanguagesBuilder 
+    public class LanguagesBuilder
     {
         private readonly IDirectory directory;
         private readonly string languageFolder;
@@ -42,14 +30,33 @@ namespace Mapline.Web.Data
 
         public IEnumerable<Language> Languages => data.Select(d => d.Language);
 
+
+
         public static IDataBuilder CreateDataBuilder()
         {
-            // TODO: Fetch hardcoded values from IConfiguration
-            // (this might require some redesigning)
-            const string areaJsonSuffix = "\\area.geojson";
+            return CreateDataBuilder(new InMemoryConfiguration
+            {
+                Data = new Dictionary<string, string>
+                {
+                    { "languageFolder", "\\area.geojson" },
+                    { "areaJsonSuffix", "..\\..\\data\\Language" },
+                    { "counter", "1" },
+                }
+            });
+        }
+
+        public static IDataBuilder CreateDataBuilder(IConfiguration config)
+        {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
+            var languageFolder = config.GetValue<string>("languageFolder");
+            var areaJsonSuffix = config.GetValue<string>("areaJsonSuffix");
+            var counter = config.GetValue<int>("counter");
             var helper = new DirectoryHelper();
-            var builder = new LanguagesBuilder(helper, "..\\..\\data\\Language", areaJsonSuffix);
-            builder.Counter = 1;
+            var builder = new LanguagesBuilder(helper, languageFolder, areaJsonSuffix) { Counter = counter };
             builder.CreateData();
 
             return new DataBuilder(builder.Languages);

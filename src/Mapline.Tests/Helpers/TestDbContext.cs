@@ -1,4 +1,5 @@
 ﻿using Mapline.Web.Data;
+using Mapline.Web.Data.Building;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -18,11 +19,6 @@ namespace Mapline.Tests.Helpers
             : base(options, dataBuilder)
         {
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));
-
-            //if (!string.IsNullOrEmpty(Settings.GetValue<string>("LanguageFolder")))
-            //{
-            //    LanguageFolder = Settings.LanguageFolder;
-            //}
         }
 
         // Empty class to override the actual data insert of MaplineDbContext

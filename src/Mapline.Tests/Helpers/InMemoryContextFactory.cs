@@ -1,4 +1,5 @@
 ﻿using Mapline.Web.Data;
+using Mapline.Web.Data.Building;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ namespace Mapline.Tests.Helpers
                  .UseInMemoryDatabase("Mapline")
                  .Options;
 
-            var context = new MaplineDbContext(options);
+            var config = Config.Get();
+            var dataBuilder = LanguagesBuilder.CreateDataBuilder(config);
+            var context = new MaplineDbContext(options, dataBuilder);
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
