@@ -30,8 +30,6 @@ namespace Mapline.Web.Data.Building
 
         public IEnumerable<Language> Languages => data.Select(d => d.Language);
 
-
-
         public static IDataBuilder CreateDataBuilder()
         {
             return CreateDataBuilder(new InMemoryConfiguration
