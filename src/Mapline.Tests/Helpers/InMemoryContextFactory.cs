@@ -15,30 +15,18 @@ namespace Mapline.Tests.Helpers
     /// </summary>
     public class InMemoryContextFactory : IDbContextFactory<MaplineDbContext>
     {
-        private static IConfiguration DefaultConfiguration => Config.GetAppJson().GetSection("Settings");
-        private static IDataBuilder CreateDefaultDataBuilder() => LanguagesBuilder.CreateDataBuilder(DefaultConfiguration);        
-
         private readonly IConfiguration config;
         private readonly IDataBuilder dataBuilder;
         private readonly DbContextOptions<MaplineDbContext> options;
 
         /// <summary>
-        /// Initializes the default instance of the class.
-        /// </summary>
-        public InMemoryContextFactory() 
-            : this(CreateDefaultDataBuilder()) 
-        { 
-
-        }
-
-        /// <summary>
         /// Initializes the instance with the specified data builder.
         /// </summary>
         /// <param name="dataBuilder">The data builder.s</param>
-        public InMemoryContextFactory(IDataBuilder dataBuilder, IConfiguration config = null)
+        public InMemoryContextFactory(IDataBuilder dataBuilder = null, IConfiguration config = null)
         {
-            this.config = config ?? DefaultConfiguration;
-            this.dataBuilder = dataBuilder ?? LanguagesBuilder.CreateDataBuilder(this.config);
+            this.config = config ?? Config.GetAppJson().GetSection("Settings");
+            this.dataBuilder = dataBuilder ?? TestDataBuilder.CreateDefault();
 
             var databaseName = this.config.GetValue<string>("DatabaseName") ?? throw new ArgumentException($"The configuration is missing the key 'DatabaseName'", nameof(config));
             this.options = new DbContextOptionsBuilder<MaplineDbContext>()
