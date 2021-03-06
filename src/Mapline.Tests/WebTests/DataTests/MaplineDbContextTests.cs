@@ -16,14 +16,14 @@ namespace Mapline.Tests.WebTests.DataTests
 
         public MaplineDbContextTests()
         {
-            // TODO: Replace with the actual data?
-            this.factory = new InMemoryContextFactory();
+
         }
 
         [Fact]
         public void Test_CreateDbContextAndBuildModel()
         {
-            var context = this.factory.CreateDbContext();
+            var options = InMemoryDbContextOptionsBuilder.GetDefault();
+            var context = new MaplineDbContext(options);
 
             Assert.NotNull(context);
         }

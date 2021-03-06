@@ -15,7 +15,6 @@ namespace Mapline.Tests.Helpers
     /// </summary>
     public class InMemoryContextFactory : IDbContextFactory<MaplineDbContext>
     {
-        private readonly IConfiguration config;
         private readonly IDataBuilder dataBuilder;
         private readonly DbContextOptions<MaplineDbContext> options;
 
@@ -25,13 +24,8 @@ namespace Mapline.Tests.Helpers
         /// <param name="dataBuilder">The data builder.s</param>
         public InMemoryContextFactory(IDataBuilder dataBuilder = null, IConfiguration config = null)
         {
-            this.config = config ?? Config.GetAppJson().GetSection("Settings");
             this.dataBuilder = dataBuilder ?? TestDataBuilder.CreateDefault();
-
-            var databaseName = this.config.GetValue<string>("DatabaseName") ?? throw new ArgumentException($"The configuration is missing the key 'DatabaseName'", nameof(config));
-            this.options = new DbContextOptionsBuilder<MaplineDbContext>()
-                 .UseInMemoryDatabase(databaseName)
-                 .Options;
+            this.options = InMemoryDbContextOptionsBuilder.GetDefault(config);
         }
 
         /// <summary>
