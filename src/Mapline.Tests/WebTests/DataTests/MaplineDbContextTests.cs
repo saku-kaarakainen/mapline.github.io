@@ -12,12 +12,12 @@ namespace Mapline.Tests.WebTests.DataTests
 {
     public class MaplineDbContextTests 
     {
-        private readonly TestDbContextFactory factory;
+        private readonly InMemoryContextFactory factory;
 
         public MaplineDbContextTests()
         {
             // TODO: Replace with the actual data?
-            this.factory = new TestDbContextFactory();
+            this.factory = new InMemoryContextFactory();
         }
 
         [Fact]
