@@ -21,11 +21,11 @@ namespace Mapline.Tests.WebTests.ControllerTests
         private const string polygonPath = "./../../../data/";
         private readonly Mock<ILanguageHelper> helperMock;
         private readonly Mock<ILogger<AdministratorController>> loggerMock;
-        private readonly TestDbContextFactory contextFactory;
+        private readonly InMemoryContextFactory contextFactory;
 
         public AdministratorControllerTests()
         {
-            this.contextFactory = new TestDbContextFactory();
+            this.contextFactory = new InMemoryContextFactory();
             this.loggerMock = new Mock<ILogger<AdministratorController>>();
             this.helperMock = new Mock<ILanguageHelper>();
             this.helperMock
@@ -47,8 +47,7 @@ namespace Mapline.Tests.WebTests.ControllerTests
                 Name = name
             };
 
-            var contextFactory = new InMemoryContextFactory();
-            var controller = new AdministratorController(this.loggerMock.Object, contextFactory, this.helperMock.Object);
+            var controller = new AdministratorController(this.loggerMock.Object, this.contextFactory, this.helperMock.Object);
 
             // Act
             var result = await controller.SaveToDatabase(language);

@@ -16,12 +16,8 @@ namespace Mapline.Tests.WebTests.DataTests
 
         public MaplineDbContextTests()
         {
-            //var settings = new MaplineDbContextSettings
-            //{
-            //    CreateModel = true,
-            //    InitializeData = true
-            //};
-            this.factory = new TestDbContextFactory(/*settings*/);
+            // TODO: Replace with the actual data?
+            this.factory = new TestDbContextFactory();
         }
 
         [Fact]

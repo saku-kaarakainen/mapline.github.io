@@ -18,7 +18,7 @@ namespace Mapline.Tests.WebTests.ControllerTests
 
         public MapControllerTests()
         {
-            this.contextFactory = new TestDbContextFactory();
+            this.contextFactory = new InMemoryContextFactory();
         }
 
         [Theory]
