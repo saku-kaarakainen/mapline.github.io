@@ -21,12 +21,14 @@ namespace Mapline.Tests.Helpers
             return new TestDataBuilder(
                 new Language
                 {
+                    Id = 1,
                     Name = "Test1",
                     YearStart = -2000,
                     YearEnd = 0000
                 },
                 new Language
                 {
+                    Id = 2,
                     Name = "Test2",
                     YearStart = -1000,
                     YearEnd = 1000
