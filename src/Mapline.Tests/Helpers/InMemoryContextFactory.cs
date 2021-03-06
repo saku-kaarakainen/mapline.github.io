@@ -37,8 +37,7 @@ namespace Mapline.Tests.Helpers
                  .UseInMemoryDatabase("Mapline")
                  .Options;
 
-            var dataBuilder = LanguagesBuilder.CreateDataBuilder(Config.GetAppJson().GetSection("Settings");
-            var context = new MaplineDbContext(options, dataBuilder);
+            var context = new MaplineDbContext(options, this.dataBuilder);
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
