@@ -32,15 +32,18 @@ namespace Mapline.Web.Data.Building
 
         public static IDataBuilder CreateDataBuilder()
         {
-            return CreateDataBuilder(new InMemoryConfiguration
+            var inMemorySettings = new Dictionary<string, string>
             {
-                Data = new Dictionary<string, string>
-                {
-                    { "languageFolder", "\\area.geojson" },
-                    { "areaJsonSuffix", "..\\..\\data\\Language" },
-                    { "counter", "1" },
-                }
-            });
+                { "languageFolder", "..\\..\\data\\Language"  }, 
+                { "areaJsonSuffix",  "\\area.geojson" },
+                { "counter", "1" },
+            };
+
+            var config = new ConfigurationBuilder()
+                .AddInMemoryCollection(inMemorySettings)
+                .Build();
+
+            return CreateDataBuilder(config);
         }
 
         public static IDataBuilder CreateDataBuilder(IConfiguration config)
@@ -76,6 +79,22 @@ namespace Mapline.Web.Data.Building
 
         public void CreateData()
         {
+            if(string.IsNullOrEmpty(this.languageFolder))
+            {
+                throw new InvalidOperationException("LanguageFolder must have a value in order to create the data.");
+            }
+
+            if (string.IsNullOrEmpty(this.areaJsonSuffix))
+            {
+                throw new InvalidOperationException("areaJsonSuffix must have a value in order to create the data.");
+            }
+
+            if(this.Counter <= 0)
+            {
+                // Seeding with zero would fail after OnModelCreating
+                throw new InvalidOperationException("Counter must be bigger than zero in order to create data.");
+            }
+
             foreach (string nameDirectory in this.names)
             {
                 foreach (string yearDirectory in this.directory.GetDirectories(nameDirectory))
@@ -93,7 +112,7 @@ namespace Mapline.Web.Data.Building
                             .ToDictionary(key => key.Name, value => value.Value),
                         Language = new Language
                         {
-                            Id = Counter++,
+                            Id = this.Counter++,
                             Name = name,
                             YearStart = start,
                             YearEnd = end

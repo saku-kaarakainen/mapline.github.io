@@ -25,7 +25,7 @@ namespace Mapline.Tests.Helpers
         {
             if(config == null)
             {
-                config = Config.Get();
+                config = Config.GetAppJson();
             }
 
             this.DataBuilder = dataBuilder ?? TestDataBuilder.CreateDefault();

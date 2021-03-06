@@ -38,7 +38,9 @@ namespace Mapline.Web.Data.Building
 
         public IConfigurationSection GetSection(string key)
         {
-            throw new NotImplementedException();
+            var s = this as IConfigurationSection;
+
+            return s;
         }
     }
 }

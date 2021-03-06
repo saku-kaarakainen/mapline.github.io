@@ -9,7 +9,7 @@ namespace Mapline.Tests
 {
     public class Config 
     {
-        public static IConfiguration Get()
+        public static IConfiguration GetAppJson()
         {
             return new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
