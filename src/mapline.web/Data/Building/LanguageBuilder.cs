@@ -32,18 +32,9 @@ namespace Mapline.Web.Data.Building
 
         public static IDataBuilder CreateDataBuilder()
         {
-            var inMemorySettings = new Dictionary<string, string>
-            {
-                { "languageFolder", "..\\..\\data\\Language"  }, 
-                { "areaJsonSuffix",  "\\area.geojson" },
-                { "counter", "1" },
-            };
-
-            var config = new ConfigurationBuilder()
-                .AddInMemoryCollection(inMemorySettings)
-                .Build();
-
-            return CreateDataBuilder(config);
+            var appSettings = new AppSettings();
+            var settings = appSettings.GetSection("Settings");
+            return CreateDataBuilder(settings);
         }
 
         public static IDataBuilder CreateDataBuilder(IConfiguration config)
