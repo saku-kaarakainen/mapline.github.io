@@ -24,7 +24,7 @@ namespace Mapline.Web.Data
         private IDataBuilder _dataBuilder;
         public IDataBuilder DataBuilder 
         {
-            get =>_dataBuilder ??= LanguagesBuilder.CreateDataBuilder();           
+            get => _dataBuilder ??= LanguagesBuilder.CreateDataBuilder();           
             init => _dataBuilder = value;
         }
 
@@ -32,9 +32,11 @@ namespace Mapline.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if(_dataBuilder == null)
+            if(DataBuilder == null)
             {
-                throw new InvalidOperationException("The DataBuiler is not initialized."); 
+                // This shouldn't happen because if the getter null initialization.
+                // So if this happens, there's something wrong in the LanguageBuilder.CreateDataBulder()
+                throw new InvalidOperationException("The DataBuiler is not null."); 
             }
 
             modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ParentRelationships).WithOne(lr => lr.Parent);
