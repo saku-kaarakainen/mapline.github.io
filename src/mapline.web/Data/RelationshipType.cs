@@ -7,9 +7,9 @@ namespace Mapline.Web.Data
 {
     public enum RelationshipType
     {
+        Unknown,
         Genetic,
         Coincidence,
-        LanguageContact,
-        Unknown
+        LanguageContact,        
     }
 }

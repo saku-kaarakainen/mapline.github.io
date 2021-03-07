@@ -63,7 +63,7 @@ namespace Mapline.Web.Data
         // However I don't recommend it. It would require, not just code redesign, but it would drop reliability.
         // It wouldn't bring any other benenfit, than just you don't need to write yourself ToFeature method.
         // You would need to specify anyway which properties to ne ignored and which not. This is the safest, and probably the cleanest option
-        public Feature ToFeature() => new Feature(Area, new AttributesTable
+        public Feature ToFeature() => new(Area, new AttributesTable
         {
             { "name", Name },
             { "yearStart", YearStart },

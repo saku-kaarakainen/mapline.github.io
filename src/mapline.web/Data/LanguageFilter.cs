@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,9 +28,11 @@ namespace Mapline.Web.Data
         public long Id { get; set; }
 
         public long LanguageId { get; set; }
-        public Language Language { get; set; }
+        [ForeignKey("LanguageId")]
+        public virtual Language Language { get; set; }
 
         public long FilterId { get; set; }
-        public Filter Filter { get; set; }
+        [ForeignKey("FilterId")]
+        public virtual Filter Filter { get; set; }
     }
 }
