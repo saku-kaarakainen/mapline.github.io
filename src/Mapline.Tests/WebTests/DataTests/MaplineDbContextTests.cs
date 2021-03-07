@@ -19,14 +19,32 @@ namespace Mapline.Tests.WebTests.DataTests
 
         }
 
-        [Fact]
-        public void Test_CreateDbContextAndBuildModel()
+        // Test that data is saved.
+        [Theory]
+        [InlineData(data: new object[] { 1800, 2021, "Test" })]
+        public async Task Test_CreateDbContextAndBuildModel(int start, int end, string name)
         {
             var options = InMemoryDbContextOptionsBuilder.GetDefault();
             var data = TestDataBuilder.CreateDefault();
-            var context = new MaplineDbContext(options, data);
 
-            Assert.NotNull(context);
+            using var context = new MaplineDbContext(options) 
+            {
+                DataBuilder = data 
+            };
+
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
+            context.Languages.Add(new Language
+            {
+                YearStart = start,
+                YearEnd = end,
+                Name = name
+            });
+
+            var saveChangesResult = await context.SaveChangesAsync();
+
+            Assert.Equal(expected: 1, actual: saveChangesResult);
         }
     }
 }

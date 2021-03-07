@@ -34,7 +34,10 @@ namespace Mapline.Tests.Helpers
         /// <returns></returns>
         public MaplineDbContext CreateDbContext()
         {
-            var context = new MaplineDbContext(this.options, this.dataBuilder);
+            var context = new MaplineDbContext(this.options) 
+            { 
+                DataBuilder = this.dataBuilder 
+            };
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 

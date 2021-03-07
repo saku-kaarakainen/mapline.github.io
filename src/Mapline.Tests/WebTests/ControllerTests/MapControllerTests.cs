@@ -12,6 +12,8 @@ using Xunit;
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/testing?view=aspnetcore-5.0
 namespace Mapline.Tests.WebTests.ControllerTests
 {
+
+
     public class MapControllerTests
     {
         private IDbContextFactory<MaplineDbContext> contextFactory;
@@ -21,6 +23,7 @@ namespace Mapline.Tests.WebTests.ControllerTests
             this.contextFactory = new InMemoryContextFactory();
         }
 
+        // Test data controller. DbContext doesn't matter
         [Theory]
         [InlineData(data: new object[] { "Test1", -2000 })] 
         [InlineData(data: new object[] { "Test2", -1000 })]

@@ -16,23 +16,27 @@ namespace Mapline.Web.Data
     public class MaplineDbContext : DbContext
     {
         public MaplineDbContext(DbContextOptions<MaplineDbContext> options)  
-            : this(options, LanguagesBuilder.CreateDataBuilder()) 
-        {
-
-        }
-
-        public MaplineDbContext(DbContextOptions<MaplineDbContext> options, IDataBuilder dataBuilder)
             : base(options)
         {
-            DataBuilder = dataBuilder ?? throw new ArgumentNullException(nameof(dataBuilder));
+
         }
 
-        public IDataBuilder DataBuilder { get; set; }
+        private IDataBuilder _dataBuilder;
+        public IDataBuilder DataBuilder 
+        {
+            get =>_dataBuilder ??= LanguagesBuilder.CreateDataBuilder();           
+            init => _dataBuilder = value;
+        }
 
         public virtual DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            if(_dataBuilder == null)
+            {
+                throw new InvalidOperationException("The DataBuiler is not initialized."); 
+            }
+
             modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ParentRelationships).WithOne(lr => lr.Parent);
             modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ChildRelationships).WithOne(lr => lr.Child);
             modelBuilder.ToEntityTable<Language>()
