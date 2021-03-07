@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+
 using Mapline.Web.Data;
 using Mapline.Web.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
 
@@ -18,6 +20,7 @@ namespace Mapline.Web.Controllers
     {
         private readonly ILogger<MapController> logger;
         private readonly IDbContextFactory<MaplineDbContext> contextFactory;
+        private IConfiguration configuration;
 
         public MapController(ILogger<MapController> logger, IDbContextFactory<MaplineDbContext> contextFactory)
         {
@@ -32,6 +35,7 @@ namespace Mapline.Web.Controllers
             this.logger.LogDebug("GET api/map/languages");
 
             using var db = this.contextFactory.CreateDbContext();
+
             return db.Languages.ToFeatureCollection();
         }
 

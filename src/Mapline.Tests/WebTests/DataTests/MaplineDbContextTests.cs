@@ -1,4 +1,5 @@
-﻿using Mapline.Web.Data;
+﻿using Mapline.Tests.Helpers;
+using Mapline.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,24 +12,39 @@ namespace Mapline.Tests.WebTests.DataTests
 {
     public class MaplineDbContextTests 
     {
-        private readonly TestDbContextFactory factory;
+        private readonly InMemoryContextFactory factory;
 
         public MaplineDbContextTests()
         {
-            var settings = new MaplineDbContextSettings
-            {
-                CreateModel = true,
-                InitializeData = true
-            };
-            this.factory = new TestDbContextFactory(settings);
+
         }
 
-        [Fact]
-        public void Test_CreateDbContextAndBuildModel()
+        // Test that data is saved.
+        [Theory]
+        [InlineData(data: new object[] { 1800, 2021, "Test" })]
+        public async Task Test_CreateDbContextAndBuildModel(int start, int end, string name)
         {
-            var context = this.factory.CreateDbContext();
+            var options = InMemoryDbContextOptionsBuilder.GetDefault();
+            var data = TestDataBuilder.CreateDefault();
 
-            Assert.NotNull(context);
+            using var context = new MaplineDbContext(options) 
+            {
+                DataBuilder = data 
+            };
+
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
+            context.Languages.Add(new Language
+            {
+                YearStart = start,
+                YearEnd = end,
+                Name = name
+            });
+
+            var saveChangesResult = await context.SaveChangesAsync();
+
+            Assert.Equal(expected: 1, actual: saveChangesResult);
         }
     }
 }

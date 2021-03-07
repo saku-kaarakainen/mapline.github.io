@@ -9,19 +9,19 @@ Update-Database # Do if the database doesn't exists
 Add-Migration InitialMigration -Project Mapline.Migrations
 
 # Verify that migration was added.
-Get-Migration
+Get-Migration -Project Mapline.Migrations
 
 # If you don't want to publish your migration, remove it
-Remove-Migration
+Remove-Migration -Project Mapline.Migrations
 
 # Push your changes to the database
-Update-Database 
+Update-Database -Project Mapline.Migrations
 
 # If you want to generate your change into a script
-Script-Migration
+Script-Migration -Project Mapline.Migrations
 
 # If you need to drop the whole database
-Drop-Database
+Drop-Database -Project Mapline.Migrations
 
 ### --- old
 

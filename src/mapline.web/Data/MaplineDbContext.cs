@@ -1,4 +1,5 @@
-﻿using Mapline.Web.Utils; 
+﻿using Mapline.Web.Data.Building;
+using Mapline.Web.Utils; 
 using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.Features;
 using NetTopologySuite.IO;
@@ -14,50 +15,40 @@ namespace Mapline.Web.Data
 {
     public class MaplineDbContext : DbContext
     {
-        private static int seedCounter = 1;
-
-        public MaplineDbContext(DbContextOptions<MaplineDbContext> options) 
+        public MaplineDbContext(DbContextOptions<MaplineDbContext> options)  
             : base(options)
         {
 
         }
 
-        public virtual DbSet<Language> Languages { get; set; }
+        private IDataBuilder _dataBuilder;
+        public IDataBuilder DataBuilder 
+        {
+            get => _dataBuilder ??= LanguagesBuilder.CreateDataBuilder();           
+            init => _dataBuilder = value;
+        }
 
-        protected string LanguageFolder { get; set; } = "..\\..\\data\\Language";
+        public virtual DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            const string areaJsonSuffix = "\\area.geojson";
-
-            // name of the folder is the string identifier
-            var folders = Directory.GetDirectories(LanguageFolder);
-            var languages = folders
-                .Select(folder => LanguageHelper.Instance.FolderToLanguage(folder, ref seedCounter, LanguageFolder, areaJsonSuffix))
-                .Where(lang => lang != default);
-
-            modelBuilder.Entity<Language>()
-                .ToTable("Language")
-                .HasData(languages)
-            ;
-        }
-    }
-
-    public static class DbSetExtensions
-    {
-        public static FeatureCollection ToFeatureCollection<TData>(this DbSet<TData> dataSet)
-            where TData : class, IFeatureable
-        {
-            var featureCollection = new FeatureCollection();
-
-            // Feature collection cannot be initialized prettier right now...
-            // https://github.com/NetTopologySuite/NetTopologySuite.Features/pull/12
-            foreach (var element in dataSet)
+            if(DataBuilder == null)
             {
-                featureCollection.Add(element.ToFeature());
+                // This shouldn't happen because if the getter null initialization.
+                // So if this happens, there's something wrong in the LanguageBuilder.CreateDataBulder()
+                throw new InvalidOperationException("The DataBuiler is not null."); 
             }
 
-            return featureCollection;
+            modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ParentRelationships).WithOne(lr => lr.Parent);
+            modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ChildRelationships).WithOne(lr => lr.Child);            
+            modelBuilder.Entity<Language>().Property(x => x.Area).HasColumnType("geometry");// Area type must be be specified: https://github.com/NetTopologySuite/NetTopologySuite/issues/365
+            modelBuilder.ToEntityTable<Language>().HasData(DataBuilder.Languages);
+
+            modelBuilder.ToEntityTable<Filter>();
+
+            modelBuilder.ToEntityTable<LanguageRelationship>();
+            modelBuilder.ToEntityTable<LanguageFilter>();
+            modelBuilder.ToEntityTable<Filter>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Mapline.Web.Controllers;
+﻿using Mapline.Tests.Helpers;
+using Mapline.Web.Controllers;
 using Mapline.Web.Data;
 using Mapline.Web.Models;
 using Mapline.Web.Utils;
@@ -20,9 +21,11 @@ namespace Mapline.Tests.WebTests.ControllerTests
         private const string polygonPath = "./../../../data/";
         private readonly Mock<ILanguageHelper> helperMock;
         private readonly Mock<ILogger<AdministratorController>> loggerMock;
+        private readonly InMemoryContextFactory contextFactory;
 
         public AdministratorControllerTests()
         {
+            this.contextFactory = new InMemoryContextFactory();
             this.loggerMock = new Mock<ILogger<AdministratorController>>();
             this.helperMock = new Mock<ILanguageHelper>();
             this.helperMock
@@ -30,6 +33,7 @@ namespace Mapline.Tests.WebTests.ControllerTests
                 .Returns("./../../../../../data/Language/");
         }
 
+        // Uses "production" data as in-memory
         [Theory]
         [InlineData(data: new object[] { "feature.geojson", -350, 1750, "test" })]
         public async Task Test_Post_SaveToDatabase(string filename, int? yearStart, int? yearEnd, string name)
@@ -42,8 +46,8 @@ namespace Mapline.Tests.WebTests.ControllerTests
                 YearEnd = yearEnd,
                 Name = name
             };
-            var contextFactory = new TestDbContextFactory();
-            var controller = new AdministratorController(this.loggerMock.Object, contextFactory, this.helperMock.Object);
+
+            var controller = new AdministratorController(this.loggerMock.Object, this.contextFactory, this.helperMock.Object);
 
             // Act
             var result = await controller.SaveToDatabase(language);
@@ -65,8 +69,7 @@ namespace Mapline.Tests.WebTests.ControllerTests
                 Name = name
             };
 
-            var contextFactory = new TestDbContextFactory();
-            var controller = new AdministratorController(this.loggerMock.Object, contextFactory, this.helperMock.Object);
+            var controller = new AdministratorController(this.loggerMock.Object, this.contextFactory, this.helperMock.Object);
 
             // Act
             var result = await controller.SaveToFile(language);

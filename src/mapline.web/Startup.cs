@@ -21,6 +21,7 @@ namespace Mapline.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(Configuration);
             services
                 .AddControllersWithViews()
                 .AddJsonOptions(options => 
@@ -38,7 +39,7 @@ namespace Mapline.Web
             });
 
 
-            services.AddScoped<ILanguageHelper, LanguageHelper>();
+            services.AddScoped<ILanguageHelper, DataHelper>();
 
             services.AddDbContextFactory<MaplineDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlServer(
