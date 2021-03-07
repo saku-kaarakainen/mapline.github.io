@@ -23,7 +23,8 @@ namespace Mapline.Tests.WebTests.DataTests
         public void Test_CreateDbContextAndBuildModel()
         {
             var options = InMemoryDbContextOptionsBuilder.GetDefault();
-            var context = new MaplineDbContext(options);
+            var data = TestDataBuilder.CreateDefault();
+            var context = new MaplineDbContext(options, data);
 
             Assert.NotNull(context);
         }
