@@ -40,10 +40,9 @@ namespace Mapline.Web.Data
             }
 
             modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ParentRelationships).WithOne(lr => lr.Parent);
-            modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ChildRelationships).WithOne(lr => lr.Child);
-            modelBuilder.ToEntityTable<Language>()
-                .HasData(DataBuilder.Languages)
-            ;
+            modelBuilder.Entity<Language>().HasMany<LanguageRelationship>(l => l.ChildRelationships).WithOne(lr => lr.Child);            
+            modelBuilder.Entity<Language>().Property(x => x.Area).HasColumnType("geometry");// Area type must be be specified: https://github.com/NetTopologySuite/NetTopologySuite/issues/365
+            modelBuilder.ToEntityTable<Language>().HasData(DataBuilder.Languages);
 
             modelBuilder.ToEntityTable<Filter>();
 
